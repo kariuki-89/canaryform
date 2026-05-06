@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service Order Form</title>
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap');
+    
+    /* RESET */
+    * {
+        box-sizing: border-box;
+    }
+    
+    /* BODY */
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        background: #f7f8fa;
+        padding: 20px;
+        color: #1f2937;
+    }
+    
+    /* CONTAINER */
+    .form-container {
+        max-width: 1100px;
+        width: 100%;
+        margin: auto;
+        padding: 12px;
+    }
+
+    .form-container > * {
+        margin-bottom: 14px;
+    }
+    
+
+    /* HEADER */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .logo {
+        font-size: 28px;
+        font-weight: 600;
+        color: #d4c800;
+    }
+    
+    .title {
+        text-align: right;
+    }
+    
+    .title h1 {
+        margin: 0;
+        letter-spacing: 1px;
+        font-size: 20px;
+    }
+    
+    /* SECTION TITLES */
+    .section-title {
+        background: #4a4a4a;
+        color: #fff;
+        padding: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+    
+    .section-title.main {
+        text-align: center;
+        letter-spacing: 1px;
+        margin: 24px 0 12px;
+    }
+
+    .field-group,
+        .sub-section,
+        .signature-card {
+            padding: 16px;
+        }
+
+    
+    /* SUB TITLES */
+    .sub-title {
+        background: #1f2937;
+        color: #fff;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 6px 6px 0 0;
+    }
+    
+    /* GRID SYSTEM */
+    .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    
+    .grid-3-equal {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 12px;
+    }
+    
+    .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .grid-table {
+        display: grid;
+        gap: 10px;
+    }
+    
+    .cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .cols-4 { grid-template-columns: repeat(4, 1fr); }
+    .cols-5 { grid-template-columns: repeat(5, 1fr); }
+    
+    .grid-table.small-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-table.small-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-table.small-6 { grid-template-columns: repeat(6, 1fr); }
+    .grid-table.small-9 { grid-template-columns: repeat(9, 1fr); }
+    .grid-table.small-10 { grid-template-columns: repeat(10, 1fr); }
+    
+    /* FIELD GROUP */
+    .field-group {
+        background: #6b6b6b; /* grey card */
+        border-radius: 6px;
+        padding: 14px;
+        border: none;
+    }
+
+    .field-group label {
+        margin-top: 6px;
+    }
+
+    .grid-3 {
+        gap: 10px;
+    }
+    
+    /* SUB SECTION */
+    .sub-section {
+        background: #6b6b6b; /* same as top cards */
+        border-radius: 6px;
+        padding: 14px;
+        margin-top: 12px;
+        border: none;
+    }
+
+    .sub-title {
+        background: #4a4a4a;
+        color: #fff;
+        padding: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+    
+    /* FIELD */
+    .field {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* LABELS */
+    label {
+        font-size: 10px;
+        color: #e5e5e5;
+        margin-bottom: 3px;
+    }
+    
+    /* INPUTS */
+    input,
+    select,
+    textarea {
+        width: 100%;
+        height: 30px;
+        padding: 4px 6px;
+
+        border: 2px solid #facc15; /* 🔥 yellow border */
+        border-radius: 3px;
+
+        background: #ffffff;
+        font-size: 12px;
+
+        outline: none;
+    }
+    
+    /* HEIGHT */
+    input,
+    select {
+        height: 32px;
+    }
+    
+    /* TEXTAREA */
+    textarea {
+        min-height: 70px;
+        resize: vertical;
+    }
+    
+    /* FOCUS STATE */
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #facc15;
+        box-shadow: 0 0 4px rgba(250, 204, 21, 0.6);
+    }
+    
+    /* INVALID STATE */
+    .input-error {
+        border-color: #ef4444 !important;
+        background: #fff5f5;
+    }
+    
+    .input-error:focus {
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
+    }
+    
+    /* DROPDOWN STYLE (IMPROVED) */
+    .dropdown {
+        background: #f9fafb;
+    }
+    
+    /* NOTES LABEL */
+    .notes-label {
+        font-size: 11px;
+        margin-top: 6px;
+    }
+    
+    /* BUTTON */
+    button {
+        background: #111827;
+        color: white;
+        padding: 8px 14px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 16px;
+        font-size: 13px;
+        transition: 0.2s;
+    }
+    
+    button:hover {
+        background: #1f2937;
+    }
+    
+    /* SIGNATURE */
+    .signature-card {
+        background: #6b6b6b;
+        border-radius: 6px;
+        padding: 12px;
+        border: none;
+
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    
+    .sig-title {
+        background: #4a4a4a;
+        color: #fff;
+        padding: 6px 8px;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: 4px;
+        text-transform: uppercase;
+    }
+    
+    /* CANVAS */
+    canvas {
+        width: 100%;
+        height: 120px;
+
+        border: 2px solid #facc15; /* 🔥 yellow like inputs */
+        border-radius: 4px;
+
+        background: #ffffff;
+    }
+    
+    /* SIGNATURE FIELDS */
+    .sig-fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    /* MOBILE FIX */
+    @media (max-width: 768px) {
+    
+        .grid-3 {
+            grid-template-columns: 1fr;
+        }
+    
+        .grid-table {
+            display: block;
+        }
+    
+        .grid-table input,
+        .grid-table select {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    
+        .grid-table .th {
+            display: block;
+            background: none;
+            color: #000;
+            border: none;
+            padding: 5px 0 2px;
+            font-weight: bold;
+        }
+        .grid-2 {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .notes-block {
+        margin-top: 10px;
+    }
+
+    .notes-toggle {
+        background: #111827;
+        color: white;
+        padding: 6px 10px;
+        font-size: 11px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .notes-toggle:hover {
+        background: #1f2937;
+    }
+
+    .notes-textarea {
+        margin-top: 8px;
+        border: 2px solid #facc15;
+        
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    /* DEFAULT (desktop) */
+    .repeat-item {
+        display: grid;
+        grid-template-columns: 100px 1fr auto;
+        gap: 10px;
+        align-items: end;
+    }
+
+    .add-item {
+        margin-top: 10px;
+        background: #111827;
+        color: white;
+        padding: 6px 10px;
+        font-size: 11px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .remove-item {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: 6px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        height: 30px;
+    }
+
+    .repeat-item.labor {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+        align-items: end;
+        margin-bottom: 10px;
+    }
+
+    .repeat-container .repeat-item:first-child .remove-item {
+        display: none;
+    }
+
+    
+    </style>
+
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo">CANARY</div>
+        <div class="title">
+            <h1>SERVICE ORDER</h1>
+            <small>Order Number Here</small>
+        </div>
+    </div>
+
+    <!-- TOP SECTION -->
+    <div class="grid-3">
+
+        <!-- CUSTOMER INFO -->
+        <div class="field-group">
+            <div class="section-title">CUSTOMER INFORMATION</div>
+
+            <label>Company</label>
+            <input type="text" name="company" data-section="customer_information" data-subsection="main">
+
+            <label>P.O. Number</label>
+            <input type="text" name="postalnumber" data-section="customer_information" data-subsection="main">
+
+            <label>Contact</label>
+            <input type="text" name="contact" data-section="customer_information" data-subsection="main">
+
+            <label>Address</label>
+            <input type="text" name="address" data-section="customer_information" data-subsection="main">
+
+            <label>City, State, Zip</label>
+            <input type="text" name="address_info" data-section="customer_information" data-subsection="main">
+
+            <label>Phone</label>
+            <input type="text" name="phone" data-section="customer_information" data-subsection="main">
+        </div>
+
+       <!-- SERVICE DETAILS -->
+        <!-- SERVICE DETAILS -->
+        <div class="field-group">
+            <div class="section-title">SERVICE DETAILS</div>
+
+            <div class="grid-table">
+
+                <div class="field">
+                    <label>Order Number</label>
+                    <input type="text" name="order_number" data-section="service_details" data-subsection="main">
+                </div>
+
+                <div class="field">
+                    <label>Service Level</label>
+                    <select class="dropdown" name="service_level" data-section="service_details" data-subsection="main">
+                        <option>BASIC</option>
+                        <option>STANDARD</option>
+                        <option>STANDARD + Smartcert</option>
+                        <option>ADVANCED</option>
+                        <option>ADVANCED + Smartcert</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Tech Level</label>
+                    <select class="dropdown" id="tech-level" name="tech_level" data-section="service_details" data-subsection="main">
+                        <option value="">Select Level</option>
+                        <option value="1">Level 1</option>
+                        <option value="2">Level 2</option>
+                        <option value="3">Level 3</option>
+                        <option value="4">Level 4</option>
+                        <option value="5">Level 5</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Service Frequency</label>
+                    <select class="dropdown" name="service_frequency" data-section="service_details" data-subsection="main">
+                        <option>Weekly</option>
+                        <option>Monthly</option>
+                        <option>Quarterly</option>
+                        <option>Bi-Yearly</option>
+                        <option>Yearly</option>
+                    </select>
+                </div>
+
+
+                <div class="grid-table small-3">
+                <div class="field">
+                    <label>Service Date</label>
+                    <input type="date" name="service_date" data-section="service_details" data-subsection="main">
+                </div>
+
+                <div class="field">
+                    <label>Next Service</label>
+                    <input type="date" name="next_service" data-section="service_details" data-subsection="main">
+                </div>
+               </div>
+
+            </div>
+
+            <!-- Optional Tech Level Info -->
+            <small id="tech-level-info" style="display:block; margin-top:8px; color:#555;"></small>
+        </div>
+
+        <!-- ASSET INFO -->
+        <div class="field-group">
+            <div class="section-title">ASSET INFORMATION</div>
+
+            <label>Detector Type</label>
+                <select class="dropdown" name="detector_type" data-section="asset_information" data-subsection="main">
+                    <option>EC-Toxic</option>
+                    <option>EC-Oxygen</option>
+                    <option>Cat Bead</option>
+                    <option>IR</option>
+                    <option>NDIR</option>
+                    <option>PID</option>
+                    <option>FID</option>
+                    <option>MOS</option>
+                    <option>Therm. Conductivity</option>
+                    <option>Open Path IR</option>
+                    <option>Ultrasonic</option>
+                    <option>Zirconia</option>
+                    <option>Chem Cassett</option>
+                    <option>FTIR</option>
+                    <option>SSO</option>
+                    <option>Other</option>
+                </select>
+
+            <label>Classification</label>
+            <input type="text" name="classification" data-section="asset_information" data-subsection="main">
+
+            <label>Manufacturer</label>
+            <input type="text" name="manufaccturer" data-section="asset_information" data-subsection="main">
+
+            <label>Part Number</label>
+            <input type="text" name="part_number" data-section="asset_information" data-subsection="main">
+
+            <label>Serial Number</label>
+            <input type="text" name="serial_number" data-section="asset_information" data-subsection="main">
+
+            <label>Tag Number</label>
+            <input type="text" name="tag_number" data-section="asset_information" data-subsection="main">
+        </div>
+
+    </div>
+
+    <!-- NOTES -->
+    <div class="field-group">
+    <div class="section-title">SYSTEM NOTES</div>
+    <textarea name="system_notes" data-section="System_notes" data-subsection="main"></textarea>
+
+    <div class="section-title">CUSTOMER ACTION ITEMS</div>
+    <textarea name="customer_action_items" data-section="customer_action_items" data-subsection="main"></textarea>
+    </div>
+
+    <!-- SYSTEM INFORMATION -->
+<div class="section-title main">SYSTEM INFORMATION</div>
+
+<!-- GAS DETECTOR -->
+<div class="sub-section">
+  <div class="sub-title">GAS DETECTOR</div>
+
+  <div class="grid-table cols-5">
+
+      <div class="field">
+          <label>Manufacturer</label>
+          <input type="text" name="manufacturer" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Detector Model</label>
+          <input type="text" name="detector_model" data-section="system_information" data-subsection="gas_detector">
+      </div>
+      <div class="field">
+      <label>Detector Type</label>
+        <select class="dropdown" name="detector_type" data-section="system_information" data-subsection="gas_detector">
+            <option>EC-Toxic</option>
+            <option>EC-Oxygen</option>
+            <option>Cat Bead</option>
+            <option>IR</option>
+            <option>NDIR</option>
+            <option>PID</option>
+            <option>FID</option>
+            <option>MOS</option>
+            <option>Therm. Conductivity</option>
+            <option>Open Path IR</option>
+            <option>Ultrasonic</option>
+            <option>Zirconia</option>
+            <option>Chem Cassett</option>
+            <option>FTIR</option>
+            <option>SSO</option>
+            <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+          <label>Alarm Point 1</label>
+          <input type="text" name="alarm_point_1" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Alarm Point 2</label>
+          <input type="text" name="alarm_point_2" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Part Number</label>
+          <input type="text" name="part_number" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Serial Number</label>
+          <input type="text" name="serial_number" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Tag Number</label>
+          <input type="text" name="tag_number" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Sample Type</label>
+          <input type="text" name="sample_type" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Comm. Type</label>
+          <input type="text" name="comm_type" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+  </div>
+
+  <div class="grid-table cols-3">
+
+      <div class="field">
+          <label>Power Input</label>
+          <input type="text" name="power_input" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Relays</label>
+          <input type="text" name="relays" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Pyrolyzer</label>
+          <select class="dropdown" name="relays" data-section="system_information" data-subsection="gas_detector">
+                <option>Yes</option>
+                <option>No</option>
+          </select>
+      </div>
+
+      <div class="field">
+          <label>Classification</label>
+          <input type="text" name="pyrolyzer" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field" name="classification" data-section="system_information" data-subsection="gas_detector">
+          <label>SW Version</label>
+          <input type="text">
+      </div>
+
+      <div class="field" name="measurement_type" data-section="system_information" data-subsection="gas_detector">
+          <label>Measurement Type</label>
+          <input type="text">
+      </div>
+
+  </div>
+</div>
+
+
+
+<!-- SENSOR DATA -->
+<div class="sub-section">
+    <div class="sub-title">SENSOR DATA</div>
+  
+    <!-- ROW 1 -->
+    <div class="grid-table cols-5">
+  
+        <div class="field">
+            <label>Manufacturer</label>
+            <input type="text" class="field" name="manufacturer" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Sensor Type</label>
+            <select class="dropdown" name="manufacturer" data-section="system_information" data-subsection="sensor_type">
+                <option>EC-Toxic</option>
+                <option>EC-Oxygen</option>
+                <option>Cat Bead</option>
+                <option>IR</option>
+                <option>NDIR</option>
+                <option>PID</option>
+                <option>FID</option>
+                <option>MOS</option>
+                <option>Therm. Conductivity</option>
+                <option>Open Path IR</option>
+                <option>Ultrasonic</option>
+                <option>Zirconia</option>
+                <option>Chem Cassett</option>
+                <option>FTIR</option>
+                <option>SSO</option>
+                <option>Other</option>
+            </select>
+        </div>
+  
+        <div class="field">
+            <label>Part Number</label>
+            <input type="text" name="part_number" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Serial Number</label>
+            <input type="text" name="serial_number" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Target Gas</label>
+            <input type="text" name="target_gas" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+    </div>
+  
+    <!-- ROW 2 -->
+    <div class="grid-table cols-5">
+  
+        <div class="field">
+            <label>Measurement Type</label>
+            <select class="dropdown" name="measurement_type" data-section="system_information" data-subsection="sensor_data">
+                <option>% Volume</option>
+                <option>PPM</option>
+                <option>PPB</option>
+                <option>LEL</option>
+                <option>UEL</option>
+            </select>
+        </div>
+  
+        <div class="field">
+            <label>Range</label>
+            <input type="text" name="range" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Install Date</label>
+            <input type="date" name="install_date" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Sensor Age</label>
+            <input type="text" name="sensor_age" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Sensor Life</label>
+            <input type="text" name="sensor_life" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+    </div>
+  
+    <!-- ROW 3 -->
+    <div class="grid-table cols-5">
+  
+        <div class="field">
+            <label>Lag Time</label>
+            <input type="text" name="lag_time" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Tube Length</label>
+            <input type="text" name="tube_length" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>T-50</label>
+            <input type="text" name="t_50" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>T-90</label>
+            <input type="text" name="t_90" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>T-100</label>
+            <input type="text" name="t_100" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+    </div>
+  
+    <!-- ROW 4 -->
+    <div class="grid-table cols-5">
+  
+        <div class="field">
+            <label>Zero As Found</label>
+            <input type="text" name="zero_as_found" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Span As Found</label>
+            <input type="number" id="span-as-found" name="span_as_found" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Zero Cal</label>
+            <input type="text" name="zero_cal" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Span Cal</label>
+            <input type="number" id="span-cal" name="span_cal" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Span Deviation (%)</label>
+            <input type="text" id="span-deviation" name="span_deviation" data-section="system_information" data-subsection="sensor_data" readonly>
+        </div>
+  
+    </div>
+  
+    <!-- NOTES (COLLAPSIBLE + LIMITED) -->
+    <button class="notes-toggle" type="button" onclick="toggleSensorNotes()" style="margin-top:10px;">
+        Add Notes
+    </button>
+  
+    <textarea class="notes-textarea hidden" id="sensor-notes" maxlength="250" style="display:none; margin-top:10px;" placeholder="Max 250 characters" name="sensor_notes" data-section="system_information" data-subsection="sensor_data"></textarea>
+  
+  </div>
+<!-- SERVICE PERFORMED -->
+<div class="sub-section">
+    <label><strong>SERVICE PERFORMED:</strong></label>
+    <textarea name="service_performed" data-section="system_information" data-subsection="sensor_data"></textarea>
+</div>
+
+<!-- CALIBRATION INFORMATION -->
+<div class="section-title main">CALIBRATION INFORMATION</div>
+
+<!-- CALIBRATION CYLINDER -->
+<div class="sub-section">
+  <div class="sub-title">CALIBRATION CYLINDER INFORMATION</div>
+
+  <div class="grid-table cols-5">
+
+      <div class="field">
+          <label>Manufacturer</label>
+          <input type="text" name="manufacturer" data-section="calibration_information" data-subsection="calibration_cylinder_information">
+      </div>
+
+      <div class="field">
+          <label>Cylinder Type</label>
+          <select class="dropdown" name="cylinder_type" data-section="calibration_information" data-subsection="calibration_cylinder_information">
+                <option>Single Gas</option>
+                <option>Multi Gas</option>
+                <option>Zero Gas</option>
+                <option>Span Gas</option>
+                <option>Other</option>
+          </select>
+      </div>
+
+      <div class="field">
+          <label>Cylinder Size</label>
+          <input type="text" name="cylinder_size" data-section="calibration_information" data-subsection="calibration_cylinder_information">
+      </div>
+
+      <div class="field">
+          <label>Cylinder Pressure</label>
+          <input type="text" name="cylinder_pressure" data-section="calibration_information" data-subsection="calibration_cylinder_information">
+      </div>
+
+      <div class="field">
+          <label>Gas Type</label>
+          <select class="dropdown" name="gas_type" data-section="calibration_information" data-subsection="calibration_cylinder_information">
+                <option>EC-Toxic</option>
+                <option>EC-Oxygen</option>
+                <option>Cat Bead</option>
+                <option>IR</option>
+                <option>NDIR</option>
+                <option>PID</option>
+                <option>FID</option>
+                <option>MOS</option>
+                <option>Therm. Conductivity</option>
+                <option>Open Path IR</option>
+                <option>Ultrasonic</option>
+                <option>Zirconia</option>
+                <option>Chem Cassett</option>
+                <option>FTIR</option>
+                <option>SSO</option>
+                <option>Other</option>
+          </select>
+      </div>
+
+      <div class="field">
+          <label>Concentration</label>
+          <input type="text" name="concentration" data-section="calibration_information" data-subsection="calibration_cylinder_information">
+      </div>
+
+      <div class="field">
+          <label>Gas Balance</label>
+          <input type="text" name="gas_balance" data-section="calibration_information" data-subsection="calibration_cylinder_information">
+      </div>
+
+      <div class="field">
+          <label>Exp Date</label>
+          <input type="date" name="exp_date" data-section="calibration_information" data-subsection="calibration_cylinder_information">
+      </div>
+
+      <div class="field">
+          <label>Cert Number</label>
+          <input type="text" name="cert_number" data-section="calibration_information" data-subsection="calibration_cylinder_information">
+      </div>
+
+      <div class="field">
+          <label>Lot Number</label>
+          <input type="text" name="lot_number" data-section="calibration_information" data-subsection="calibration_cylinder_information">
+      </div>
+
+  </div>
+
+  <div class="notes-block">
+    <button type="button" class="notes-toggle">Add Notes</button>
+        <textarea class="notes-textarea hidden" name="notes" data-section="calibration_information" data-subsection="calibration_cylinder_information"></textarea>
+        </div>
+  </div>
+
+
+<!-- GAS GENERATOR -->
+<div class="sub-section">
+  <div class="sub-title">GAS GENERATOR</div>
+
+  <div class="grid-table cols-4">
+
+      <div class="field">
+          <label>Manufacturer</label>
+          <input type="text" name="manufacturer" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Model</label>
+          <input type="text" name="model" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Cal Gas</label>
+          <select class="dropdown" name="cal_gas" data-section="calibration_information" data-subsection="gas_generator">
+                <option>EC-Toxic</option>
+                <option>EC-Oxygen</option>
+                <option>Cat Bead</option>
+                <option>IR</option>
+                <option>NDIR</option>
+                <option>PID</option>
+                <option>FID</option>
+                <option>MOS</option>
+                <option>Therm. Conductivity</option>
+                <option>Open Path IR</option>
+                <option>Ultrasonic</option>
+                <option>Zirconia</option>
+                <option>Chem Cassett</option>
+                <option>FTIR</option>
+                <option>SSO</option>
+                <option>Other</option>
+          </select>
+      </div>
+
+      <div class="field">
+          <label>Flow Rate</label>
+          <input type="text" name="flow_rate" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Tolerance</label>
+          <input type="text" name="torelance" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Part Number</label>
+          <input type="text" name="part_number" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Serial Number</label>
+          <input type="text" name="serial_number" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Lot Number</label>
+          <input type="text" name="lot_number" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Expiration</label>
+          <input type="date" name="expiration" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+  </div>
+
+  <div class="notes-block">
+    <button type="button" class="notes-toggle">Add Notes</button>
+    <textarea class="notes-textarea hidden" name="notes" data-section="calibration_information" data-subsection="gas_generator"></textarea>
+    </div>
+  </div>
+
+<!-- PERMEATION OVEN -->
+<div class="sub-section">
+  <div class="sub-title">PERMEATION OVEN</div>
+
+  <div class="grid-table cols-5">
+
+      <div class="field">
+          <label>Manufacturer</label>
+          <input type="text" name="manufacturer" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Model</label>
+          <input type="text" name="model" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Permeation Tube</label>
+          <input type="text" name="permeation_tube" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Flow Rate</label>
+          <input type="text" name="flow_rate" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Heater Temp</label>
+          <input type="text">
+      </div>
+
+      <div class="field">
+          <label>Tolerance</label>
+          <input type="text" name="torelance" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Gas Concentration</label>
+          <input type="text" name="gas_concentration" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Serial Number</label>
+          <input type="text" name="serial_number" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Lot Number</label>
+          <input type="text" name="lot_number" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Expiration</label>
+          <input type="date" name="expiration" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+  </div>
+
+  <div class="notes-block">
+    <button type="button" class="notes-toggle">Add Notes</button>
+    <textarea class="notes-textarea hidden" name="notes" data-section="calibration_information" data-subsection="permeation_oven"></textarea>
+    </div>
+  </div>
+
+<!-- REGULATOR / TEDLAR / TUBING -->
+<div class="sub-section">
+
+  <div class="grid-3-equal">
+
+      <!-- REGULATOR -->
+      <div>
+          <div class="sub-title">CALIBRATION REGULATOR</div>
+
+          <div class="grid-table cols-1">
+              <div class="field"><label>Regulator Type</label><input name="regulator_type" data-section="calibration_information" data-subsection="calibration_regulator"></div>
+              <div class="field"><label>Reg Material</label><input name="reg_material" data-section="calibration_information" data-subsection="calibration_regulator"></div>
+              <div class="field"><label>Reg Flow Rate</label><input name="reg_flow_rate" data-section="calibration_information" data-subsection="calibration_regulator"></div>
+          </div>
+      </div>
+
+      <!-- TEDLAR -->
+      <div>
+          <div class="sub-title">TEDLAR BAG</div>
+
+          <div class="grid-table cols-1">
+              <div class="field"><label>Bag Material</label><input name="bag_material" data-section="calibration_information" data-subsection="tedlar_bag"></div>
+              <div class="field"><label>Valve Material</label><input name="valve_material" data-section="calibration_information" data-subsection="tedlar_bag"></div>
+          </div>
+      </div>
+
+      <!-- TUBING -->
+      <div>
+          <div class="sub-title">CALIBRATION TUBING</div>
+
+          <div class="grid-table cols-1">
+              <div class="field"><label>Material</label><input name="material" data-section="calibration_information" data-subsection="calibration_tubing"></div>
+              <div class="field"><label>Tubing Length</label><input name="tubing_length" data-section="calibration_information" data-subsection="calibration_tubing"></div>
+              <div class="field"><label>Tubing Size</label><input></div>
+          </div>
+      </div>
+
+  </div>
+  <div class="notes-block">
+    <button type="button" class="notes-toggle">Add Notes</button>
+    <textarea class="notes-textarea hidden" name="notes" data-section="calibration_information" data-subsection="notes"></textarea>
+    </div>
+   </div>
+
+<!-- PARTS USED + ORDER -->
+<div class="sub-section">
+
+  <div class="grid-2">
+
+      <div>
+        <div class="repeat-section">
+
+            <div class="sub-title">PARTS USED</div>
+        
+            <div class="repeat-container" id="parts-used-container">
+        
+                <!-- ONE ITEM (TEMPLATE) -->
+                <div class="repeat-item">
+        
+                    <div class="field">
+                        <label>Quantity</label>
+                        <input name="parts_used_quantity[]">
+                    </div>
+        
+                    <div class="field">
+                        <label>Description</label>
+                        <input name="parts_used_description[]">
+                    </div>
+        
+                    <button type="button" class="remove-item">✖</button>
+        
+                </div>
+        
+            </div>
+        
+            <button type="button" class="add-item" data-target="parts-used-container">
+                + Add Item
+            </button>
+        
+        </div>
+      </div>
+
+      <div class="repeat-section">
+
+        <div class="sub-title">PARTS TO BE ORDERED</div>
+    
+        <div class="repeat-container" id="parts-order-container">
+    
+            <!-- ITEM -->
+            <div class="repeat-item">
+    
+                <div class="field">
+                    <label>Quantity</label>
+                    <input 
+                        name="parts_order_quantity[]" 
+                        data-section="calibration_information" 
+                        data-subsection="parts_to_be_ordered"
+                    >
+                </div>
+    
+                <div class="field">
+                    <label>Description</label>
+                    <input 
+                        name="parts_order_description[]" 
+                        data-section="calibration_information" 
+                        data-subsection="parts_to_be_ordered"
+                    >
+                </div>
+    
+                <button type="button" class="remove-item">✖</button>
+    
+            </div>
+    
+        </div>
+    
+        <button 
+            type="button" 
+            class="add-item" 
+            data-target="parts-order-container"
+        >
+            + Add Item
+        </button>
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- LABOR -->
+<div class="sub-section">
+  <div class="repeat-section">
+
+    <div class="sub-title">LABOR TIMES AND TRAVEL</div>
+
+    <div class="repeat-container" id="labor-container">
+
+        <!-- ITEM -->
+        <div class="repeat-item labor">
+
+            <div class="field">
+                <label>Date</label>
+                <input type="date" name="labor_date[]" 
+                    data-section="calibration_information" 
+                    data-subsection="labor_times_and_travel">
+            </div>
+
+            <div class="field">
+                <label>Arrive</label>
+                <input type="time" name="labor_arrive[]" 
+                    data-section="calibration_information" 
+                    data-subsection="labor_times_and_travel">
+            </div>
+
+            <div class="field">
+                <label>Departure</label>
+                <input type="time" name="labor_departure[]" 
+                    data-section="calibration_information" 
+                    data-subsection="labor_times_and_travel">
+            </div>
+
+            <div class="field">
+                <label>Hours</label>
+                <input type="text" name="labor_hours[]" 
+                    data-section="calibration_information" 
+                    data-subsection="labor_times_and_travel">
+            </div>
+
+            <div class="field">
+                <label>Travel Distance</label>
+                <input type="text" name="labor_distance[]" 
+                    data-section="calibration_information" 
+                    data-subsection="labor_times_and_travel">
+            </div>
+
+            <div class="field">
+                <label>Travel Hours</label>
+                <input type="text" name="labor_travel_hours[]" 
+                    data-section="calibration_information" 
+                    data-subsection="labor_times_and_travel">
+            </div>
+
+            <button type="button" class="remove-item">✖</button>
+
+        </div>
+
+    </div>
+
+    <button 
+        type="button" 
+        class="add-item" 
+        data-target="labor-container"
+    >
+        + Add Entry
+    </button>
+
+</div>
+</div>
+
+
+
+<div class="sub-section">
+    <div class="sub-title">SIGNATURE</div>
+
+    <div class="grid-table cols-2">
+
+        <!-- TECH SIGNATURE -->
+        <div class="signature-card">
+            <label class="sig-title">Technician Signature</label>
+
+            <canvas id="tech-signature"></canvas>
+
+            <div class="field">
+                <label>Technician Name</label>
+                <input type="text" name="technician_name" data-section="calibration_information" data-subsection="signature">
+            </div>
+
+            <div class="field">
+                <label>Date</label>
+                <input type="date" name="technician_signature_date" data-section="calibration_information" data-subsection="signature">
+            </div>
+        </div>
+
+        <!-- CUSTOMER SIGNATURE -->
+        <div class="signature-card">
+            <label class="sig-title">Customer Signature</label>
+
+            <canvas id="customer-signature"></canvas>
+
+            <div class="field">
+                <label>Name</label>
+                <input type="text" name="customer_name" data-section="calibration_information" data-subsection="signature">
+            </div>
+
+            <div class="field">
+                <label>Date</label>
+                <input type="date" name="customer_signature_date" data-section="calibration_information" data-subsection="signature">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<button onclick="saveForm()">Save Service Order</button>
+
+</div>
+
+<script>
+
+let metaData = {
+  companyId: null,
+  technicianId: null,
+  deviceId: null
+};
+
+function updateRemoveButtons(container) {
+    const items = container.querySelectorAll(".repeat-item");
+
+    items.forEach((item, index) => {
+        const btn = item.querySelector(".remove-item");
+
+        if (btn) {
+            btn.style.display = index === 0 ? "none" : "block";
+        }
+    });
+}
+
+document.addEventListener("click", function (e) {
+
+// ================= ADD ITEM =================
+if (e.target.classList.contains("add-item")) {
+
+    const container = document.getElementById(e.target.dataset.target);
+    const firstItem = container.querySelector(".repeat-item");
+    const newItem = firstItem.cloneNode(true);
+
+    newItem.querySelectorAll("input").forEach(input => input.value = "");
+
+    container.appendChild(newItem);
+
+    updateRemoveButtons(container);
+}
+
+// ================= REMOVE ITEM =================
+if (e.target.classList.contains("remove-item")) {
+
+    const item = e.target.closest(".repeat-item");
+    const container = item.parentElement;
+
+    if (container.children.length > 1) {
+        item.remove();
+    }
+
+    updateRemoveButtons(container);
+}
+
+// ================= NOTES TOGGLE =================
+if (e.target.classList.contains("notes-toggle")) {
+
+    const container = e.target.closest(".notes-block");
+    const textarea = container.querySelector(".notes-textarea");
+
+    const isHidden = textarea.classList.toggle("hidden");
+
+    e.target.textContent = isHidden ? "Add Notes" : "Hide Notes";
+}
+
+});
+
+/* RUN ON LOAD */
+document.querySelectorAll(".repeat-container").forEach(container => {
+    updateRemoveButtons(container);
+});
+
+
+
+function setValue(selector, value) {
+  const el = document.querySelector(selector);
+        if (el && value) el.value = value;
+        }
+
+        function createHiddenField(name, value, section, subsection) {
+        if (!value) return;
+
+        let input = document.querySelector(`[name="${name}"]`);
+
+        if (!input) {
+            input = document.createElement("input");
+            input.type = "hidden";
+            input.name = name;
+            input.setAttribute("data-section", section);
+            input.setAttribute("data-subsection", subsection);
+            document.body.appendChild(input);
+        }
+
+        input.value = value;
+        }
+
+        function prefillForm(data) {
+        if (!data) {
+            console.warn("No data received yet");
+            return;
+        }
+
+        console.log("Prefill Data (postMessage):", data);
+
+        // CUSTOMER
+        setValue('[name="company"]', data.company);
+        setValue('[name="postalnumber"]', data.po);
+        setValue('[name="contact"]', data.phone);
+
+        if (data.city || data.state || data.zip) {
+            setValue(
+            '[name="address_info"]',
+            `${data.city || ""}, ${data.state || ""} ${data.zip || ""}`
+            );
+        }
+
+        setValue('[name="address"]', data.location);
+
+        // SERVICE
+        //setValue('[name="order_number"]', data.deviceId);
+
+        // ASSET
+        setValue('[name="tag_number"]', data.name);
+
+        // TECHNICIAN
+        setValue('[name="technician_name"]', data.technicianName);
+
+        // HIDDEN IDS
+        createHiddenField("company_id", data.companyId, "customer_information", "main");
+        createHiddenField("technician_id", data.technicianId, "calibration_information", "signature");
+        createHiddenField("device_id", data.deviceId, "service_details", "main");
+        metaData.companyId = data.companyId;
+        metaData.technicianId = data.technicianId;
+        metaData.deviceId = data.deviceId;
+
+        }
+
+        
+        
+
+        async function fetchAndPrefill(payload) {
+        try {
+            const res = await fetch("https://canary-services-04f32bc2afc5.herokuapp.com/get-airtable-data", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+            });
+
+            const result = await res.json();
+
+            console.log("API RESPONSE:", result);
+
+            if (!result.success) {
+            console.error("API failed");
+            return;
+            }
+
+            // 🔥 TRANSFORM RESPONSE → MATCH YOUR FORM
+            const mappedData = {
+            company: result.company?.Company,
+            po: result.company?.["P.O Number"],
+            phone: result.technician?.fields?.Phone,
+            contact:result.company?.Phone,
+
+            city: result.company?.City,
+            state: result.company?.State,
+            zip: result.company?.Zip,
+
+            location: result.equipment?.Location,
+
+            deviceId: result.equipment?.["Device Id"],
+            name: result.equipment?.Name,
+
+            technicianName: result.technician?.fields?.Name,
+            technicianId: result.technician?.id,
+
+            companyId: result.equipment?.["Associated Company"]?.[0]
+            };
+
+            // 🔥 NOW PREFILL
+            prefillForm(mappedData);
+
+        } catch (err) {
+            console.error("Fetch error:", err);
+        }
+        }
+
+
+        
+        // 🔥 LISTEN FOR MESSAGE
+        window.addEventListener("message", (event) => {
+        console.log("🫀🏄🏽🐋🐟😹🦴👻Received postMessage event:", event);
+        if (!event.data || event.data.type !== "DEVICE_DATA") return;
+        console.log("Received postMessage:", event.data);
+
+        const data = event.data.data;
+
+        if (!data) {
+            console.warn("Received empty payload");
+            return;
+        }
+
+        // 🔥 CALL API WITH PAYLOAD
+        fetchAndPrefill(event.data.data);
+        });
+        
+
+
+        
+        
+      
+
+    // =========================
+    // BUILD PDF HTML
+    // =========================
+    function buildHTML() {
+      const data = {};
+    
+      document.querySelectorAll("input, select, textarea").forEach(input => {
+        if (!input.name) return;
+        data[input.name] = input.value;
+      });
+    
+      const techSig = document.getElementById("tech-signature")?.toDataURL() || "";
+      const customerSig = document.getElementById("customer-signature")?.toDataURL() || "";
+    
+      return `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { font-family: Arial; padding:20px; font-size:12px; }
+          h2 { margin-bottom:20px; }
+    
+          .field { margin-bottom:10px; }
+          .label { font-weight:bold; font-size:12px; }
+          .value {
+            border-bottom:1px solid #000;
+            padding:4px 0;
+            min-height:16px;
+          }
+    
+          .row {
+            display:flex;
+            gap:20px;
+          }
+    
+          .col {
+            flex:1;
+          }
+    
+          .signature {
+            margin-top:20px;
+          }
+    
+          img {
+            border:1px solid #000;
+            margin-top:5px;
+          }
+        </style>
+      </head>
+    
+      <body>
+    
+        <h2>SERVICE ORDER</h2>
+    
+        <div class="row">
+    
+          <div class="col">
+            <div class="field">
+              <div class="label">Company</div>
+              <div class="value">${data.company || ""}</div>
+            </div>
+    
+            <div class="field">
+              <div class="label">Order Number</div>
+              <div class="value">${data.order_number || ""}</div>
+            </div>
+    
+            <div class="field">
+              <div class="label">Location</div>
+              <div class="value">${data.location || ""}</div>
+            </div>
+          </div>
+    
+          <div class="col">
+            <div class="field">
+              <div class="label">Arrival Time</div>
+              <div class="value">${data.arrival_time || ""}</div>
+            </div>
+    
+            <div class="field">
+              <div class="label">Departure Time</div>
+              <div class="value">${data.departure_time || ""}</div>
+            </div>
+          </div>
+    
+        </div>
+    
+        <div class="signature">
+          <div class="label">Technician Signature</div>
+          <img src="${techSig}" width="200" height="100"/>
+        </div>
+    
+        <div class="signature">
+          <div class="label">Customer Signature</div>
+          <img src="${customerSig}" width="200" height="100"/>
+        </div>
+    
+      </body>
+      </html>
+      `;
+    }
+    
+    
+    // =========================
+    // GENERATE PDF
+    // =========================
+    
+    
+    
+    // =========================
+    // VALIDATION
+    // =========================
+    function validateForm() {
+      const inputs = document.querySelectorAll("input, select, textarea");
+    
+      let isValid = true;
+      let firstInvalid = null;
+    
+      inputs.forEach((input) => {
+    
+        const subsection = input.dataset.subsection || "";
+    
+        if (subsection === "signature") return;
+        if (!input.name) return;
+        if (input.offsetParent === null) return;
+        if (input.readOnly) return;
+        if (input.type === "button") return;
+    
+        if (!input.value || input.value.trim() === "") {
+          isValid = false;
+    
+          input.classList.add("input-error");
+    
+          if (!firstInvalid) firstInvalid = input;
+    
+        } else {
+          input.classList.remove("input-error");
+        }
+      });
+    
+      if (!isValid) {
+        alert("Please fill in all required fields");
+        firstInvalid?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    
+      return isValid;
+    }
+
+
+    function getStructuredFormData() {
+        const data = {};
+
+        document.querySelectorAll("input, select, textarea").forEach(input => {
+            if (!input.name) return;
+
+            const section = input.dataset.section || "general";
+            const subsection = input.dataset.subsection || "main";
+
+            if (!data[section]) data[section] = {};
+            if (!data[section][subsection]) data[section][subsection] = {};
+
+            data[section][subsection][input.name] = input.value;
+        });
+        console.log("Structured Form Data:", data);
+
+        return data;
+        }
+    
+    
+    // =========================
+    // SAVE FORM (MAIN TRIGGER)
+    // =========================
+    async function saveForm() {
+
+        if (!validateForm()) return;
+
+        let structuredData = getStructuredFormData();
+        structuredData.meta = metaData;
+
+        console.log("FORM DATA:", structuredData);
+
+        try {
+        const res = await fetch("https://canary-services-04f32bc2afc5.herokuapp.com/submit-service-order", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json"
+            },
+            body: JSON.stringify(structuredData)
+        });
+
+        const result = await res.json();
+
+        console.log("SERVER RESPONSE:", result);
+
+        if (!res.ok) {
+            throw new Error(result.detail || "Failed to submit");
+        }
+
+        alert("✅ Service Order submitted successfully!");
+
+        } catch (err) {
+        console.error("❌ Error submitting:", err);
+        alert("Failed to submit service order");
+        }
+        }
+    
+    // =========================
+    // AUTO CALCULATE DEVIATION
+    // =========================
+    function calculateDeviation() {
+      const asFound = parseFloat(document.getElementById("span-as-found").value);
+      const spanCal = parseFloat(document.getElementById("span-cal").value);
+    
+      if (!isNaN(asFound) && !isNaN(spanCal) && spanCal !== 0) {
+        const deviation = ((asFound - spanCal) / spanCal) * 100;
+        document.getElementById("span-deviation").value = deviation.toFixed(2) + "%";
+      } else {
+        document.getElementById("span-deviation").value = "";
+      }
+    }
+    
+    document.getElementById("span-as-found")?.addEventListener("input", calculateDeviation);
+    document.getElementById("span-cal")?.addEventListener("input", calculateDeviation);
+    
+    
+    // =========================
+    // TOGGLE NOTES
+    // =========================
+    function toggleSensorNotes() {
+      const notes = document.getElementById("sensor-notes");
+      notes.style.display = notes.style.display === "none" ? "block" : "none";
+    }
+    
+    
+    // =========================
+    // SIGNATURE PAD
+    // =========================
+    function enableSignature(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext("2d");
+    
+      let drawing = false;
+    
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    
+      canvas.addEventListener("mousedown", () => drawing = true);
+      canvas.addEventListener("mouseup", () => {
+        drawing = false;
+        ctx.beginPath();
+      });
+    
+      canvas.addEventListener("mousemove", (e) => {
+        if (!drawing) return;
+    
+        const rect = canvas.getBoundingClientRect();
+    
+        ctx.lineWidth = 2;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "black";
+    
+        ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+      });
+    }
+    
+    // INIT SIGNATURES
+    enableSignature("tech-signature");
+    enableSignature("customer-signature");
+
+   
+    
+    </script>
+
+</body>
+</html>
