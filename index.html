@@ -632,6 +632,84 @@ z-index: 999999;
 animation: toastIn .25s ease;
 }
 
+/* =========================================
+SUBMIT BUTTON
+========================================= */
+
+.submit-btn-wrapper {
+
+display: flex;
+
+justify-content: center;
+
+margin-top: 28px;
+}
+
+.submit-btn {
+
+background: linear-gradient(
+    135deg,
+    #facc15,
+    #eab308
+);
+
+color: #111827;
+
+border: none;
+
+padding: 16px 34px;
+
+border-radius: 14px;
+
+font-size: 16px;
+
+font-weight: 800;
+
+letter-spacing: 0.4px;
+
+cursor: pointer;
+
+min-width: 320px;
+
+transition: all 0.2s ease;
+
+box-shadow:
+    0 10px 24px rgba(250, 204, 21, 0.35);
+
+text-transform: uppercase;
+}
+
+.submit-btn:hover {
+
+transform: translateY(-2px);
+
+box-shadow:
+    0 14px 30px rgba(250, 204, 21, 0.45);
+
+background: linear-gradient(
+    135deg,
+    #fde047,
+    #facc15
+);
+}
+
+.submit-btn:active {
+
+transform: scale(0.98);
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+.submit-btn {
+
+    width: 100%;
+
+    min-width: unset;
+}
+}
+
 .toast.hidden {
 display: none;
 }
@@ -1714,7 +1792,16 @@ id="customer-actions-section" style="display:none;"
     </div>
 </div>
 
-<button onclick="saveForm()">Save Service Order</button>
+<div class="submit-btn-wrapper">
+
+    <button
+        class="submit-btn"
+        onclick="saveForm()"
+    >
+        Submit Service Order
+    </button>
+
+</div>
 
 
   </div>
