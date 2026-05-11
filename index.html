@@ -30,6 +30,7 @@
         margin: auto;
         padding: 12px;
     }
+    
 
     .form-container > * {
         margin-bottom: 14px;
@@ -395,6 +396,259 @@
     }
 
     
+    /* =========================================
+MODAL
+========================================= */
+
+.app-modal {
+
+position: fixed;
+inset: 0;
+
+background: rgba(15, 23, 42, 0.72);
+
+backdrop-filter: blur(6px);
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+z-index: 999999;
+
+padding: 20px;
+}
+
+.app-modal.hidden {
+display: none;
+}
+
+/* =========================================
+CARD
+========================================= */
+
+.app-modal-card {
+
+width: 100%;
+max-width: 420px;
+
+background: white;
+
+border-radius: 20px;
+
+padding: 34px 28px;
+
+box-shadow:
+    0 20px 50px rgba(0,0,0,0.25);
+
+text-align: center;
+
+animation: popupIn .25s ease;
+}
+
+@keyframes popupIn {
+
+from {
+    opacity: 0;
+    transform: translateY(10px) scale(.96);
+}
+
+to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+}
+
+/* =========================================
+LOADER
+========================================= */
+
+.loader-ring {
+
+width: 74px;
+height: 74px;
+
+margin: 0 auto 20px;
+
+border-radius: 50%;
+
+border:
+    5px solid #e5e7eb;
+
+border-top:
+    5px solid #facc15;
+
+animation:
+    spin 1s linear infinite;
+}
+
+@keyframes spin {
+
+to {
+    transform: rotate(360deg);
+}
+}
+
+/* =========================================
+TEXT
+========================================= */
+
+.modal-title {
+
+font-size: 22px;
+font-weight: 700;
+
+color: #111827;
+
+margin-bottom: 10px;
+}
+
+.modal-message {
+
+font-size: 14px;
+
+color: #6b7280;
+
+line-height: 1.6;
+
+margin-bottom: 20px;
+}
+
+/* =========================================
+PROGRESS
+========================================= */
+
+.progress-bar {
+
+width: 100%;
+height: 10px;
+
+background: #f3f4f6;
+
+border-radius: 999px;
+
+overflow: hidden;
+}
+
+.progress-fill {
+
+width: 30%;
+
+height: 100%;
+
+background: linear-gradient(
+    90deg,
+    #facc15,
+    #eab308
+);
+
+border-radius: 999px;
+
+transition: width .4s ease;
+}
+
+/* =========================================
+SUCCESS / ERROR ICONS
+========================================= */
+
+.modal-icon {
+
+width: 80px;
+height: 80px;
+
+margin: 0 auto 18px;
+
+border-radius: 50%;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+font-size: 36px;
+
+color: white;
+}
+
+.modal-icon.success {
+background: #22c55e;
+}
+
+.modal-icon.error {
+background: #ef4444;
+}
+
+/* =========================================
+BUTTON
+========================================= */
+
+.modal-btn {
+
+margin-top: 22px;
+
+width: 100%;
+
+padding: 12px;
+
+border: none;
+
+border-radius: 10px;
+
+background: #111827;
+
+color: white;
+
+font-weight: 600;
+
+cursor: pointer;
+}
+
+.modal-btn:hover {
+background: #1f2937;
+}
+
+/* =========================================
+TOAST
+========================================= */
+
+.toast {
+
+position: fixed;
+
+bottom: 30px;
+right: 30px;
+
+background: #111827;
+
+color: white;
+
+padding: 14px 18px;
+
+border-radius: 10px;
+
+box-shadow:
+    0 10px 30px rgba(0,0,0,0.2);
+
+z-index: 999999;
+
+animation: toastIn .25s ease;
+}
+
+.toast.hidden {
+display: none;
+}
+
+@keyframes toastIn {
+
+from {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+    
     </style>
 
 </head>
@@ -412,6 +666,8 @@
         </div>
     </div>
 
+
+    <div class="sub-section">
     <!-- TOP SECTION -->
     <div class="grid-3">
 
@@ -544,15 +800,19 @@
         </div>
 
     </div>
+    </div>
 
     <!-- NOTES -->
-    <div class="field-group">
+    <div class="sub-section">
     <div class="section-title">SYSTEM NOTES</div>
     <textarea name="system_notes" data-section="System_notes" data-subsection="main"></textarea>
-
+    </div>
+    
+    <div class="sub-section">
     <div class="section-title">CUSTOMER ACTION ITEMS</div>
     <textarea name="customer_action_items" data-section="customer_action_items" data-subsection="main"></textarea>
     </div>
+   
 
     <!-- SYSTEM INFORMATION -->
 <div class="section-title main">SYSTEM INFORMATION</div>
@@ -564,44 +824,13 @@
   <div class="grid-table cols-5">
 
       <div class="field">
-          <label>Manufacturer</label>
+          <label>Manufacture</label>
           <input type="text" name="manufacturer" data-section="system_information" data-subsection="gas_detector">
       </div>
 
       <div class="field">
           <label>Detector Model</label>
           <input type="text" name="detector_model" data-section="system_information" data-subsection="gas_detector">
-      </div>
-      <div class="field">
-      <label>Detector Type</label>
-        <select class="dropdown" name="detector_type" data-section="system_information" data-subsection="gas_detector">
-            <option>EC-Toxic</option>
-            <option>EC-Oxygen</option>
-            <option>Cat Bead</option>
-            <option>IR</option>
-            <option>NDIR</option>
-            <option>PID</option>
-            <option>FID</option>
-            <option>MOS</option>
-            <option>Therm. Conductivity</option>
-            <option>Open Path IR</option>
-            <option>Ultrasonic</option>
-            <option>Zirconia</option>
-            <option>Chem Cassett</option>
-            <option>FTIR</option>
-            <option>SSO</option>
-            <option>Other</option>
-        </select>
-      </div>
-
-      <div class="field">
-          <label>Alarm Point 1</label>
-          <input type="text" name="alarm_point_1" data-section="system_information" data-subsection="gas_detector">
-      </div>
-
-      <div class="field">
-          <label>Alarm Point 2</label>
-          <input type="text" name="alarm_point_2" data-section="system_information" data-subsection="gas_detector">
       </div>
 
       <div class="field">
@@ -619,15 +848,6 @@
           <input type="text" name="tag_number" data-section="system_information" data-subsection="gas_detector">
       </div>
 
-      <div class="field">
-          <label>Sample Type</label>
-          <input type="text" name="sample_type" data-section="system_information" data-subsection="gas_detector">
-      </div>
-
-      <div class="field">
-          <label>Comm. Type</label>
-          <input type="text" name="comm_type" data-section="system_information" data-subsection="gas_detector">
-      </div>
 
   </div>
 
@@ -669,9 +889,8 @@
   </div>
 </div>
 
-
-
 <!-- SENSOR DATA -->
+
 <div class="sub-section">
     <div class="sub-title">SENSOR DATA</div>
   
@@ -1108,11 +1327,11 @@
    </div>
 
 <!-- PARTS USED + ORDER -->
-<div class="sub-section">
+
 
   <div class="grid-2">
 
-      <div>
+      <div class="sub-section">
         <div class="repeat-section">
 
             <div class="sub-title">PARTS USED</div>
@@ -1144,9 +1363,12 @@
         
         </div>
       </div>
+   
 
-      <div class="repeat-section">
+   <div class="sub-section">
+    <div class="repeat-section">
 
+        
         <div class="sub-title">PARTS TO BE ORDERED</div>
     
         <div class="repeat-container" id="parts-order-container">
@@ -1186,10 +1408,10 @@
             + Add Item
         </button>
     
-    </div>
+   </div>
+   </div>
+   </div>
 
-  </div>
-</div>
 
 <!-- LABOR -->
 <div class="sub-section">
@@ -1306,8 +1528,59 @@
 </div>
 
 <button onclick="saveForm()">Save Service Order</button>
+<button onclick="sendPDFToBackend()">Save Service Order</button>
+
+  </div>
+  </div>
+
+  <!-- =========================================
+GLOBAL LOADER / MODAL
+========================================= -->
+
+<div id="app-modal" class="app-modal hidden">
+
+    <div class="app-modal-card">
+
+        <!-- LOADER -->
+        <div class="loader-ring" id="modal-loader"></div>
+
+        <!-- ICON -->
+        <div id="modal-icon" class="modal-icon hidden"></div>
+
+        <!-- TITLE -->
+        <div id="modal-title" class="modal-title">
+            Processing...
+        </div>
+
+        <!-- MESSAGE -->
+        <div id="modal-message" class="modal-message">
+            Please wait while we process your request.
+        </div>
+
+        <!-- PROGRESS -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <!-- BUTTON -->
+        <button
+            id="modal-close-btn"
+            class="modal-btn hidden"
+            onclick="closeModal()"
+        >
+            Close
+        </button>
+
+    </div>
 
 </div>
+
+<!-- =========================================
+TOAST
+========================================= -->
+
+<div id="toast" class="toast hidden"></div>
+
 
 <script>
 
@@ -1316,6 +1589,132 @@ let metaData = {
   technicianId: null,
   deviceId: null
 };
+
+/* =========================================
+MODAL HELPERS
+========================================= */
+
+function openModal(title, message) {
+
+const modal =
+    document.getElementById("app-modal");
+
+modal.classList.remove("hidden");
+
+document.getElementById("modal-title").innerText =
+    title;
+
+document.getElementById("modal-message").innerText =
+    message;
+
+document.getElementById("modal-loader")
+    .classList.remove("hidden");
+
+document.getElementById("modal-icon")
+    .classList.add("hidden");
+
+document.getElementById("modal-close-btn")
+    .classList.add("hidden");
+
+updateProgress(20);
+}
+
+function updateProgress(percent) {
+
+document.getElementById("progress-fill")
+    .style.width = percent + "%";
+}
+
+function showSuccess(title, message) {
+
+const icon =
+    document.getElementById("modal-icon");
+
+icon.innerHTML = "✓";
+
+icon.className =
+    "modal-icon success";
+
+icon.classList.remove("hidden");
+
+document.getElementById("modal-loader")
+    .classList.add("hidden");
+
+document.getElementById("modal-title")
+    .innerText = title;
+
+document.getElementById("modal-message")
+    .innerText = message;
+
+document.getElementById("modal-close-btn")
+    .classList.remove("hidden");
+
+updateProgress(100);
+}
+
+function showError(title, message) {
+
+const icon =
+    document.getElementById("modal-icon");
+
+icon.innerHTML = "✕";
+
+icon.className =
+    "modal-icon error";
+
+icon.classList.remove("hidden");
+
+document.getElementById("modal-loader")
+    .classList.add("hidden");
+
+document.getElementById("modal-title")
+    .innerText = title;
+
+document.getElementById("modal-message")
+    .innerText = message;
+
+document.getElementById("modal-close-btn")
+    .classList.remove("hidden");
+}
+
+function closeModal() {
+
+document.getElementById("app-modal")
+    .classList.add("hidden");
+}
+
+/* =========================================
+TOAST
+========================================= */
+
+function showToast(message) {
+
+const toast =
+    document.getElementById("toast");
+
+toast.innerText = message;
+
+toast.classList.remove("hidden");
+
+setTimeout(() => {
+    toast.classList.add("hidden");
+}, 3000);
+}
+
+/* =========================================
+POST MESSAGE TO PARENT
+========================================= */
+
+function sendToParent(type, payload = {}) {
+
+if (window.parent !== window) {
+
+    window.parent.postMessage({
+        type,
+        payload
+    }, "*");
+}
+}
 
 function updateRemoveButtons(container) {
     const items = container.querySelectorAll(".repeat-item");
@@ -1511,123 +1910,103 @@ function setValue(selector, value) {
         // 🔥 CALL API WITH PAYLOAD
         fetchAndPrefill(event.data.data);
         });
-        
 
+    
+    /* =========================================================
+CONVERT FORM TO STATIC HTML
+========================================================= */
 
-        
-        
-      
+function convertFormToStaticHTML() {
 
-    // =========================
-    // BUILD PDF HTML
-    // =========================
-    function buildHTML() {
-      const data = {};
-    
-      document.querySelectorAll("input, select, textarea").forEach(input => {
-        if (!input.name) return;
-        data[input.name] = input.value;
-      });
-    
-      const techSig = document.getElementById("tech-signature")?.toDataURL() || "";
-      const customerSig = document.getElementById("customer-signature")?.toDataURL() || "";
-    
-      return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <style>
-          body { font-family: Arial; padding:20px; font-size:12px; }
-          h2 { margin-bottom:20px; }
-    
-          .field { margin-bottom:10px; }
-          .label { font-weight:bold; font-size:12px; }
-          .value {
-            border-bottom:1px solid #000;
-            padding:4px 0;
-            min-height:16px;
-          }
-    
-          .row {
-            display:flex;
-            gap:20px;
-          }
-    
-          .col {
-            flex:1;
-          }
-    
-          .signature {
-            margin-top:20px;
-          }
-    
-          img {
-            border:1px solid #000;
-            margin-top:5px;
-          }
-        </style>
-      </head>
-    
-      <body>
-    
-        <h2>SERVICE ORDER</h2>
-    
-        <div class="row">
-    
-          <div class="col">
-            <div class="field">
-              <div class="label">Company</div>
-              <div class="value">${data.company || ""}</div>
-            </div>
-    
-            <div class="field">
-              <div class="label">Order Number</div>
-              <div class="value">${data.order_number || ""}</div>
-            </div>
-    
-            <div class="field">
-              <div class="label">Location</div>
-              <div class="value">${data.location || ""}</div>
-            </div>
-          </div>
-    
-          <div class="col">
-            <div class="field">
-              <div class="label">Arrival Time</div>
-              <div class="value">${data.arrival_time || ""}</div>
-            </div>
-    
-            <div class="field">
-              <div class="label">Departure Time</div>
-              <div class="value">${data.departure_time || ""}</div>
-            </div>
-          </div>
-    
-        </div>
-    
-        <div class="signature">
-          <div class="label">Technician Signature</div>
-          <img src="${techSig}" width="200" height="100"/>
-        </div>
-    
-        <div class="signature">
-          <div class="label">Customer Signature</div>
-          <img src="${customerSig}" width="200" height="100"/>
-        </div>
-    
-      </body>
-      </html>
-      `;
+const clone =
+    document.querySelector(".form-container")
+    .cloneNode(true);
+
+/* =========================================
+REMOVE FORM HEADER
+========================================= */
+
+clone.querySelectorAll(".header").forEach(el => {
+    el.remove();
+});
+
+/* =========================================
+REMOVE BUTTONS
+========================================= */
+
+clone.querySelectorAll("button").forEach(btn => {
+    btn.remove();
+});
+
+/* =========================================
+REMOVE SCRIPTS
+========================================= */
+
+clone.querySelectorAll("script").forEach(script => {
+    script.remove();
+});
+
+/* =========================================
+REMOVE HIDDEN ELEMENTS
+========================================= */
+
+clone.querySelectorAll(".hidden").forEach(el => {
+    el.remove();
+});
+
+/* =========================================
+CONVERT INPUTS / SELECTS / TEXTAREAS
+========================================= */
+
+clone.querySelectorAll(
+    "input, textarea, select"
+).forEach(el => {
+
+    const value =
+        el.value?.trim() || "—";
+
+    const div =
+        document.createElement("div");
+
+    div.className = "fake-input";
+
+    if (el.tagName === "TEXTAREA") {
+        div.classList.add("fake-textarea");
     }
-    
-    
-    // =========================
-    // GENERATE PDF
-    // =========================
-    
-    
-    
-    // =========================
+
+    div.innerText = value;
+
+    el.replaceWith(div);
+});
+
+/* =========================================
+CONVERT SIGNATURE CANVAS
+========================================= */
+
+clone.querySelectorAll("canvas").forEach(canvas => {
+
+    const img =
+        document.createElement("img");
+
+    img.src =
+        canvas.toDataURL("image/png");
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "signature-box";
+
+    wrapper.appendChild(img);
+
+    canvas.replaceWith(wrapper);
+});
+
+return clone.innerHTML;
+}
+
+
+// =========================
     // VALIDATION
     // =========================
     function validateForm() {
@@ -1667,11 +2046,949 @@ function setValue(selector, value) {
     }
 
 
+
+/* =========================================================
+BUILD FINAL PDF HTML
+========================================================= */
+
+function buildFinalPDFHTML() {
+
+const contentHTML =
+    convertFormToStaticHTML();
+
+return `
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<style>
+
+/* =========================================================
+PAGE
+========================================================= */
+
+@page {
+
+size: A4 landscape;
+
+margin-top: 120px;
+margin-bottom: 70px;
+
+margin-left: 35px;
+margin-right: 35px;
+
+@top-left {
+    content: element(page-header);
+    width: 100%;
+    margin-bottom:20px;
+}
+
+@bottom-left {
+    content: element(page-footer);
+    width: 100%;
+}
+}
+
+* {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+
+/* =========================================================
+GLOBAL
+========================================================= */
+
+* {
+box-sizing: border-box;
+}
+
+body {
+
+margin: 0;
+
+
+
+font-family:
+    'Noto Sans',
+    Arial,
+    sans-serif;
+
+color: #f9fafb;
+
+font-size: 12px;
+}
+
+/* =========================================================
+REPEAT CONTAINER
+========================================================= */
+
+.repeat-container {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+REPEAT ITEM
+========================================================= */
+
+.repeat-item {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+
+    align-items: end;
+
+    width: 100%;
+
+    margin-bottom: 10px;
+
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+
+/* =========================================================
+FIELD
+========================================================= */
+
+.repeat-item .field {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+
+/* =========================================================
+INPUTS
+========================================================= */
+
+.repeat-item input,
+.repeat-item select,
+.repeat-item textarea,
+.repeat-item .fake-input {
+
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+REMOVE BUTTON
+========================================================= */
+
+.repeat-item .remove-item {
+
+    width: 100%;
+
+    height: 34px;
+
+    align-self: end;
+}
+
+
+/* =========================================================
+FIRST ITEM
+========================================================= */
+
+.repeat-container .repeat-item:first-child .remove-item {
+
+    display: none;
+}
+
+.repeat-item.labor {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    gap: 10px;
+
+    align-items: end;
+
+    margin-bottom: 10px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    }
+
+    .repeat-container .repeat-item:first-child .remove-item {
+        display: none;
+    }
+
+
+/* =========================================================
+RUNNING HEADER
+========================================================= */
+
+/* =========================================================
+RUNNING HEADER
+========================================================= */
+
+.pdf-header {
+
+    position: running(page-header);
+
+    width: 100%;
+
+    padding-bottom: 10px;
+    padding-top: 10px;
+
+
+    border-bottom: 1px solid #6b7280;
+}
+
+
+/* =========================================================
+HEADER LAYOUT
+========================================================= */
+
+/* =========================================================
+RUNNING HEADER
+========================================================= */
+
+.pdf-header {
+
+    position: running(page-header);
+
+    width: 100%;
+
+    display: block;
+
+    background: white;
+
+    padding-bottom: 0px;
+
+    border-bottom: 2px solid #6b7280;
+}
+
+
+/* =========================================================
+HEADER LAYOUT
+========================================================= */
+
+.pdf-header-inner {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 24px;
+}
+
+
+/* =========================================================
+LEFT
+========================================================= */
+
+.header-left {
+
+    flex: 0 0 auto;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+LOGO WRAPPER
+========================================================= */
+
+.logo-wrapper {
+
+    padding: 10px 16px;
+
+    border-radius: 8px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr
+        1fr;
+
+    align-items: center;
+
+    justify-items: center;
+
+    gap: 16px;
+
+    width: 100%;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.12);
+}
+
+
+/* =========================================================
+LOGO IMAGE
+========================================================= */
+
+.logo-img {
+
+    display: block;
+
+    width: 200px;
+
+    height: auto;
+
+    max-height: auto;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+CENTER
+========================================================= */
+
+.header-center {
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+.header-center h1 {
+
+    margin: 0;
+
+    font-size: 34px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    color: #14213d;
+
+    line-height: 1.1;
+}
+
+
+.header-subtitle {
+
+    margin-top: 6px;
+
+    font-size: 13px;
+
+    color: #4b5563;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+RIGHT
+========================================================= */
+
+.header-right {
+
+    flex: 0 0 auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    min-width: 180px;
+}
+
+
+/* =========================================================
+ORDER NUMBER
+========================================================= */
+
+.order-number {
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    color: #111827;
+
+    margin-bottom: 6px;
+
+    letter-spacing: 0.4px;
+}
+
+
+/* =========================================================
+BARCODE
+========================================================= */
+
+.barcode-img {
+
+    display: block;
+
+    height: 40px;
+
+    width: auto;
+
+    max-width: 180px;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+RUNNING FOOTER
+========================================================= */
+
+.pdf-footer {
+
+position: running(page-footer);
+
+width: 100%;
+
+border-top: 1px solid #9ca3af;
+
+padding-top: 8px;
+
+font-size: 11px;
+
+color: #6b7280;
+}
+
+
+.footer-inner {
+
+display: flex;
+
+justify-content: space-between;
+
+align-items: center;
+}
+
+.footer-left {
+
+font-weight: 500;
+}
+
+
+.footer-right::after {
+
+content:
+    "Page "
+    counter(page)
+    " of "
+    counter(pages);
+
+font-weight: 600;
+}
+
+/* =========================================================
+LAYOUT
+========================================================= */
+
+.form-container > * {
+margin-bottom: 14px;
+}
+
+.form-container {
+
+padding-top: 10px;
+}
+
+.grid-2 {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 12px;
+}
+
+.grid-3 {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 12px;
+}
+
+.small-3 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px; 
+}
+
+.grid-3-equal {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 12px;
+}
+
+.grid-table {
+display: grid;
+gap: 10px;
+}
+
+.cols-2 {
+grid-template-columns: repeat(2, 1fr);
+}
+
+.cols-3 {
+grid-template-columns: repeat(3, 1fr);
+}
+
+.cols-4 {
+grid-template-columns: repeat(4, 1fr);
+}
+
+.cols-5 {
+grid-template-columns: repeat(5, 1fr);
+}
+
+
+/* =========================================================
+SECTIONS
+========================================================= */
+
+/* =========================================================
+CARDS
+========================================================= */
+
+.field-group,
+.sub-section,
+.signature-card {
+
+    background: #6b6b6b;
+
+    border-radius: 8px;
+
+    padding: 14px;
+
+    border: none;
+}
+
+/* SMALL GROUPS ONLY */
+
+.field,
+.repeat-item,
+.signature-row,
+.keep-together {
+
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+
+.section-title,
+.sub-title {
+
+break-after: avoid;
+page-break-after: avoid;
+}
+
+
+.section-title {
+
+background: #4b4b4b;
+
+color: white;
+
+padding: 10px 12px;
+
+border-radius: 4px;
+
+font-size: 12px;
+
+font-weight: 700;
+
+text-transform: uppercase;
+
+letter-spacing: 0.5px;
+
+margin-bottom: 12px;
+}
+
+
+.section-title.main {
+
+text-align: center;
+
+margin-top: 20px;
+}
+
+
+.sub-title {
+
+background: #1f2937;
+
+color: white;
+
+padding: 7px 10px;
+
+border-radius: 6px 6px 0 0;
+
+font-size: 11px;
+
+font-weight: 600;
+
+margin-bottom: 10px;
+
+text-transform: uppercase;
+}
+
+
+/* =========================================================
+FIELDS
+========================================================= */
+
+.field {
+
+display: flex;
+
+flex-direction: column;
+}
+
+
+label {
+
+font-size: 10px;
+
+font-weight: 600;
+
+margin-bottom: 4px;
+
+color: white;
+}
+
+
+.fake-input {
+
+width: 100%;
+
+min-height: 34px;
+
+padding: 8px 10px;
+
+border: 2px solid #facc15;
+
+border-radius: 4px;
+
+background: white;
+
+color: #111827;
+
+font-size: 12px;
+
+line-height: 1.5;
+
+word-break: break-word;
+
+overflow-wrap: break-word;
+
+display: flex;
+
+align-items: center;
+}
+
+
+.fake-textarea {
+
+min-height: 90px;
+
+align-items: flex-start;
+
+white-space: pre-wrap;
+}
+
+
+.fake-input:empty::after {
+
+content: "—";
+
+color: #9ca3af;
+}
+
+
+/* =========================================================
+SIGNATURES
+========================================================= */
+
+.signature-box {
+
+width: 100%;
+
+height: 120px;
+
+border: 1px solid #d1d5db;
+
+border-radius: 6px;
+
+background: white;
+
+overflow: hidden;
+}
+
+
+.signature-box img {
+
+width: 100%;
+
+height: 100%;
+
+object-fit: contain;
+}
+
+
+/* =========================================================
+KEEP RELATED CONTENT TOGETHER
+========================================================= */
+
+.keep-together {
+
+break-inside: avoid;
+page-break-inside: avoid;
+}
+
+
+/* =========================================================
+IMAGES
+========================================================= */
+
+img {
+max-width: 100%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+RUNNING HEADER
+===================================================== -->
+
+<div class="pdf-header">
+
+<div class="pdf-header-inner">
+
+    <!-- LEFT -->
+    <div class="header-left">
+
+        <div class="logo-wrapper">
+
+            <img
+                src="https://gclotjjnebjsdclmzvou.supabase.co/storage/v1/object/public/canaryallfiles/CANARY%20GDS%20%20ervice%20Report%20Logo.png"
+                class="logo-img"
+            >
+
+        </div>
+
+    </div>
+
+
+    <!-- CENTER -->
+    <div class="header-center">
+
+        <h1>SERVICE ORDER</h1>
+
+        <div class="header-subtitle">
+            Generated Document
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT -->
+    <div class="header-right">
+
+        <div class="order-number">
+            SO-2026-000184
+        </div>
+
+        <img
+            src="https://barcode.tec-it.com/barcode.ashx?data=SO-2026-000184&code=Code128"
+            class="barcode-img"
+        >
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+RUNNING FOOTER
+===================================================== -->
+
+<div class="pdf-footer">
+
+<div class="footer-inner">
+
+    <div class="footer-left">
+        Canary Gas Detection Services
+    </div>
+
+    <div class="footer-right"></div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+CONTENT
+===================================================== -->
+
+<div class="form-container">
+
+${contentHTML}
+
+</div>
+
+</body>
+
+</html>
+`;
+}
+
+
+/* =========================================================
+SEND PDF HTML TO BACKEND
+========================================================= */
+async function sendPDFToBackend() {
+
+openModal(
+    "Generating PDF",
+    "Please wait while we generate your PDF..."
+);
+
+sendToParent("PDF_GENERATION_STARTED");
+
+try {
+
+    updateProgress(30);
+
+    const html =
+        buildFinalPDFHTML();
+
+    updateProgress(55);
+
+    const response = await fetch(
+        "http://127.0.0.1:8000/generate-pdf",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                html
+            })
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            "Failed generating PDF"
+        );
+    }
+
+    updateProgress(85);
+
+    const blob =
+        await response.blob();
+
+    const url =
+        window.URL.createObjectURL(blob);
+
+    const a =
+        document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+        "service-order.pdf";
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    window.URL.revokeObjectURL(url);
+
+    updateProgress(100);
+
+    showSuccess(
+        "PDF Generated",
+        "Your PDF has been downloaded successfully."
+    );
+
+    sendToParent(
+        "PDF_GENERATION_SUCCESS"
+    );
+
+} catch (err) {
+
+    console.error(err);
+
+    showError(
+        "PDF Generation Failed",
+        err.message
+    );
+
+    sendToParent(
+        "PDF_GENERATION_FAILED",
+        {
+            error: err.message
+        }
+    );
+}
+}  
+    
+
+
     function getStructuredFormData() {
         const data = {};
 
+        // =========================
+        // NORMAL FIELDS
+        // =========================
         document.querySelectorAll("input, select, textarea").forEach(input => {
+
             if (!input.name) return;
+
+            // skip repeat fields
+            if (input.closest(".repeat-container")) return;
 
             const section = input.dataset.section || "general";
             const subsection = input.dataset.subsection || "main";
@@ -1681,49 +2998,128 @@ function setValue(selector, value) {
 
             data[section][subsection][input.name] = input.value;
         });
-        console.log("Structured Form Data:", data);
 
-        return data;
-        }
-    
-    
-    // =========================
-    // SAVE FORM (MAIN TRIGGER)
-    // =========================
-    async function saveForm() {
+        // =========================
+        // REPEAT SECTIONS
+        // =========================
+        document.querySelectorAll(".repeat-container").forEach(container => {
 
-        if (!validateForm()) return;
+            const section = container.dataset.section;
+            const subsection = container.dataset.subsection;
 
-        let structuredData = getStructuredFormData();
-        structuredData.meta = metaData;
+            if (!section || !subsection) return;
 
-        console.log("FORM DATA:", structuredData);
+            if (!data[section]) data[section] = {};
 
-        try {
-        const res = await fetch("https://canary-services-04f32bc2afc5.herokuapp.com/submit-service-order", {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json"
-            },
-            body: JSON.stringify(structuredData)
+            data[section][subsection] = getRepeatSection(container);
         });
 
-        const result = await res.json();
+        console.log("Structured Form Data:", data);
+        return data;
+    }
+    
+        async function saveForm() {
 
-        console.log("SERVER RESPONSE:", result);
+        if (!validateForm()) {
 
-        if (!res.ok) {
-            throw new Error(result.detail || "Failed to submit");
+            showToast("Please complete all required fields");
+
+            sendToParent("SERVICE_ORDER_VALIDATION_FAILED");
+
+            return;
         }
 
-        alert("✅ Service Order submitted successfully!");
+        openModal(
+            "Submitting Service Order",
+            "Preparing your report and uploading data..."
+        );
+
+        sendToParent("SERVICE_ORDER_SUBMITTING");
+
+        try {
+
+            updateProgress(30);
+
+            let structuredData =
+                getStructuredFormData();
+
+            structuredData.meta =
+                metaData;
+
+            updateProgress(45);
+
+            const finalHTML =
+                buildFinalPDFHTML();
+
+            structuredData.html =
+                finalHTML;
+
+            updateProgress(60);
+
+            const res = await fetch(
+                "http://127.0.0.1:8000/submit-service-order",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(
+                        structuredData
+                    )
+                }
+            );
+
+            updateProgress(85);
+
+            const result =
+                await res.json();
+
+            if (!res.ok) {
+
+                throw new Error(
+                    result.detail ||
+                    "Failed to submit"
+                );
+            }
+
+            updateProgress(100);
+
+            showSuccess(
+                "Submission Complete",
+                "The service order has been successfully submitted."
+            );
+
+            showToast(
+                "Service Order Submitted"
+            );
+
+            sendToParent(
+                "SERVICE_ORDER_SUCCESS",
+                result
+            );
+
+            console.log(result);
 
         } catch (err) {
-        console.error("❌ Error submitting:", err);
-        alert("Failed to submit service order");
+
+            console.error(err);
+
+            showError(
+                "Submission Failed",
+                err.message ||
+                "Something went wrong while submitting."
+            );
+
+            sendToParent(
+                "SERVICE_ORDER_FAILED",
+                {
+                    error: err.message
+                }
+            );
         }
-        }
-    
+        }   
     // =========================
     // AUTO CALCULATE DEVIATION
     // =========================
