@@ -802,16 +802,66 @@ to {
     </div>
     </div>
 
-    <!-- NOTES -->
-    <div class="sub-section">
-    <div class="section-title">SYSTEM NOTES</div>
-    <textarea name="system_notes" data-section="System_notes" data-subsection="main"></textarea>
-    </div>
     
-    <div class="sub-section">
-    <div class="section-title">CUSTOMER ACTION ITEMS</div>
-    <textarea name="customer_action_items" data-section="customer_action_items" data-subsection="main"></textarea>
-    </div>
+    <!-- SYSTEM NOTES TOGGLE -->
+<button
+type="button"
+onclick="toggleOptionalSection('system-notes-section', this)"
+style="
+    margin-bottom:10px;
+"
+>
+System Notes
+</button>
+
+<!-- SYSTEM NOTES -->
+<div
+class="sub-section"
+id="system-notes-section" style="display:none;"
+>
+
+<div class="section-title">
+    SYSTEM NOTES
+</div>
+
+<textarea
+    name="system_notes"
+    data-section="System_notes"
+    data-subsection="main"
+></textarea>
+
+</div>
+
+
+<!-- CUSTOMER ACTION ITEMS TOGGLE -->
+<button
+type="button"
+onclick="toggleOptionalSection('customer-actions-section', this)"
+style="
+    margin-top:14px;
+    margin-bottom:10px;
+"
+>
+Customer Action Items
+</button>
+
+<!-- CUSTOMER ACTION ITEMS -->
+<div
+class="sub-section"
+id="customer-actions-section" style="display:none;"
+>
+
+<div class="section-title">
+    CUSTOMER ACTION ITEMS
+</div>
+
+<textarea
+    name="customer_action_items"
+    data-section="customer_action_items"
+    data-subsection="main"
+></textarea>
+
+</div>
    
 
     <!-- SYSTEM INFORMATION -->
@@ -887,6 +937,15 @@ to {
       </div>
 
   </div>
+
+  <!-- NOTES (COLLAPSIBLE + LIMITED) -->
+  
+  <div class="notes-block">
+    <button type="button" class="notes-toggle">Add Notes</button>
+        <textarea class="notes-textarea hidden" name="notes" data-section="system_information" data-subsection="gas_detector"></textarea>
+  </div>
+
+
 </div>
 
 <!-- SENSOR DATA -->
@@ -1014,16 +1073,18 @@ to {
             <label>Zero As Found</label>
             <input type="text" name="zero_as_found" data-section="system_information" data-subsection="sensor_data">
         </div>
+
+        <div class="field">
+            <label>Zero Cal</label>
+            <input type="text" name="zero_cal" data-section="system_information" data-subsection="sensor_data">
+        </div>
   
         <div class="field">
             <label>Span As Found</label>
             <input type="number" id="span-as-found" name="span_as_found" data-section="system_information" data-subsection="sensor_data">
         </div>
   
-        <div class="field">
-            <label>Zero Cal</label>
-            <input type="text" name="zero_cal" data-section="system_information" data-subsection="sensor_data">
-        </div>
+      
   
         <div class="field">
             <label>Span Cal</label>
@@ -1054,91 +1115,215 @@ to {
 <!-- CALIBRATION INFORMATION -->
 <div class="section-title main">CALIBRATION INFORMATION</div>
 
+
 <!-- CALIBRATION CYLINDER -->
 <div class="sub-section">
-  <div class="sub-title">CALIBRATION CYLINDER INFORMATION</div>
 
-  <div class="grid-table cols-5">
-
-      <div class="field">
-          <label>Manufacturer</label>
-          <input type="text" name="manufacturer" data-section="calibration_information" data-subsection="calibration_cylinder_information">
-      </div>
-
-      <div class="field">
-          <label>Cylinder Type</label>
-          <select class="dropdown" name="cylinder_type" data-section="calibration_information" data-subsection="calibration_cylinder_information">
-                <option>Single Gas</option>
-                <option>Multi Gas</option>
-                <option>Zero Gas</option>
-                <option>Span Gas</option>
-                <option>Other</option>
-          </select>
-      </div>
-
-      <div class="field">
-          <label>Cylinder Size</label>
-          <input type="text" name="cylinder_size" data-section="calibration_information" data-subsection="calibration_cylinder_information">
-      </div>
-
-      <div class="field">
-          <label>Cylinder Pressure</label>
-          <input type="text" name="cylinder_pressure" data-section="calibration_information" data-subsection="calibration_cylinder_information">
-      </div>
-
-      <div class="field">
-          <label>Gas Type</label>
-          <select class="dropdown" name="gas_type" data-section="calibration_information" data-subsection="calibration_cylinder_information">
-                <option>EC-Toxic</option>
-                <option>EC-Oxygen</option>
-                <option>Cat Bead</option>
-                <option>IR</option>
-                <option>NDIR</option>
-                <option>PID</option>
-                <option>FID</option>
-                <option>MOS</option>
-                <option>Therm. Conductivity</option>
-                <option>Open Path IR</option>
-                <option>Ultrasonic</option>
-                <option>Zirconia</option>
-                <option>Chem Cassett</option>
-                <option>FTIR</option>
-                <option>SSO</option>
-                <option>Other</option>
-          </select>
-      </div>
-
-      <div class="field">
-          <label>Concentration</label>
-          <input type="text" name="concentration" data-section="calibration_information" data-subsection="calibration_cylinder_information">
-      </div>
-
-      <div class="field">
-          <label>Gas Balance</label>
-          <input type="text" name="gas_balance" data-section="calibration_information" data-subsection="calibration_cylinder_information">
-      </div>
-
-      <div class="field">
-          <label>Exp Date</label>
-          <input type="date" name="exp_date" data-section="calibration_information" data-subsection="calibration_cylinder_information">
-      </div>
-
-      <div class="field">
-          <label>Cert Number</label>
-          <input type="text" name="cert_number" data-section="calibration_information" data-subsection="calibration_cylinder_information">
-      </div>
-
-      <div class="field">
-          <label>Lot Number</label>
-          <input type="text" name="lot_number" data-section="calibration_information" data-subsection="calibration_cylinder_information">
-      </div>
-
-  </div>
-
-  <div class="notes-block">
-    <button type="button" class="notes-toggle">Add Notes</button>
-        <textarea class="notes-textarea hidden" name="notes" data-section="calibration_information" data-subsection="calibration_cylinder_information"></textarea>
+    <div class="sub-title">
+      CALIBRATION CYLINDER INFORMATION
+    </div>
+  
+    <div class="grid-table cols-5">
+  
+        <!-- MANUFACTURER -->
+        <div class="field">
+            <label>Manufacturer</label>
+  
+            <input
+                type="text"
+                name="manufacturer"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
         </div>
+  
+        <!-- CYLINDER TYPE -->
+        <div class="field">
+            <label>Cylinder Type</label>
+  
+            <select
+                class="dropdown"
+                name="cylinder_type"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+  
+                <option value="">
+                    Select Cylinder Type
+                </option>
+  
+                <option>
+                    Non-Refillable (DOT-39) - Aluminum
+                </option>
+  
+                <option>
+                    Refillable (DOT-3A/3AA/3AL or UN-Certified) - Steel
+                </option>
+  
+                <option>
+                    Refillable (DOT-3A/3AA/3AL or UN-Certified) - Composite
+                </option>
+  
+                <option>
+                    Refillable (DOT-3A/3AA/3AL or UN-Certified) - Stainless Steel
+                </option>
+  
+            </select>
+        </div>
+  
+        <!-- CYLINDER SIZE -->
+        <div class="field">
+            <label>Cylinder Size</label>
+  
+            <select
+                class="dropdown"
+                name="cylinder_size"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+  
+                <option value="">
+                    Select Cylinder Size
+                </option>
+  
+                <option>5.8L</option>
+                <option>34L</option>
+                <option>58L</option>
+                <option>103L</option>
+                <option>105L</option>
+                <option>116L</option>
+                <option>650L</option>
+  
+            </select>
+        </div>
+  
+        <!-- CYLINDER PRESSURE -->
+        <div class="field">
+            <label>Cylinder Pressure</label>
+  
+            <input
+                type="text"
+                name="cylinder_pressure"
+                placeholder="e.g. 2000 PSI"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+        <!-- GAS TYPE -->
+        <div class="field">
+            <label>Gas Type</label>
+  
+            <select
+                class="dropdown"
+                name="gas_type"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+  
+                  <option>EC-Toxic</option>
+                  <option>EC-Oxygen</option>
+                  <option>Cat Bead</option>
+                  <option>IR</option>
+                  <option>NDIR</option>
+                  <option>PID</option>
+                  <option>FID</option>
+                  <option>MOS</option>
+                  <option>Therm. Conductivity</option>
+                  <option>Open Path IR</option>
+                  <option>Ultrasonic</option>
+                  <option>Zirconia</option>
+                  <option>Chem Cassett</option>
+                  <option>FTIR</option>
+                  <option>SSO</option>
+                  <option>Other</option>
+  
+            </select>
+        </div>
+  
+        <!-- CONCENTRATION -->
+        <div class="field">
+            <label>Concentration</label>
+  
+            <input
+                type="text"
+                name="concentration"
+                placeholder="e.g. 25 PPM"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+        <!-- GAS BALANCE -->
+        <div class="field">
+            <label>Gas Balance</label>
+  
+            <input
+                type="text"
+                name="gas_balance"
+                placeholder="e.g. Nitrogen"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+        <!-- EXP DATE -->
+        <div class="field">
+            <label>Exp Date</label>
+  
+            <input
+                type="date"
+                name="exp_date"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+        <!-- CERT NUMBER -->
+        <div class="field">
+            <label>Certificate Number</label>
+  
+            <input
+                type="text"
+                name="cert_number"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+        <!-- LOT NUMBER -->
+        <div class="field">
+            <label>Lot Number</label>
+  
+            <input
+                type="text"
+                name="lot_number"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+    </div>
+  
+    <!-- NOTES -->
+    <div class="notes-block">
+  
+      <button
+          type="button"
+          class="notes-toggle"
+      >
+          Add Notes
+      </button>
+  
+      <textarea
+          class="notes-textarea hidden"
+          name="notes"
+          data-section="calibration_information"
+          data-subsection="calibration_cylinder_information"
+      ></textarea>
+  
+    </div>
+  
   </div>
 
 
@@ -1305,6 +1490,7 @@ to {
           <div class="grid-table cols-1">
               <div class="field"><label>Bag Material</label><input name="bag_material" data-section="calibration_information" data-subsection="tedlar_bag"></div>
               <div class="field"><label>Valve Material</label><input name="valve_material" data-section="calibration_information" data-subsection="tedlar_bag"></div>
+              <div class="field"><label>Bag Size</label><input name="bag_size" data-section="calibration_information" data-subsection="tedlar_bag"></div>
           </div>
       </div>
 
@@ -1314,8 +1500,9 @@ to {
 
           <div class="grid-table cols-1">
               <div class="field"><label>Material</label><input name="material" data-section="calibration_information" data-subsection="calibration_tubing"></div>
-              <div class="field"><label>Tubing Length</label><input name="tubing_length" data-section="calibration_information" data-subsection="calibration_tubing"></div>
-              <div class="field"><label>Tubing Size</label><input></div>
+              <div class="field" name="tubing_size" data-section="calibration_information" data-subsection="calibration_tubing"><label>Tubing Size</label><input></div>
+              <div class="field"><label>Sample Line Distance</label><input name="sample_line_distance" data-section="calibration_information" data-subsection="calibration_tubing"></div>
+              
           </div>
       </div>
 
@@ -1528,7 +1715,7 @@ to {
 </div>
 
 <button onclick="saveForm()">Save Service Order</button>
-<button onclick="sendPDFToBackend()">Save Service Order</button>
+
 
   </div>
   </div>
@@ -1589,6 +1776,40 @@ let metaData = {
   technicianId: null,
   deviceId: null
 };
+
+function toggleOptionalSection(sectionId, button) {
+
+const section =
+    document.getElementById(sectionId);
+
+const isHidden =
+    section.style.display === "none";
+
+if (isHidden) {
+
+    section.style.display = "block";
+
+    if (sectionId === "system-notes-section") {
+        button.innerText = "Hide System Notes";
+    }
+
+    if (sectionId === "customer-actions-section") {
+        button.innerText = "Hide Customer Action Items";
+    }
+
+} else {
+
+    section.style.display = "none";
+
+    if (sectionId === "system-notes-section") {
+        button.innerText = "Show System Notes";
+    }
+
+    if (sectionId === "customer-actions-section") {
+        button.innerText = "Show Customer Action Items";
+    }
+}
+}
 
 /* =========================================
 MODAL HELPERS
