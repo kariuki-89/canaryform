@@ -735,16 +735,6 @@ to {
 
 <div class="form-container">
 
-    <!-- HEADER -->
-    <div class="header">
-        <div class="logo">CANARY</div>
-        <div class="title">
-            <h1>SERVICE ORDER</h1>
-            <small>Order Number Here</small>
-        </div>
-    </div>
-
-
     <div class="sub-section">
     <!-- TOP SECTION -->
     <div class="grid-3">
@@ -2644,6 +2634,38 @@ clone.querySelectorAll(
     div.innerText = value;
 
     el.replaceWith(div);
+});
+
+// =========================================
+// CONVERT SIGNATURE CANVAS
+// =========================================
+
+const originalCanvases =
+    document.querySelectorAll("canvas");
+
+const clonedCanvases =
+    clone.querySelectorAll("canvas");
+
+clonedCanvases.forEach((canvas, index) => {
+
+    const originalCanvas =
+        originalCanvases[index];
+
+    const img =
+        document.createElement("img");
+
+    img.src =
+        originalCanvas.toDataURL("image/png");
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "signature-box";
+
+    wrapper.appendChild(img);
+
+    canvas.replaceWith(wrapper);
 });
 
 return clone.innerHTML;
