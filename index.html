@@ -2561,54 +2561,76 @@ function setValue(selector, value) {
 CONVERT FORM TO STATIC HTML
 ========================================================= */
 
-function convertFormToStaticHTML() {
+    function convertFormToStaticHTML() {
 
 const clone =
     document.querySelector(".form-container")
     .cloneNode(true);
 
-/* =========================================
-REMOVE FORM HEADER
-========================================= */
+// =========================================
+// PRESERVE SELECT VALUES
+// =========================================
 
-clone.querySelectorAll(".header").forEach(el => {
-    el.remove();
+const originalSelects =
+    document.querySelectorAll("select");
+
+const clonedSelects =
+    clone.querySelectorAll("select");
+
+originalSelects.forEach((original, index) => {
+    clonedSelects[index].value =
+        original.value;
 });
 
-/* =========================================
-REMOVE BUTTONS
-========================================= */
+// =========================================
+// REMOVE BUTTONS FIRST
+// =========================================
 
 clone.querySelectorAll("button").forEach(btn => {
     btn.remove();
 });
 
-/* =========================================
-REMOVE SCRIPTS
-========================================= */
+// =========================================
+// REMOVE SCRIPTS
+// =========================================
 
 clone.querySelectorAll("script").forEach(script => {
     script.remove();
 });
 
-/* =========================================
-REMOVE HIDDEN ELEMENTS
-========================================= */
+// =========================================
+// REMOVE HIDDEN ELEMENTS
+// =========================================
 
 clone.querySelectorAll(".hidden").forEach(el => {
     el.remove();
 });
 
-/* =========================================
-CONVERT INPUTS / SELECTS / TEXTAREAS
-========================================= */
+// =========================================
+// CONVERT FORM ELEMENTS
+// =========================================
 
 clone.querySelectorAll(
     "input, textarea, select"
 ).forEach(el => {
 
-    const value =
-        el.value?.trim() || "—";
+    let value = "—";
+
+    if (
+        el.tagName === "INPUT" ||
+        el.tagName === "TEXTAREA"
+    ) {
+        value = el.value?.trim() || "—";
+    }
+
+    if (el.tagName === "SELECT") {
+
+        const selectedOption =
+            el.options[el.selectedIndex];
+
+        value =
+            selectedOption?.text?.trim() || "—";
+    }
 
     const div =
         document.createElement("div");
@@ -2624,35 +2646,9 @@ clone.querySelectorAll(
     el.replaceWith(div);
 });
 
-/* =========================================
-CONVERT SIGNATURE CANVAS
-========================================= */
-
-clone.querySelectorAll("canvas").forEach(canvas => {
-
-    const img =
-        document.createElement("img");
-
-    img.src =
-        canvas.toDataURL("image/png");
-
-    const wrapper =
-        document.createElement("div");
-
-    wrapper.className =
-        "signature-box";
-
-    wrapper.appendChild(img);
-
-    canvas.replaceWith(wrapper);
-});
-
 return clone.innerHTML;
 }
-
-
-// =========================
-    // VALIDATION
+     // VALIDATION
     // =========================
     function validateForm() {
       const inputs = document.querySelectorAll("input, select, textarea");
@@ -3702,7 +3698,7 @@ try {
             updateProgress(60);
 
             const res = await fetch(
-                "https://canary-services-04f32bc2afc5.herokuapp.com/submit-service-order",
+                "http://127.0.0.1:8000/submit-service-order",
                 {
                     method: "POST",
 
