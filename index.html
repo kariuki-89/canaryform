@@ -39,7 +39,7 @@
 
     /* HEADER */
     .header {
-        display: flex;
+        display: none;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
@@ -786,36 +786,95 @@ to {
 
                 <div class="field">
                     <label>Service Level</label>
-                    <select class="dropdown" name="service_level" data-section="service_details" data-subsection="main">
-                        <option>BASIC</option>
-                        <option>STANDARD</option>
-                        <option>STANDARD + Smartcert</option>
-                        <option>ADVANCED</option>
-                        <option>ADVANCED + Smartcert</option>
-                    </select>
+                    <select 
+                    class="dropdown" 
+                    name="service_level" 
+                    data-section="service_details" 
+                    data-subsection="main"
+                >
+                    <option value="">Select Service Level</option>
+                
+                    <option value="BASIC">
+                        BASIC
+                    </option>
+                
+                    <option value="STANDARD">
+                        STANDARD
+                    </option>
+                
+                    <option value="STANDARD_SMARTCERT">
+                        STANDARD + Smartcert
+                    </option>
+                
+                    <option value="ADVANCED">
+                        ADVANCED
+                    </option>
+                
+                    <option value="ADVANCED_SMARTCERT">
+                        ADVANCED + Smartcert
+                    </option>
+                </select>
                 </div>
 
                 <div class="field">
                     <label>Tech Level</label>
                     <select class="dropdown" id="tech-level" name="tech_level" data-section="service_details" data-subsection="main">
                         <option value="">Select Level</option>
-                        <option value="1">Level 1</option>
-                        <option value="2">Level 2</option>
-                        <option value="3">Level 3</option>
-                        <option value="4">Level 4</option>
-                        <option value="5">Level 5</option>
+
+                        <option value="Level 1">
+                            Level 1
+                        </option>
+
+                        <option value="Level 2">
+                            Level 2
+                        </option>
+
+                        <option value="Level 3">
+                            Level 3
+                        </option>
+
+                        <option value="Level 4">
+                            Level 4
+                        </option>
+
+                        <option value="Level 5">
+                            Level 5
+                        </option>
                     </select>
                 </div>
 
                 <div class="field">
                     <label>Service Frequency</label>
-                    <select class="dropdown" name="service_frequency" data-section="service_details" data-subsection="main">
-                        <option>Weekly</option>
-                        <option>Monthly</option>
-                        <option>Quarterly</option>
-                        <option>Bi-Yearly</option>
-                        <option>Yearly</option>
-                    </select>
+                    <select 
+                    class="dropdown" 
+                    name="service_frequency" 
+                    data-section="service_details" 
+                    data-subsection="main"
+                >
+                    <option value="">
+                        Select Service Frequency
+                    </option>
+
+                    <option value="Weekly">
+                        Weekly
+                    </option>
+
+                    <option value="Monthly">
+                        Monthly
+                    </option>
+
+                    <option value="Quarterly">
+                        Quarterly
+                    </option>
+
+                    <option value="Bi-Yearly">
+                        Bi-Yearly
+                    </option>
+
+                    <option value="Yearly">
+                        Yearly
+                    </option>
+                </select>
                 </div>
 
 
@@ -842,24 +901,80 @@ to {
             <div class="section-title">ASSET INFORMATION</div>
 
             <label>Detector Type</label>
-                <select class="dropdown" name="detector_type" data-section="asset_information" data-subsection="main">
-                    <option>EC-Toxic</option>
-                    <option>EC-Oxygen</option>
-                    <option>Cat Bead</option>
-                    <option>IR</option>
-                    <option>NDIR</option>
-                    <option>PID</option>
-                    <option>FID</option>
-                    <option>MOS</option>
-                    <option>Therm. Conductivity</option>
-                    <option>Open Path IR</option>
-                    <option>Ultrasonic</option>
-                    <option>Zirconia</option>
-                    <option>Chem Cassett</option>
-                    <option>FTIR</option>
-                    <option>SSO</option>
-                    <option>Other</option>
-                </select>
+            <select 
+            class="dropdown" 
+            name="detector_type" 
+            data-section="asset_information" 
+            data-subsection="main"
+        >
+            <option value="">
+                Select Detector Type
+            </option>
+        
+            <option value="EC-Toxic">
+                EC-Toxic
+            </option>
+        
+            <option value="EC-Oxygen">
+                EC-Oxygen
+            </option>
+        
+            <option value="Cat Bead">
+                Cat Bead
+            </option>
+        
+            <option value="IR">
+                IR
+            </option>
+        
+            <option value="NDIR">
+                NDIR
+            </option>
+        
+            <option value="PID">
+                PID
+            </option>
+        
+            <option value="FID">
+                FID
+            </option>
+        
+            <option value="MOS">
+                MOS
+            </option>
+        
+            <option value="Therm. Conductivity">
+                Therm. Conductivity
+            </option>
+        
+            <option value="Open Path IR">
+                Open Path IR
+            </option>
+        
+            <option value="Ultrasonic">
+                Ultrasonic
+            </option>
+        
+            <option value="Zirconia">
+                Zirconia
+            </option>
+        
+            <option value="Chem Cassett">
+                Chem Cassett
+            </option>
+        
+            <option value="FTIR">
+                FTIR
+            </option>
+        
+            <option value="SSO">
+                SSO
+            </option>
+        
+            <option value="Other">
+                Other
+            </option>
+        </select>
 
             <label>Classification</label>
             <input type="text" name="classification" data-section="asset_information" data-subsection="main">
@@ -993,10 +1108,24 @@ id="customer-actions-section" style="display:none;"
 
       <div class="field">
           <label>Pyrolyzer</label>
-          <select class="dropdown" name="relays" data-section="system_information" data-subsection="gas_detector">
-                <option>Yes</option>
-                <option>No</option>
-          </select>
+          <select 
+            class="dropdown" 
+            name="relays" 
+            data-section="system_information" 
+            data-subsection="gas_detector"
+        >
+            <option value="">
+                Select Option
+            </option>
+
+            <option value="Yes">
+                Yes
+            </option>
+
+            <option value="No">
+                No
+            </option>
+        </select>
       </div>
 
       <div class="field">
@@ -1041,24 +1170,80 @@ id="customer-actions-section" style="display:none;"
   
         <div class="field">
             <label>Sensor Type</label>
-            <select class="dropdown" name="manufacturer" data-section="system_information" data-subsection="sensor_type">
-                <option>EC-Toxic</option>
-                <option>EC-Oxygen</option>
-                <option>Cat Bead</option>
-                <option>IR</option>
-                <option>NDIR</option>
-                <option>PID</option>
-                <option>FID</option>
-                <option>MOS</option>
-                <option>Therm. Conductivity</option>
-                <option>Open Path IR</option>
-                <option>Ultrasonic</option>
-                <option>Zirconia</option>
-                <option>Chem Cassett</option>
-                <option>FTIR</option>
-                <option>SSO</option>
-                <option>Other</option>
-            </select>
+            <select 
+            class="dropdown" 
+            name="sensor_type" 
+            data-section="system_information" 
+            data-subsection="sensor_data"
+        >
+            <option value="">
+                Select Sensor Type
+            </option>
+
+            <option value="EC-Toxic">
+                EC-Toxic
+            </option>
+
+            <option value="EC-Oxygen">
+                EC-Oxygen
+            </option>
+
+            <option value="Cat Bead">
+                Cat Bead
+            </option>
+
+            <option value="IR">
+                IR
+            </option>
+
+            <option value="NDIR">
+                NDIR
+            </option>
+
+            <option value="PID">
+                PID
+            </option>
+
+            <option value="FID">
+                FID
+            </option>
+
+            <option value="MOS">
+                MOS
+            </option>
+
+            <option value="Therm. Conductivity">
+                Therm. Conductivity
+            </option>
+
+            <option value="Open Path IR">
+                Open Path IR
+            </option>
+
+            <option value="Ultrasonic">
+                Ultrasonic
+            </option>
+
+            <option value="Zirconia">
+                Zirconia
+            </option>
+
+            <option value="Chem Cassett">
+                Chem Cassett
+            </option>
+
+            <option value="FTIR">
+                FTIR
+            </option>
+
+            <option value="SSO">
+                SSO
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+        </select>
         </div>
   
         <div class="field">
@@ -1083,13 +1268,36 @@ id="customer-actions-section" style="display:none;"
   
         <div class="field">
             <label>Measurement Type</label>
-            <select class="dropdown" name="measurement_type" data-section="system_information" data-subsection="sensor_data">
-                <option>% Volume</option>
-                <option>PPM</option>
-                <option>PPB</option>
-                <option>LEL</option>
-                <option>UEL</option>
-            </select>
+            <select 
+            class="dropdown" 
+            name="measurement_type" 
+            data-section="system_information" 
+            data-subsection="sensor_data"
+        >
+            <option value="">
+                Select Measurement Type
+            </option>
+
+            <option value="% Volume">
+                % Volume
+            </option>
+
+            <option value="PPM">
+                PPM
+            </option>
+
+            <option value="PPB">
+                PPB
+            </option>
+
+            <option value="LEL">
+                LEL
+            </option>
+
+            <option value="UEL">
+                UEL
+            </option>
+        </select>
         </div>
   
         <div class="field">
@@ -1220,33 +1428,33 @@ id="customer-actions-section" style="display:none;"
             <label>Cylinder Type</label>
   
             <select
-                class="dropdown"
-                name="cylinder_type"
-                data-section="calibration_information"
-                data-subsection="calibration_cylinder_information"
-            >
-  
-                <option value="">
-                    Select Cylinder Type
-                </option>
-  
-                <option>
-                    Non-Refillable (DOT-39) - Aluminum
-                </option>
-  
-                <option>
-                    Refillable (DOT-3A/3AA/3AL or UN-Certified) - Steel
-                </option>
-  
-                <option>
-                    Refillable (DOT-3A/3AA/3AL or UN-Certified) - Composite
-                </option>
-  
-                <option>
-                    Refillable (DOT-3A/3AA/3AL or UN-Certified) - Stainless Steel
-                </option>
-  
-            </select>
+            class="dropdown"
+            name="cylinder_type"
+            data-section="calibration_information"
+            data-subsection="calibration_cylinder_information"
+        >
+
+            <option value="">
+                Select Cylinder Type
+            </option>
+
+            <option value="Non-Refillable (DOT-39) - Aluminum">
+                Non-Refillable (DOT-39) - Aluminum
+            </option>
+
+            <option value="Refillable (DOT-3A/3AA/3AL or UN-Certified) - Steel">
+                Refillable (DOT-3A/3AA/3AL or UN-Certified) - Steel
+            </option>
+
+            <option value="Refillable (DOT-3A/3AA/3AL or UN-Certified) - Composite">
+                Refillable (DOT-3A/3AA/3AL or UN-Certified) - Composite
+            </option>
+
+            <option value="Refillable (DOT-3A/3AA/3AL or UN-Certified) - Stainless Steel">
+                Refillable (DOT-3A/3AA/3AL or UN-Certified) - Stainless Steel
+            </option>
+
+        </select>
         </div>
   
         <!-- CYLINDER SIZE -->
@@ -1254,25 +1462,45 @@ id="customer-actions-section" style="display:none;"
             <label>Cylinder Size</label>
   
             <select
-                class="dropdown"
-                name="cylinder_size"
-                data-section="calibration_information"
-                data-subsection="calibration_cylinder_information"
-            >
-  
-                <option value="">
-                    Select Cylinder Size
-                </option>
-  
-                <option>5.8L</option>
-                <option>34L</option>
-                <option>58L</option>
-                <option>103L</option>
-                <option>105L</option>
-                <option>116L</option>
-                <option>650L</option>
-  
-            </select>
+            class="dropdown"
+            name="cylinder_size"
+            data-section="calibration_information"
+            data-subsection="calibration_cylinder_information"
+        >
+
+            <option value="">
+                Select Cylinder Size
+            </option>
+
+            <option value="5.8L">
+                5.8L
+            </option>
+
+            <option value="34L">
+                34L
+            </option>
+
+            <option value="58L">
+                58L
+            </option>
+
+            <option value="103L">
+                103L
+            </option>
+
+            <option value="105L">
+                105L
+            </option>
+
+            <option value="116L">
+                116L
+            </option>
+
+            <option value="650L">
+                650L
+            </option>
+
+        </select>
         </div>
   
         <!-- CYLINDER PRESSURE -->
@@ -1292,31 +1520,82 @@ id="customer-actions-section" style="display:none;"
         <div class="field">
             <label>Gas Type</label>
   
-            <select
-                class="dropdown"
-                name="gas_type"
-                data-section="calibration_information"
-                data-subsection="calibration_cylinder_information"
-            >
-  
-                  <option>EC-Toxic</option>
-                  <option>EC-Oxygen</option>
-                  <option>Cat Bead</option>
-                  <option>IR</option>
-                  <option>NDIR</option>
-                  <option>PID</option>
-                  <option>FID</option>
-                  <option>MOS</option>
-                  <option>Therm. Conductivity</option>
-                  <option>Open Path IR</option>
-                  <option>Ultrasonic</option>
-                  <option>Zirconia</option>
-                  <option>Chem Cassett</option>
-                  <option>FTIR</option>
-                  <option>SSO</option>
-                  <option>Other</option>
-  
-            </select>
+           <select
+            class="dropdown"
+            name="gas_type"
+            data-section="calibration_information"
+            data-subsection="calibration_cylinder_information"
+        >
+
+            <option value="">
+                Select Gas Type
+            </option>
+
+            <option value="EC-Toxic">
+                EC-Toxic
+            </option>
+
+            <option value="EC-Oxygen">
+                EC-Oxygen
+            </option>
+
+            <option value="Cat Bead">
+                Cat Bead
+            </option>
+
+            <option value="IR">
+                IR
+            </option>
+
+            <option value="NDIR">
+                NDIR
+            </option>
+
+            <option value="PID">
+                PID
+            </option>
+
+            <option value="FID">
+                FID
+            </option>
+
+            <option value="MOS">
+                MOS
+            </option>
+
+            <option value="Therm. Conductivity">
+                Therm. Conductivity
+            </option>
+
+            <option value="Open Path IR">
+                Open Path IR
+            </option>
+
+            <option value="Ultrasonic">
+                Ultrasonic
+            </option>
+
+            <option value="Zirconia">
+                Zirconia
+            </option>
+
+            <option value="Chem Cassett">
+                Chem Cassett
+            </option>
+
+            <option value="FTIR">
+                FTIR
+            </option>
+
+            <option value="SSO">
+                SSO
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
         </div>
   
         <!-- CONCENTRATION -->
@@ -1423,24 +1702,82 @@ id="customer-actions-section" style="display:none;"
 
       <div class="field">
           <label>Cal Gas</label>
-          <select class="dropdown" name="cal_gas" data-section="calibration_information" data-subsection="gas_generator">
-                <option>EC-Toxic</option>
-                <option>EC-Oxygen</option>
-                <option>Cat Bead</option>
-                <option>IR</option>
-                <option>NDIR</option>
-                <option>PID</option>
-                <option>FID</option>
-                <option>MOS</option>
-                <option>Therm. Conductivity</option>
-                <option>Open Path IR</option>
-                <option>Ultrasonic</option>
-                <option>Zirconia</option>
-                <option>Chem Cassett</option>
-                <option>FTIR</option>
-                <option>SSO</option>
-                <option>Other</option>
-          </select>
+          <select 
+            class="dropdown" 
+            name="cal_gas" 
+            data-section="calibration_information" 
+            data-subsection="gas_generator"
+        >
+
+            <option value="">
+                Select Calibration Gas
+            </option>
+
+            <option value="EC-Toxic">
+                EC-Toxic
+            </option>
+
+            <option value="EC-Oxygen">
+                EC-Oxygen
+            </option>
+
+            <option value="Cat Bead">
+                Cat Bead
+            </option>
+
+            <option value="IR">
+                IR
+            </option>
+
+            <option value="NDIR">
+                NDIR
+            </option>
+
+            <option value="PID">
+                PID
+            </option>
+
+            <option value="FID">
+                FID
+            </option>
+
+            <option value="MOS">
+                MOS
+            </option>
+
+            <option value="Therm. Conductivity">
+                Therm. Conductivity
+            </option>
+
+            <option value="Open Path IR">
+                Open Path IR
+            </option>
+
+            <option value="Ultrasonic">
+                Ultrasonic
+            </option>
+
+            <option value="Zirconia">
+                Zirconia
+            </option>
+
+            <option value="Chem Cassett">
+                Chem Cassett
+            </option>
+
+            <option value="FTIR">
+                FTIR
+            </option>
+
+            <option value="SSO">
+                SSO
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
       </div>
 
       <div class="field">
