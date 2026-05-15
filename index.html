@@ -3758,10 +3758,17 @@ try {
                 "Service Order Submitted"
             );
 
-            sendToParent(
-                "SERVICE_ORDER_SUCCESS",
-                result
-            );
+            setTimeout(() => {
+                sendToParent(
+                    "SERVICE_ORDER_SUCCESS",
+                    {
+                        success: true,
+                        serviceOrderId: result.service_order_id
+                    }
+                );
+            }, 3000);
+
+            
 
             console.log(result);
 
