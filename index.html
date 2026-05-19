@@ -2575,29 +2575,23 @@ Object.entries(data).forEach(
                         // FIND FIELD
                         // =============================
 
-                        const selector = `
-                            [name="${fieldName}"]
-                            [data-section="${sectionKey}"]
-                            [data-subsection="${subsectionKey}"]
-                        `
-                        .replace(/\s+/g, " ")
-                        .trim();
+                        let field = document.querySelector(
 
-                        const field =
-                            document.querySelector(selector);
+                        `[name="${fieldName}"]
+                        [data-section="${sectionKey}"]
+                        [data-subsection="${subsectionKey}"]`
+
+                        );
+
+                        // =====================================
+                        // FALLBACK TO NAME ONLY
+                        // =====================================
 
                         if (!field) {
 
-                            console.warn(
-                                "⚠️ Field not found:",
-                                {
-                                    sectionKey,
-                                    subsectionKey,
-                                    fieldName
-                                }
-                            );
-
-                            return;
+                        field = document.querySelector(
+                            `[name="${fieldName}"]`
+                        );
                         }
 
                         // =============================
