@@ -2530,24 +2530,328 @@ function setValue(selector, value) {
         }
         }
 
+        function prefillEntireForm(data) {
 
-        
-        // 🔥 LISTEN FOR MESSAGE
-        window.addEventListener("message", (event) => {
-        console.log("🫀🏄🏽🐋🐟😹🦴👻Received postMessage event:", event);
-        if (!event.data || event.data.type !== "DEVICE_DATA") return;
-        console.log("Received postMessage:", event.data);
+console.log(
+    "🔄 RESTORING FORM:",
+    data
+);
 
-        const data = event.data.data;
+// =========================================
+// LOOP THROUGH TOP LEVEL SECTIONS
+// =========================================
 
-        if (!data) {
-            console.warn("Received empty payload");
+Object.entries(data).forEach(
+
+    ([sectionKey, sectionValue]) => {
+
+        if (
+            typeof sectionValue !== "object" ||
+            sectionValue === null
+        ) return;
+
+        // =====================================
+        // LOOP SUBSECTIONS
+        // =====================================
+
+        Object.entries(sectionValue).forEach(
+
+            ([subsectionKey, subsectionValue]) => {
+
+                if (
+                    typeof subsectionValue !== "object" ||
+                    subsectionValue === null
+                ) return;
+
+                // =================================
+                // LOOP FIELDS
+                // =================================
+
+                Object.entries(subsectionValue).forEach(
+
+                    ([fieldName, fieldValue]) => {
+
+                        // =============================
+                        // FIND FIELD
+                        // =============================
+
+                        const selector = `
+                            [name="${fieldName}"]
+                            [data-section="${sectionKey}"]
+                            [data-subsection="${subsectionKey}"]
+                        `
+                        .replace(/\s+/g, " ")
+                        .trim();
+
+                        const field =
+                            document.querySelector(selector);
+
+                        if (!field) {
+
+                            console.warn(
+                                "⚠️ Field not found:",
+                                {
+                                    sectionKey,
+                                    subsectionKey,
+                                    fieldName
+                                }
+                            );
+
+                            return;
+                        }
+
+                        // =============================
+                        // NORMAL INPUTS
+                        // =============================
+
+                        if (
+                            field.tagName === "INPUT" ||
+                            field.tagName === "TEXTAREA" ||
+                            field.tagName === "SELECT"
+                        ) {
+
+                            field.value =
+                                fieldValue ?? "";
+
+                        }
+
+                        console.log(
+                            "✅ RESTORED:",
+                            fieldName,
+                            fieldValue
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
+
+// =========================================
+// RESTORE META DATA
+// =========================================
+
+if (data.meta) {
+
+    metaData.companyId =
+        data.meta.companyId || null;
+
+    metaData.technicianId =
+        data.meta.technicianId || null;
+
+    metaData.deviceId =
+        data.meta.deviceId || null;
+
+    console.log(
+        "✅ META RESTORED:",
+        metaData
+    );
+}
+
+// =========================================
+// OPTIONAL SECTIONS
+// =========================================
+
+const systemNotes =
+    document.querySelector(
+        '[name="system_notes"]'
+    );
+
+if (
+    systemNotes &&
+    systemNotes.value?.trim()
+) {
+
+    document.getElementById(
+        "system-notes-section"
+    ).style.display = "block";
+}
+
+const customerActions =
+    document.querySelector(
+        '[name="customer_action_items"]'
+    );
+
+if (
+    customerActions &&
+    customerActions.value?.trim()
+) {
+
+    document.getElementById(
+        "customer-actions-section"
+    ).style.display = "block";
+}
+
+// =========================================
+// NOTES TEXTAREAS
+// =========================================
+
+document.querySelectorAll(
+    ".notes-textarea"
+).forEach(textarea => {
+
+    if (
+        textarea.value?.trim()
+    ) {
+
+        textarea.classList.remove(
+            "hidden"
+        );
+
+        const btn =
+            textarea.parentElement
+            ?.querySelector(
+                ".notes-toggle"
+            );
+
+        if (btn) {
+
+            btn.textContent =
+                "Hide Notes";
+        }
+    }
+});
+
+console.log(
+    "🎉 FORM RESTORE COMPLETE"
+);
+}
+
+async function loadExistingServiceOrder(
+    serviceOrderId
+) {
+
+    try {
+
+        console.log(
+            "✏️ Loading existing order:",
+            serviceOrderId
+        );
+
+        // =====================================
+        // SAVE CURRENT EDITING ID
+        // =====================================
+
+        window.currentEditingServiceOrderId =
+            serviceOrderId;
+
+        // =====================================
+        // FETCH RAW JSON
+        // =====================================
+
+        const response = await fetch(
+
+            `https://canary-services-04f32bc2afc5.herokuapp.com/service-order-raw/${serviceOrderId}`
+
+        );
+
+        const result =
+            await response.json();
+
+        console.log(
+            "📦 RAW ORDER DATA:",
+            result
+        );
+
+        if (!result.success) {
+
+            alert(
+                "Failed to load service order"
+            );
+
             return;
         }
 
-        // 🔥 CALL API WITH PAYLOAD
-        fetchAndPrefill(event.data.data);
-        });
+        // =====================================
+        // RESTORE FORM
+        // =====================================
+
+        prefillEntireForm(
+            result.data
+        );
+
+    } catch (err) {
+
+        console.error(
+            "❌ Edit load failed:",
+            err
+        );
+
+        alert(
+            "Failed to load edit form"
+        );
+    }
+}
+        
+        // 🔥 LISTEN FOR MESSAGE
+    window.addEventListener(
+    "message",
+    (event) => {
+
+        console.log(
+        "🫀🏄🏽🐋🐟😹🦴👻Received postMessage event:",
+        event
+        );
+
+        if (
+        !event.data ||
+        event.data.type !== "DEVICE_DATA"
+        ) return;
+
+        console.log(
+        "Received postMessage:",
+        event.data
+        );
+
+        const data =
+        event.data.data;
+
+        if (!data) {
+
+        console.warn(
+            "Received empty payload"
+        );
+
+        return;
+        }
+
+        const payload = data;
+
+        // ====================================
+        // EDIT MODE
+        // ====================================
+
+        if (
+        payload.mode === "editing"
+        ) {
+
+        console.log(
+            "✏️ EDIT MODE"
+        );
+
+        loadExistingServiceOrder(
+            payload.serviceOrderId
+        );
+
+        }
+
+    // ====================================
+    // CREATE MODE
+    // ====================================
+
+    else {
+
+      console.log(
+        "🆕 CREATE MODE"
+      );
+
+      fetchAndPrefill(payload);
+
+    }
+});
 
     
     /* =========================================================
