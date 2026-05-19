@@ -2516,7 +2516,7 @@ function setValue(selector, value) {
             deviceId: result.equipment?.["Device Id"],
             name: result.equipment?.Name,
 
-            technicianName: result.technician?.fields?.Name,
+            technicianName:  result.technician?.fields?.["Full Name"] || "",
             technicianId: result.technician?.id,
 
             companyId: result.equipment?.["Associated Company"]?.[0]
