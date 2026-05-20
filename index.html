@@ -4537,6 +4537,19 @@ try {
 
             let structuredData =
                 getStructuredFormData();
+            
+            // =====================================
+            // ATTACH REPEAT SECTION DATA
+            // =====================================
+
+            structuredData.calibration_information.parts_used =
+                repeatData.partsUsed;
+
+            structuredData.calibration_information.parts_to_be_ordered =
+                repeatData.partsOrdered;
+
+            structuredData.calibration_information.labor_times_and_travel =
+                repeatData.labor;
 
             structuredData.meta =
                 metaData;
