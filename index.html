@@ -973,7 +973,7 @@ to {
             <input type="text" name="classification" data-section="asset_information" data-subsection="main">
 
             <label>Manufacturer</label>
-            <input type="text" name="manufaccturer" data-section="asset_information" data-subsection="main">
+            <input type="text" name="manufacturer" data-section="asset_information" data-subsection="main">
 
             <label>Part Number</label>
             <input type="text" name="part_number" data-section="asset_information" data-subsection="main">
@@ -1126,15 +1126,27 @@ id="customer-actions-section" style="display:none;"
           <input type="text" name="pyrolyzer" data-section="system_information" data-subsection="gas_detector">
       </div>
 
-      <div class="field" name="classification" data-section="system_information" data-subsection="gas_detector">
-          <label>SW Version</label>
-          <input type="text">
-      </div>
+      <div class="field">
+        <label>SW Version</label>
+    
+        <input
+          type="text"
+          name="sw_version"
+          data-section="system_information"
+          data-subsection="gas_detector"
+        >
+    </div>
 
-      <div class="field" name="measurement_type" data-section="system_information" data-subsection="gas_detector">
-          <label>Measurement Type</label>
-          <input type="text">
-      </div>
+    <div class="field">
+        <label>Measurement Type</label>
+    
+        <input
+          type="text"
+          name="measurement_type"
+          data-section="system_information"
+          data-subsection="gas_detector"
+        >
+    </div>
 
   </div>
 
@@ -1780,7 +1792,7 @@ id="customer-actions-section" style="display:none;"
 
       <div class="field">
           <label>Tolerance</label>
-          <input type="text" name="torelance" data-section="calibration_information" data-subsection="gas_generator">
+          <input type="text" name="tolerance" data-section="calibration_information" data-subsection="gas_generator">
       </div>
 
       <div class="field">
@@ -1837,10 +1849,14 @@ id="customer-actions-section" style="display:none;"
           <input type="text" name="flow_rate" data-section="calibration_information" data-subsection="permeation_oven">
       </div>
 
-      <div class="field">
-          <label>Heater Temp</label>
-          <input type="text">
-      </div>
+      <label>Heater Temp</label>
+
+        <input
+            type="text"
+            name="heater_temp"
+            data-section="calibration_information"
+            data-subsection="permeation_oven"
+        >
 
       <div class="field">
           <label>Tolerance</label>
@@ -1908,7 +1924,15 @@ id="customer-actions-section" style="display:none;"
 
           <div class="grid-table cols-1">
               <div class="field"><label>Material</label><input name="material" data-section="calibration_information" data-subsection="calibration_tubing"></div>
-              <div class="field" name="tubing_size" data-section="calibration_information" data-subsection="calibration_tubing"><label>Tubing Size</label><input></div>
+              <div class="field">
+                <label>Tubing Size</label>
+            
+                <input
+                  name="tubing_size"
+                  data-section="calibration_information"
+                  data-subsection="calibration_tubing"
+                >
+            </div>
               <div class="field"><label>Sample Line Distance</label><input name="sample_line_distance" data-section="calibration_information" data-subsection="calibration_tubing"></div>
               
           </div>
@@ -2194,6 +2218,101 @@ let metaData = {
   deviceId: null
 };
 
+function collectRepeatData() {
+
+const partsUsed = [];
+
+document.querySelectorAll(
+"#parts-used-container .repeat-item"
+).forEach(row => {
+
+partsUsed.push({
+
+quantity:
+    row.querySelector(
+        '[name="parts_used_quantity[]"]'
+    )?.value || "",
+
+description:
+    row.querySelector(
+        '[name="parts_used_description[]"]'
+    )?.value || ""
+
+});
+
+});
+
+const partsOrdered = [];
+
+document.querySelectorAll(
+"#parts-order-container .repeat-item"
+).forEach(row => {
+
+partsOrdered.push({
+
+quantity:
+    row.querySelector(
+        '[name="parts_order_quantity[]"]'
+    )?.value || "",
+
+description:
+    row.querySelector(
+        '[name="parts_order_description[]"]'
+    )?.value || ""
+
+});
+
+});
+
+const labor = [];
+
+document.querySelectorAll(
+"#labor-container .repeat-item"
+).forEach(row => {
+
+labor.push({
+
+date:
+    row.querySelector(
+        '[name="labor_date[]"]'
+    )?.value || "",
+
+arrive:
+    row.querySelector(
+        '[name="labor_arrive[]"]'
+    )?.value || "",
+
+departure:
+    row.querySelector(
+        '[name="labor_departure[]"]'
+    )?.value || "",
+
+    hours:
+    row.querySelector(
+        '[name="labor_hours[]"]'
+    )?.value || "",
+
+distance:
+    row.querySelector(
+        '[name="labor_distance[]"]'
+    )?.value || "",
+
+travel_hours:
+    row.querySelector(
+        '[name="labor_travel_hours[]"]'
+    )?.value || ""
+
+});
+});
+
+return {
+partsUsed,
+partsOrdered,
+labor
+};
+
+}
+
 function toggleOptionalSection(sectionId, button) {
 
 const section =
@@ -2366,6 +2485,257 @@ function updateRemoveButtons(container) {
     });
 }
 
+function createPartsUsedRow(item = {}) {
+
+return `
+<div class="repeat-item">
+
+    <div class="field">
+        <label>Quantity</label>
+
+        <input
+            name="parts_used_quantity[]"
+            value="${item.quantity || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Description</label>
+
+        <input
+            name="parts_used_description[]"
+            value="${item.description || ""}"
+        >
+    </div>
+
+    <button type="button" class="remove-item">
+        ✖
+    </button>
+
+</div>
+`;
+
+}
+
+function createPartsOrderRow(item = {}) {
+
+return `
+<div class="repeat-item">
+
+    <div class="field">
+        <label>Quantity</label>
+
+        <input
+            name="parts_order_quantity[]"
+            value="${item.quantity || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Description</label>
+
+        <input
+            name="parts_order_description[]"
+            value="${item.description || ""}"
+        >
+    </div>
+
+    <button type="button" class="remove-item">
+        ✖
+    </button>
+
+</div>
+`;
+
+}
+
+function createLaborRow(item = {}) {
+
+return `
+<div class="repeat-item labor">
+
+    <div class="field">
+        <label>Date</label>
+
+        <input
+            type="date"
+            name="labor_date[]"
+            value="${item.date || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Arrive</label>
+
+        <input
+            type="time"
+            name="labor_arrive[]"
+            value="${item.arrive || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Departure</label>
+
+        <input
+            type="time"
+            name="labor_departure[]"
+            value="${item.departure || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Hours</label>
+
+        <input
+            name="labor_hours[]"
+            value="${item.hours || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Travel Distance</label>
+
+        <input
+            name="labor_distance[]"
+            value="${item.distance || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Travel Hours</label>
+
+        <input
+            name="labor_travel_hours[]"
+            value="${item.travel_hours || ""}"
+        >
+    </div>
+
+    <button
+        type="button"
+        class="remove-item"
+    >
+        ✖
+    </button>
+
+</div>
+`;
+
+}
+
+function restoreRepeatSection({
+containerId,
+items,
+renderRow
+}) {
+
+const container =
+document.getElementById(containerId);
+
+container.innerHTML = "";
+
+items.forEach(item => {
+
+container.insertAdjacentHTML(
+    "beforeend",
+    renderRow(item)
+);
+
+});
+
+updateRemoveButtons(container);
+
+}
+
+document.addEventListener("click", function (e) {
+
+
+// =========================================
+// ADD ITEM
+// =========================================
+
+if (e.target.classList.contains("add-item")) {
+
+    const containerId =
+        e.target.dataset.target;
+
+    const container =
+        document.getElementById(containerId);
+
+    let html = "";
+
+    if (containerId === "parts-used-container") {
+        html = createPartsUsedRow();
+    }
+
+    if (containerId === "parts-order-container") {
+        html = createPartsOrderRow();
+    }
+
+    if (containerId === "labor-container") {
+        html = createLaborRow();
+    }
+
+    container.insertAdjacentHTML(
+        "beforeend",
+        html
+    );
+
+    updateRemoveButtons(container);
+}
+
+
+// =========================================
+// REMOVE ITEM
+// =========================================
+
+if (e.target.classList.contains("remove-item")) {
+
+    const item =
+        e.target.closest(".repeat-item");
+
+    const container =
+        item.parentElement;
+
+    if (container.children.length > 1) {
+        item.remove();
+    }
+
+    updateRemoveButtons(container);
+}
+
+
+// =========================================
+// NOTES TOGGLE
+// =========================================
+
+if (e.target.classList.contains("notes-toggle")) {
+
+    const container =
+        e.target.closest(".notes-block");
+
+    const textarea =
+        container.querySelector(
+            ".notes-textarea"
+        );
+
+    const isHidden =
+        textarea.classList.toggle("hidden");
+
+    textarea.style.display =
+        isHidden ? "none" : "block";
+
+    e.target.textContent =
+        isHidden
+            ? "Add Notes"
+            : "Hide Notes";
+}
+
+});
+
+
+/*
+
 document.addEventListener("click", function (e) {
 
 // ================= ADD ITEM =================
@@ -2407,6 +2777,7 @@ if (e.target.classList.contains("notes-toggle")) {
 }
 
 });
+*/
 
 /* RUN ON LOAD */
 document.querySelectorAll(".repeat-container").forEach(container => {
@@ -2538,6 +2909,15 @@ console.log(
 );
 
 // =========================================
+// SAFETY
+// =========================================
+
+if (!data || typeof data !== "object") {
+    console.warn("Invalid restore data");
+    return;
+}
+
+// =========================================
 // LOOP THROUGH TOP LEVEL SECTIONS
 // =========================================
 
@@ -2559,43 +2939,140 @@ Object.entries(data).forEach(
             ([subsectionKey, subsectionValue]) => {
 
                 if (
+                    subsectionValue === null ||
+                    subsectionValue === undefined
+                ) return;
+
+                // =====================================
+                // PARTS USED
+                // =====================================
+
+                if (
+                    subsectionKey === "parts_used" &&
+                    Array.isArray(subsectionValue)
+                ) {
+
+                    restoreRepeatSection({
+
+                        containerId:
+                            "parts-used-container",
+
+                        items:
+                            subsectionValue,
+
+                        renderRow:
+                            createPartsUsedRow
+
+                    });
+
+                    return;
+                }
+
+                // =====================================
+                // PARTS ORDER
+                // =====================================
+
+                if (
+                    subsectionKey === "parts_to_be_ordered" &&
+                    Array.isArray(subsectionValue)
+                ) {
+
+                    restoreRepeatSection({
+
+                        containerId:
+                            "parts-order-container",
+
+                        items:
+                            subsectionValue,
+
+                        renderRow:
+                            createPartsOrderRow
+
+                    });
+
+                    return;
+                }
+
+                // =====================================
+                // LABOR
+                // =====================================
+
+                if (
+                    subsectionKey === "labor_times_and_travel" &&
+                    Array.isArray(subsectionValue)
+                ) {
+
+                    restoreRepeatSection({
+
+                        containerId:
+                            "labor-container",
+
+                        items:
+                            subsectionValue,
+
+                        renderRow:
+                            createLaborRow
+
+                    });
+
+                    return;
+                }
+
+                // =====================================
+                // NORMAL OBJECT SECTIONS
+                // =====================================
+
+                if (
                     typeof subsectionValue !== "object" ||
                     subsectionValue === null
                 ) return;
 
-                // =================================
+                // =====================================
                 // LOOP FIELDS
-                // =================================
+                // =====================================
 
                 Object.entries(subsectionValue).forEach(
 
                     ([fieldName, fieldValue]) => {
 
                         // =============================
+                        // SKIP ARRAYS
+                        // =============================
+
+                        if (
+                            Array.isArray(fieldValue)
+                        ) return;
+
+                        // =============================
                         // FIND FIELD
                         // =============================
 
-                        let field = document.querySelector(
+                        const selector =
+                            `[name="${fieldName}"]` +
+                            `[data-section="${sectionKey}"]` +
+                            `[data-subsection="${subsectionKey}"]`;
 
-                        `[name="${fieldName}"]
-                        [data-section="${sectionKey}"]
-                        [data-subsection="${subsectionKey}"]`
+                        const field =
+                            document.querySelector(
+                                selector
+                            );
 
-                        );
-
-                        // =====================================
-                        // FALLBACK TO NAME ONLY
-                        // =====================================
+                        // =============================
+                        // FIELD NOT FOUND
+                        // =============================
 
                         if (!field) {
 
-                        field = document.querySelector(
-                            `[name="${fieldName}"]`
-                        );
+                            console.warn(
+                                "⚠️ Field not found:",
+                                selector
+                            );
+
+                            return;
                         }
 
                         // =============================
-                        // NORMAL INPUTS
+                        // INPUT / TEXTAREA / SELECT
                         // =============================
 
                         if (
@@ -2646,7 +3123,8 @@ if (data.meta) {
 }
 
 // =========================================
-// OPTIONAL SECTIONS
+// OPTIONAL SECTION:
+// SYSTEM NOTES
 // =========================================
 
 const systemNotes =
@@ -2659,10 +3137,20 @@ if (
     systemNotes.value?.trim()
 ) {
 
-    document.getElementById(
-        "system-notes-section"
-    ).style.display = "block";
+    const section =
+        document.getElementById(
+            "system-notes-section"
+        );
+
+    if (section) {
+        section.style.display = "block";
+    }
 }
+
+// =========================================
+// OPTIONAL SECTION:
+// CUSTOMER ACTION ITEMS
+// =========================================
 
 const customerActions =
     document.querySelector(
@@ -2674,13 +3162,18 @@ if (
     customerActions.value?.trim()
 ) {
 
-    document.getElementById(
-        "customer-actions-section"
-    ).style.display = "block";
+    const section =
+        document.getElementById(
+            "customer-actions-section"
+        );
+
+    if (section) {
+        section.style.display = "block";
+    }
 }
 
 // =========================================
-// NOTES TEXTAREAS
+// RESTORE NOTES TEXTAREAS
 // =========================================
 
 document.querySelectorAll(
@@ -2694,6 +3187,9 @@ document.querySelectorAll(
         textarea.classList.remove(
             "hidden"
         );
+
+        textarea.style.display =
+            "block";
 
         const btn =
             textarea.parentElement
@@ -2709,9 +3205,28 @@ document.querySelectorAll(
     }
 });
 
+// =========================================
+// UPDATE REMOVE BUTTONS
+// =========================================
+
+document.querySelectorAll(
+    ".repeat-container"
+).forEach(container => {
+
+    updateRemoveButtons(
+        container
+    );
+
+});
+
+// =========================================
+// COMPLETE
+// =========================================
+
 console.log(
     "🎉 FORM RESTORE COMPLETE"
 );
+
 }
 
 async function loadExistingServiceOrder(
@@ -3993,6 +4508,9 @@ try {
     }
     
         async function saveForm() {
+
+            const repeatData =
+                collectRepeatData();
 
         if (!validateForm()) {
 
