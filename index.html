@@ -1103,7 +1103,7 @@ id="customer-actions-section" style="display:none;"
           <label>Pyrolyzer</label>
           <select 
             class="dropdown" 
-            name="relays" 
+            name="pyrolyzer" 
             data-section="system_information" 
             data-subsection="gas_detector"
         >
@@ -1866,7 +1866,7 @@ id="customer-actions-section" style="display:none;"
 
       <div class="field">
           <label>Tolerance</label>
-          <input type="text" name="torelance" data-section="calibration_information" data-subsection="permeation_oven">
+          <input type="text" name="tolerance" data-section="calibration_information" data-subsection="permeation_oven">
       </div>
 
       <div class="field">
@@ -4523,10 +4523,24 @@ try {
 
             updateProgress(60);
 
+            const isEditing =
+                !!window.currentEditingServiceOrderId;
+
+            const endpoint = isEditing
+
+            ? `https://canary-services-04f32bc2afc5.herokuapp.com/update-service-order/${window.currentEditingServiceOrderId}`
+
+            : `https://canary-services-04f32bc2afc5.herokuapp.com/submit-service-order`;
+
+            const method =
+                isEditing
+                    ? "PUT"
+                    : "POST";
+
             const res = await fetch(
-                "https://canary-services-04f32bc2afc5.herokuapp.com/submit-service-order",
+                endpoint,
                 {
-                    method: "POST",
+                    method: method,
 
                     headers: {
                         "Content-Type": "application/json"
@@ -4551,6 +4565,8 @@ try {
                 );
             }
 
+            setTimeout(() => {
+
             updateProgress(100);
 
             showSuccess(
@@ -4562,7 +4578,7 @@ try {
                 "Service Order Submitted"
             );
 
-            setTimeout(() => {
+         
                 sendToParent(
                     "SERVICE_ORDER_SUCCESS",
                     {
