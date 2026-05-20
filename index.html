@@ -2803,6 +2803,16 @@ function setValue(selector, value) {
         metaData.technicianId = data.technicianId;
         metaData.deviceId = data.deviceId;
 
+        updateProgress(100);
+
+        setTimeout(() => {
+
+            closeModal();
+
+            document.body.style.overflow = "";
+
+        }, 500);
+
         }
 
         
