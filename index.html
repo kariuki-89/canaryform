@@ -1960,22 +1960,6 @@ id="customer-actions-section" style="display:none;"
         
             <div class="repeat-container" id="parts-used-container">
         
-                <!-- ONE ITEM (TEMPLATE) -->
-                <div class="repeat-item">
-        
-                    <div class="field">
-                        <label>Quantity</label>
-                        <input name="parts_used_quantity[]">
-                    </div>
-        
-                    <div class="field">
-                        <label>Description</label>
-                        <input name="parts_used_description[]">
-                    </div>
-        
-                    <button type="button" class="remove-item">✖</button>
-        
-                </div>
         
             </div>
         
@@ -1995,31 +1979,7 @@ id="customer-actions-section" style="display:none;"
     
         <div class="repeat-container" id="parts-order-container">
     
-            <!-- ITEM -->
-            <div class="repeat-item">
-    
-                <div class="field">
-                    <label>Quantity</label>
-                    <input 
-                        name="parts_order_quantity[]" 
-                        data-section="calibration_information" 
-                        data-subsection="parts_to_be_ordered"
-                    >
-                </div>
-    
-                <div class="field">
-                    <label>Description</label>
-                    <input 
-                        name="parts_order_description[]" 
-                        data-section="calibration_information" 
-                        data-subsection="parts_to_be_ordered"
-                    >
-                </div>
-    
-                <button type="button" class="remove-item">✖</button>
-    
-            </div>
-    
+            
         </div>
     
         <button 
@@ -2043,55 +2003,7 @@ id="customer-actions-section" style="display:none;"
 
     <div class="repeat-container" id="labor-container">
 
-        <!-- ITEM -->
-        <div class="repeat-item labor">
-
-            <div class="field">
-                <label>Date</label>
-                <input type="date" name="labor_date[]" 
-                    data-section="calibration_information" 
-                    data-subsection="labor_times_and_travel">
-            </div>
-
-            <div class="field">
-                <label>Arrive</label>
-                <input type="time" name="labor_arrive[]" 
-                    data-section="calibration_information" 
-                    data-subsection="labor_times_and_travel">
-            </div>
-
-            <div class="field">
-                <label>Departure</label>
-                <input type="time" name="labor_departure[]" 
-                    data-section="calibration_information" 
-                    data-subsection="labor_times_and_travel">
-            </div>
-
-            <div class="field">
-                <label>Hours</label>
-                <input type="text" name="labor_hours[]" 
-                    data-section="calibration_information" 
-                    data-subsection="labor_times_and_travel">
-            </div>
-
-            <div class="field">
-                <label>Travel Distance</label>
-                <input type="text" name="labor_distance[]" 
-                    data-section="calibration_information" 
-                    data-subsection="labor_times_and_travel">
-            </div>
-
-            <div class="field">
-                <label>Travel Hours</label>
-                <input type="text" name="labor_travel_hours[]" 
-                    data-section="calibration_information" 
-                    data-subsection="labor_times_and_travel">
-            </div>
-
-            <button type="button" class="remove-item">✖</button>
-
-        </div>
-
+       
     </div>
 
     <button 
@@ -2783,8 +2695,38 @@ if (e.target.classList.contains("notes-toggle")) {
 */
 
 /* RUN ON LOAD */
-document.querySelectorAll(".repeat-container").forEach(container => {
+
+// =====================================
+// INITIAL EMPTY ROWS
+// =====================================
+
+restoreRepeatSection({
+    containerId: "parts-used-container",
+    items: [{}],
+    renderRow: createPartsUsedRow
+});
+
+restoreRepeatSection({
+    containerId: "parts-order-container",
+    items: [{}],
+    renderRow: createPartsOrderRow
+});
+
+restoreRepeatSection({
+    containerId: "labor-container",
+    items: [{}],
+    renderRow: createLaborRow
+});
+
+// =====================================
+// UPDATE REMOVE BUTTONS
+// =====================================
+
+document.querySelectorAll(".repeat-container")
+.forEach(container => {
+
     updateRemoveButtons(container);
+
 });
 
 
