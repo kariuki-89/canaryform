@@ -2353,6 +2353,19 @@ document.getElementById("app-modal")
     .classList.add("hidden");
 }
 
+
+function showPageLoader(message = "Loading service order data...") {
+
+openModal(
+    "Loading...",
+    message
+);
+
+updateProgress(35);
+
+document.body.style.overflow = "hidden";
+
+}
 /* =========================================
 TOAST
 ========================================= */
@@ -2797,6 +2810,9 @@ function setValue(selector, value) {
 
         async function fetchAndPrefill(payload) {
         try {
+            showPageLoader(
+                "Loading customer and equipment data..."
+            );
             const res = await fetch("https://canary-services-04f32bc2afc5.herokuapp.com/get-airtable-data", {
             method: "POST",
             headers: {
@@ -2840,6 +2856,10 @@ function setValue(selector, value) {
             prefillForm(mappedData);
 
         } catch (err) {
+            showError(
+                "Load Failed",
+                "Unable to load form data."
+            );
             console.error("Fetch error:", err);
         }
         }
@@ -3028,7 +3048,15 @@ Object.entries(data).forEach(
                                 fieldValue ?? "";
 
                         }
+                        updateProgress(100);
 
+                        setTimeout(() => {
+
+                            closeModal();
+
+                            document.body.style.overflow = "";
+
+                        }, 500);
                         console.log(
                             "✅ RESTORED:",
                             fieldName,
@@ -3192,6 +3220,10 @@ async function loadExistingServiceOrder(
 
     try {
 
+        showPageLoader(
+            "Loading existing service order..."
+        );
+
         console.log(
             "✏️ Loading existing order:",
             serviceOrderId
@@ -3240,6 +3272,11 @@ async function loadExistingServiceOrder(
         );
 
     } catch (err) {
+
+        showError(
+        "Load Failed",
+        "Unable to load form data."
+    );
 
         console.error(
             "❌ Edit load failed:",
