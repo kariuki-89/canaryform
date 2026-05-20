@@ -1123,7 +1123,7 @@ id="customer-actions-section" style="display:none;"
 
       <div class="field">
           <label>Classification</label>
-          <input type="text" name="pyrolyzer" data-section="system_information" data-subsection="gas_detector">
+          <input type="text" name="gas_classification" data-section="system_information" data-subsection="gas_detector">
       </div>
 
       <div class="field">
@@ -1390,15 +1390,10 @@ id="customer-actions-section" style="display:none;"
     </div>
   
     <!-- NOTES (COLLAPSIBLE + LIMITED) -->
-    <button
-        type="button"
-        class="notes-toggle"
-    >
-        Add Notes
-    </button>
-  
-    <textarea class="notes-textarea hidden" id="sensor-notes" maxlength="250" style="display:none; margin-top:10px;" placeholder="Max 250 characters" name="sensor_notes" data-section="system_information" data-subsection="sensor_data"></textarea>
-  
+    <div class="notes-block">
+        <button type="button" class="notes-toggle">Add Notes</button>
+            <textarea class="notes-textarea hidden" name="sensor_notes" data-section="system_information" data-subsection="sensor_data"></textarea>
+      </div>
   </div>
 <!-- SERVICE PERFORMED -->
 <div class="sub-section">
@@ -4565,7 +4560,7 @@ try {
                 );
             }
 
-            setTimeout(() => {
+        
 
             updateProgress(100);
 
@@ -4586,9 +4581,7 @@ try {
                         serviceOrderId: result.service_order_id
                     }
                 );
-            }, 3000);
-
-            
+  
 
             console.log(result);
 
