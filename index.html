@@ -3207,7 +3207,15 @@ document.querySelectorAll(
 // =========================================
 // COMPLETE
 // =========================================
+updateProgress(100);
 
+setTimeout(() => {
+
+    closeModal();
+
+    document.body.style.overflow = "";
+
+}, 500);
 console.log(
     "🎉 FORM RESTORE COMPLETE"
 );
