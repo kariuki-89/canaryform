@@ -1390,7 +1390,10 @@ id="customer-actions-section" style="display:none;"
     </div>
   
     <!-- NOTES (COLLAPSIBLE + LIMITED) -->
-    <button class="notes-toggle" type="button" onclick="toggleSensorNotes()" style="margin-top:10px;">
+    <button
+        type="button"
+        class="notes-toggle"
+    >
         Add Notes
     </button>
   
@@ -3118,36 +3121,50 @@ if (
 }
 
 // =========================================
-// RESTORE NOTES TEXTAREAS
+// RESTORE ALL NOTES TEXTAREAS
 // =========================================
 
 document.querySelectorAll(
     ".notes-textarea"
 ).forEach(textarea => {
 
-    if (
-        textarea.value?.trim()
-    ) {
+    const hasValue =
+        textarea.value &&
+        textarea.value.trim() !== "";
 
-        textarea.classList.remove(
-            "hidden"
+    if (!hasValue) return;
+
+    // =============================
+    // SHOW TEXTAREA
+    // =============================
+
+    textarea.classList.remove(
+        "hidden"
+    );
+
+    textarea.style.display =
+        "block";
+
+    // =============================
+    // FIND TOGGLE BUTTON
+    // =============================
+
+    const notesBlock =
+        textarea.closest(".notes-block");
+
+    if (!notesBlock) return;
+
+    const btn =
+        notesBlock.querySelector(
+            ".notes-toggle"
         );
 
-        textarea.style.display =
-            "block";
+    if (btn) {
 
-        const btn =
-            textarea.parentElement
-            ?.querySelector(
-                ".notes-toggle"
-            );
-
-        if (btn) {
-
-            btn.textContent =
-                "Hide Notes";
-        }
+        btn.textContent =
+            "Hide Notes";
     }
+
 });
 
 // =========================================
