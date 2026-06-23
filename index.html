@@ -1409,7 +1409,290 @@ id="customer-actions-section" style="display:none;"
 <div class="sub-section">
 
     <div class="sub-title">
-      CALIBRATION CYLINDER INFORMATION
+      ZERO SPAN CYLINDER INFORMATION
+    </div>
+  
+    <div class="grid-table cols-5">
+  
+        <!-- MANUFACTURER -->
+        <div class="field">
+            <label>Manufacturer</label>
+  
+            <input
+                type="text"
+                name="manufacturer"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+        <!-- CYLINDER TYPE -->
+        <div class="field">
+            <label>Cylinder Type</label>
+  
+            <select
+            class="dropdown"
+            name="cylinder_type"
+            data-section="calibration_information"
+            data-subsection="span_cylinder_information"
+        >
+
+            <option value="">
+                Select Cylinder Type
+            </option>
+
+            <option value="Non-Refillable (DOT-39) - Aluminum">
+                Non-Refillable (DOT-39) - Aluminum
+            </option>
+
+            <option value="Refillable (DOT-3A/3AA/3AL or UN-Certified) - Steel">
+                Refillable (DOT-3A/3AA/3AL or UN-Certified) - Steel
+            </option>
+
+            <option value="Refillable (DOT-3A/3AA/3AL or UN-Certified) - Composite">
+                Refillable (DOT-3A/3AA/3AL or UN-Certified) - Composite
+            </option>
+
+            <option value="Refillable (DOT-3A/3AA/3AL or UN-Certified) - Stainless Steel">
+                Refillable (DOT-3A/3AA/3AL or UN-Certified) - Stainless Steel
+            </option>
+
+        </select>
+        </div>
+  
+        <!-- CYLINDER SIZE -->
+        <div class="field">
+            <label>Cylinder Size</label>
+  
+            <select
+            class="dropdown"
+            name="cylinder_size"
+            data-section="calibration_information"
+            data-subsection="span_cylinder_information"
+        >
+
+            <option value="">
+                Select Cylinder Size
+            </option>
+
+            <option value="5.8L">
+                5.8L
+            </option>
+
+            <option value="34L">
+                34L
+            </option>
+
+            <option value="58L">
+                58L
+            </option>
+
+            <option value="103L">
+                103L
+            </option>
+
+            <option value="105L">
+                105L
+            </option>
+
+            <option value="116L">
+                116L
+            </option>
+
+            <option value="650L">
+                650L
+            </option>
+
+        </select>
+        </div>
+  
+        <!-- CYLINDER PRESSURE -->
+        <div class="field">
+            <label>Cylinder Pressure</label>
+  
+            <input
+                type="text"
+                name="cylinder_pressure"
+                placeholder="e.g. 2000 PSI"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+        <!-- GAS TYPE -->
+        <div class="field">
+            <label>Gas Type</label>
+  
+           <select
+            class="dropdown"
+            name="gas_type"
+            data-section="calibration_information"
+            data-subsection="span_cylinder_information"
+        >
+
+            <option value="">
+                Select Gas Type
+            </option>
+
+            <option value="EC-Toxic">
+                EC-Toxic
+            </option>
+
+            <option value="EC-Oxygen">
+                EC-Oxygen
+            </option>
+
+            <option value="Cat Bead">
+                Cat Bead
+            </option>
+
+            <option value="IR">
+                IR
+            </option>
+
+            <option value="NDIR">
+                NDIR
+            </option>
+
+            <option value="PID">
+                PID
+            </option>
+
+            <option value="FID">
+                FID
+            </option>
+
+            <option value="MOS">
+                MOS
+            </option>
+
+            <option value="Therm. Conductivity">
+                Therm. Conductivity
+            </option>
+
+            <option value="Open Path IR">
+                Open Path IR
+            </option>
+
+            <option value="Ultrasonic">
+                Ultrasonic
+            </option>
+
+            <option value="Zirconia">
+                Zirconia
+            </option>
+
+            <option value="Chem Cassett">
+                Chem Cassett
+            </option>
+
+            <option value="FTIR">
+                FTIR
+            </option>
+
+            <option value="SSO">
+                SSO
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
+        </div>
+  
+        <!-- CONCENTRATION -->
+        <div class="field">
+            <label>Concentration</label>
+  
+            <input
+                type="text"
+                name="concentration"
+                placeholder="e.g. 25 PPM"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+        <!-- GAS BALANCE -->
+        <div class="field">
+            <label>Gas Balance</label>
+  
+            <input
+                type="text"
+                name="gas_balance"
+                placeholder="e.g. Nitrogen"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+        <!-- EXP DATE -->
+        <div class="field">
+            <label>Exp Date</label>
+  
+            <input
+                type="date"
+                name="exp_date"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+        <!-- CERT NUMBER -->
+        <div class="field">
+            <label>Certificate Number</label>
+  
+            <input
+                type="text"
+                name="cert_number"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+        <!-- LOT NUMBER -->
+        <div class="field">
+            <label>Lot Number</label>
+  
+            <input
+                type="text"
+                name="lot_number"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+    </div>
+  
+    <!-- NOTES -->
+    <div class="notes-block">
+  
+      <button
+          type="button"
+          class="notes-toggle"
+      >
+          Add Notes
+      </button>
+  
+      <textarea
+          class="notes-textarea hidden"
+          name="notes"
+          data-section="calibration_information"
+          data-subsection="span_cylinder_information"
+      ></textarea>
+  
+    </div>
+  
+  </div>
+
+
+
+<!-- CALIBRATION CYLINDER -->
+<div class="sub-section">
+
+    <div class="sub-title">
+      CALIBRATION SPAN CYLINDER INFORMATION
     </div>
   
     <div class="grid-table cols-5">
