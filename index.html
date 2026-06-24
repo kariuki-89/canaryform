@@ -1185,6 +1185,7 @@ id="customer-actions-section" style="display:none;"
 <!-- SENSOR DATA -->
 
 <div class="sub-section no-borders">
+    <div class="sub-section">
     <div class="sub-title">SENSOR DATA</div>
     <div class="fieldbody">
     <!-- ROW 1 -->
@@ -1417,9 +1418,10 @@ id="customer-actions-section" style="display:none;"
         <button type="button" class="notes-toggle">Add Notes</button>
             <textarea class="notes-textarea hidden" name="sensor_notes" data-section="system_information" data-subsection="sensor_data"></textarea>
       </div>
+      </div>
   </div>
 <!-- SERVICE PERFORMED -->
-<div class="sub-section no-borders">
+<div class="sub-section">
     <div class="fieldbody">
     <label><strong>SERVICE PERFORMED:</strong></label>
     <textarea name="service_performed" data-section="system_information" data-subsection="sensor_data"></textarea>
@@ -4410,6 +4412,21 @@ CARDS
 .sub-section{
     margin-top: 16px;
 }
+
+.date-subsection{
+        border: 1px solid #e5e7eb;
+        padding: 8px;
+    }
+
+.no-borders{
+        border: none;
+    }
+
+.small-2 { grid-template-columns: repeat(2, 1fr); }
+
+.fieldbody {
+        padding: 12px 16px 16px;
+    }
 
 /* SMALL GROUPS ONLY */
 
