@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Service Order Form</title>
 
-
-
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap');
     
@@ -18,7 +16,7 @@
     /* BODY */
     body {
         font-family: 'Noto Sans', sans-serif;
-        background: #f7f8fa;
+        background: #ffffff;
         padding: 20px;
         color: #1f2937;
     }
@@ -71,6 +69,7 @@
         border-radius: 0px;
         margin-bottom: 10px;
         text-transform: uppercase;
+        text-align: center;
     }
     
     .section-title.main {
@@ -80,7 +79,6 @@
     }
 
     .field-group,
-        .sub-section,
         .signature-card {
             padding: 16px;
         }
@@ -88,12 +86,13 @@
     
     /* SUB TITLES */
     .sub-title {
-        background: #1f2937;
+        background: #ffffff;
         color: #fff;
         padding: 6px 10px;
         font-size: 12px;
         font-weight: 600;
         border-radius: 6px 6px 0 0;
+        text-align: center;
     }
     
     /* GRID SYSTEM */
@@ -114,6 +113,11 @@
         grid-template-columns: 1fr 1fr;
         gap: 12px;
     }
+
+    .date-subsection{
+        border: 1px solid #e5e7eb;
+        padding: 8px;
+    }
     
     .grid-table {
         display: grid;
@@ -133,14 +137,22 @@
     
     /* FIELD GROUP */
     .field-group {
-        background: #6b6b6b; /* grey card */
-        border-radius: 0px;
-        padding: 14px;
-        border: none;
+        background: #ffffff; /* grey card */
+        border-radius: 3px;
+        padding: 0px;
+        border: solid 1px #e5e7eb;
+        overflow: hidden;
+        
     }
+
+    .small-2 { grid-template-columns: repeat(2, 1fr); }
 
     .field-group label {
         margin-top: 6px;
+    }
+
+    .fieldbody {
+        padding: 12px 16px 16px;
     }
 
     .grid-3 {
@@ -149,10 +161,14 @@
     
     /* SUB SECTION */
     .sub-section {
-        background: #6b6b6b; /* same as top cards */
-        border-radius: 0px;
-        padding: 14px;
+        background: #ffffff; /* same as top cards */
+        border-radius: 3px;
         margin-top: 16px;
+        border: solid 1px #e5e7eb;
+        overflow: hidden;
+    }
+
+    .no-borders{
         border: none;
     }
 
@@ -177,7 +193,7 @@
     /* LABELS */
     label {
         font-size: 10px;
-        color: #e5e5e5;
+        color: #4a4a4a;
         margin-bottom: 3px;
         letter-spacing: 0.3px;
     }
@@ -190,8 +206,8 @@
         height: 30px;
         padding: 4px 6px;
 
-        border: 2px solid #facc15; /* 🔥 yellow border */
-        border-radius: 0px;
+        border: 1px solid #facc15; /* 🔥 yellow border */
+        border-radius: 3px;
 
         background: #ffffff;
         font-size: 12px;
@@ -260,7 +276,7 @@
     
     /* SIGNATURE */
     .signature-card {
-        background: #6b6b6b;
+        background: #ffffff;
         border-radius: 0px;
         padding: 12px;
         border: none;
@@ -738,7 +754,7 @@ to {
 
 <div class="form-container">
 
-    <div class="sub-section">
+    <div class="sub-section no-borders">
     <!-- TOP SECTION -->
     <div class="grid-3">
 
@@ -746,6 +762,7 @@ to {
         <div class="field-group">
             <div class="section-title">CUSTOMER INFORMATION</div>
 
+            <div class="fieldbody">
             <label>Company</label>
             <input type="text" name="company" data-section="customer_information" data-subsection="main">
 
@@ -763,13 +780,14 @@ to {
 
             <label>Phone</label>
             <input type="text" name="phone" data-section="customer_information" data-subsection="main">
+            </div>
         </div>
 
        <!-- SERVICE DETAILS -->
         <!-- SERVICE DETAILS -->
         <div class="field-group">
             <div class="section-title">SERVICE DETAILS</div>
-
+            <div class="fieldbody">
             <div class="grid-table">
 
                 <div class="field">
@@ -871,7 +889,7 @@ to {
                 </div>
 
 
-                <div class="grid-table small-3">
+                <div class="grid-table small-2 date-subsection">
                 <div class="field">
                     <label>Service Date</label>
                     <input type="date" name="service_date" data-section="service_details" data-subsection="main">
@@ -884,6 +902,7 @@ to {
                </div>
 
             </div>
+            </div>  
 
             <!-- Optional Tech Level Info -->
             <small id="tech-level-info" style="display:block; margin-top:8px; color:#555;"></small>
@@ -892,7 +911,8 @@ to {
         <!-- ASSET INFO -->
         <div class="field-group">
             <div class="section-title">ASSET INFORMATION</div>
-
+            
+            <div class="fieldbody">
             <label>Detector Type</label>
             <select 
             class="dropdown" 
@@ -984,6 +1004,7 @@ to {
             <label>Tag Number</label>
             <input type="text" name="tag_number" data-section="asset_information" data-subsection="main">
         </div>
+    </div>
 
     </div>
     </div>
@@ -1009,13 +1030,13 @@ id="system-notes-section" style="display:none;"
 <div class="section-title">
     SYSTEM NOTES
 </div>
-
+<div class="fieldbody">
 <textarea
     name="system_notes"
     data-section="System_notes"
     data-subsection="main"
 ></textarea>
-
+</div>
 </div>
 
 
@@ -1040,13 +1061,13 @@ id="customer-actions-section" style="display:none;"
 <div class="section-title">
     CUSTOMER ACTION ITEMS
 </div>
-
+<div class="fieldbody"> 
 <textarea
     name="customer_action_items"
     data-section="customer_action_items"
     data-subsection="main"
 ></textarea>
-
+</div>
 </div>
    
 
@@ -1056,7 +1077,7 @@ id="customer-actions-section" style="display:none;"
 <!-- GAS DETECTOR -->
 <div class="sub-section">
   <div class="sub-title">GAS DETECTOR</div>
-
+   <div class="fieldbody">
   <div class="grid-table cols-5">
 
       <div class="field">
@@ -1147,12 +1168,13 @@ id="customer-actions-section" style="display:none;"
           data-subsection="gas_detector"
         >
     </div>
+</div>
 
   </div>
 
   <!-- NOTES (COLLAPSIBLE + LIMITED) -->
   
-  <div class="notes-block">
+  <div class="notes-block fieldbody">
     <button type="button" class="notes-toggle">Add Notes</button>
         <textarea class="notes-textarea hidden" name="notes" data-section="system_information" data-subsection="gas_detector"></textarea>
   </div>
@@ -1162,9 +1184,9 @@ id="customer-actions-section" style="display:none;"
 
 <!-- SENSOR DATA -->
 
-<div class="sub-section">
+<div class="sub-section no-borders">
     <div class="sub-title">SENSOR DATA</div>
-  
+    <div class="fieldbody">
     <!-- ROW 1 -->
     <div class="grid-table cols-5">
   
@@ -1386,6 +1408,7 @@ id="customer-actions-section" style="display:none;"
             <label>Span Deviation (%)</label>
             <input type="text" id="span-deviation" name="span_deviation" data-section="system_information" data-subsection="sensor_data" readonly>
         </div>
+        <div></div>
   
     </div>
   
@@ -1396,9 +1419,11 @@ id="customer-actions-section" style="display:none;"
       </div>
   </div>
 <!-- SERVICE PERFORMED -->
-<div class="sub-section">
+<div class="sub-section no-borders">
+    <div class="fieldbody">
     <label><strong>SERVICE PERFORMED:</strong></label>
     <textarea name="service_performed" data-section="system_information" data-subsection="sensor_data"></textarea>
+    </div>
 </div>
 
 <!-- CALIBRATION INFORMATION -->
@@ -1411,7 +1436,7 @@ id="customer-actions-section" style="display:none;"
     <div class="sub-title">
       ZERO SPAN CYLINDER INFORMATION
     </div>
-  
+    <div class="fieldbody">
     <div class="grid-table cols-5">
   
         <!-- MANUFACTURER -->
@@ -1662,6 +1687,7 @@ id="customer-actions-section" style="display:none;"
                 data-subsection="span_cylinder_information"
             >
         </div>
+       
   
     </div>
   
@@ -1683,7 +1709,7 @@ id="customer-actions-section" style="display:none;"
       ></textarea>
   
     </div>
-  
+    </div>
   </div>
 
 
@@ -1694,7 +1720,7 @@ id="customer-actions-section" style="display:none;"
     <div class="sub-title">
       CALIBRATION SPAN CYLINDER INFORMATION
     </div>
-  
+    <div class="fieldbody">
     <div class="grid-table cols-5">
   
         <!-- MANUFACTURER -->
@@ -1966,16 +1992,17 @@ id="customer-actions-section" style="display:none;"
       ></textarea>
   
     </div>
-  
+   </div>
   </div>
 
 
 <!-- GAS GENERATOR -->
 <div class="sub-section">
   <div class="sub-title">GAS GENERATOR</div>
-
+  
+  <div class="fieldbody">
   <div class="grid-table cols-4">
-
+      
       <div class="field">
           <label>Manufacturer</label>
           <input type="text" name="manufacturer" data-section="calibration_information" data-subsection="gas_generator">
@@ -2102,12 +2129,13 @@ id="customer-actions-section" style="display:none;"
     <button type="button" class="notes-toggle">Add Notes</button>
     <textarea class="notes-textarea hidden" name="notes" data-section="calibration_information" data-subsection="gas_generator"></textarea>
     </div>
+    </div>
   </div>
 
 <!-- PERMEATION OVEN -->
 <div class="sub-section">
   <div class="sub-title">PERMEATION OVEN</div>
-
+  <div class="fieldbody">
   <div class="grid-table cols-5">
 
       <div class="field">
@@ -2173,39 +2201,42 @@ id="customer-actions-section" style="display:none;"
     <button type="button" class="notes-toggle">Add Notes</button>
     <textarea class="notes-textarea hidden" name="notes" data-section="calibration_information" data-subsection="permeation_oven"></textarea>
     </div>
+    </div>
   </div>
 
 <!-- REGULATOR / TEDLAR / TUBING -->
-<div class="sub-section">
+<div class="sub-section no-borders">
 
   <div class="grid-3-equal">
 
       <!-- REGULATOR -->
-      <div>
+      <div class="field-group">
           <div class="sub-title">CALIBRATION REGULATOR</div>
-
+          <div class="fieldbody">
           <div class="grid-table cols-1">
               <div class="field"><label>Regulator Type</label><input name="regulator_type" data-section="calibration_information" data-subsection="calibration_regulator"></div>
               <div class="field"><label>Reg Material</label><input name="reg_material" data-section="calibration_information" data-subsection="calibration_regulator"></div>
               <div class="field"><label>Reg Flow Rate</label><input name="reg_flow_rate" data-section="calibration_information" data-subsection="calibration_regulator"></div>
           </div>
+          </div>
       </div>
 
       <!-- TEDLAR -->
-      <div>
+      <div class="field-group">
           <div class="sub-title">TEDLAR BAG</div>
-
+          <div class="fieldbody">
           <div class="grid-table cols-1">
               <div class="field"><label>Bag Material</label><input name="bag_material" data-section="calibration_information" data-subsection="tedlar_bag"></div>
               <div class="field"><label>Valve Material</label><input name="valve_material" data-section="calibration_information" data-subsection="tedlar_bag"></div>
               <div class="field"><label>Bag Size</label><input name="bag_size" data-section="calibration_information" data-subsection="tedlar_bag"></div>
           </div>
+          </div>
       </div>
 
       <!-- TUBING -->
-      <div>
+      <div class="field-group">
           <div class="sub-title">CALIBRATION TUBING</div>
-
+          <div class="fieldbody">
           <div class="grid-table cols-1">
               <div class="field"><label>Material</label><input name="material" data-section="calibration_information" data-subsection="calibration_tubing"></div>
               <div class="field">
@@ -2220,10 +2251,11 @@ id="customer-actions-section" style="display:none;"
               <div class="field"><label>Sample Line Distance</label><input name="sample_line_distance" data-section="calibration_information" data-subsection="calibration_tubing"></div>
               
           </div>
+          </div>
       </div>
 
   </div>
-  <div class="notes-block">
+  <div class="notes-block fieldbody">
     <button type="button" class="notes-toggle">Add Notes</button>
     <textarea class="notes-textarea hidden" name="notes" data-section="calibration_information" data-subsection="notes"></textarea>
     </div>
@@ -2238,6 +2270,8 @@ id="customer-actions-section" style="display:none;"
         <div class="repeat-section">
 
             <div class="sub-title">PARTS USED</div>
+
+            <div class="fieldbody">
         
             <div class="repeat-container" id="parts-used-container">
         
@@ -2249,6 +2283,7 @@ id="customer-actions-section" style="display:none;"
             </button>
         
         </div>
+        </div>
       </div>
    
 
@@ -2257,7 +2292,7 @@ id="customer-actions-section" style="display:none;"
 
         
         <div class="sub-title">PARTS TO BE ORDERED</div>
-    
+        <div class="fieldbody">
         <div class="repeat-container" id="parts-order-container">
     
             
@@ -2272,6 +2307,7 @@ id="customer-actions-section" style="display:none;"
         </button>
     
    </div>
+    </div>
    </div>
    </div>
 
@@ -2281,6 +2317,8 @@ id="customer-actions-section" style="display:none;"
   <div class="repeat-section">
 
     <div class="sub-title">LABOR TIMES AND TRAVEL</div>
+
+    <div class="fieldbody">
 
     <div class="repeat-container" id="labor-container">
 
@@ -2295,6 +2333,7 @@ id="customer-actions-section" style="display:none;"
         + Add Entry
     </button>
 
+</div>
 </div>
 </div>
 
@@ -3891,7 +3930,7 @@ font-family:
     Arial,
     sans-serif;
 
-color: #f9fafb;
+color: #ffffff;
 
 font-size: 12px;
 }
@@ -4359,7 +4398,7 @@ CARDS
 .sub-section,
 .signature-card {
 
-    background: #6b6b6b;
+    background: #ffffff;
 
     border-radius: 0px;
 
@@ -4463,7 +4502,7 @@ font-weight: 600;
 
 margin-bottom: 4px;
 
-color: white;
+color: #4b4b4b;
 letter-spacing: 0.3px;
 }
 
@@ -4476,7 +4515,7 @@ min-height: 34px;
 
 padding: 8px 10px;
 
-border: 2px solid #facc15;
+border: 1px solid #facc15;
 
 border-radius: 0px;
 
