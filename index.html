@@ -2455,6 +2455,49 @@ let metaData = {
   deviceId: null
 };
 
+const API_BASE_URL = "https://canary-services-04f32bc2afc5.herokuapp.com";
+const ALLOWED_PARENT_ORIGINS = new Set([
+    "https://portal.canarygds.com",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173"
+]);
+let accessToken = "";
+
+async function readApiResponse(response) {
+    const contentType = response.headers.get("content-type") || "";
+    if (contentType.includes("application/json")) {
+        return response.json();
+    }
+    return { detail: await response.text() };
+}
+
+async function authenticatedFetch(path, options = {}) {
+    if (!accessToken) {
+        throw new Error("Your login session was not passed to the service-order form. Please reopen the form.");
+    }
+
+    const headers = new Headers(options.headers || {});
+    headers.set("Authorization", `Bearer ${accessToken}`);
+    if (options.body && !headers.has("Content-Type")) {
+        headers.set("Content-Type", "application/json");
+    }
+
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+        ...options,
+        headers
+    });
+    const result = await readApiResponse(response);
+
+    if (!response.ok) {
+        if (response.status === 401) {
+            sendToParent("SERVICE_ORDER_SESSION_EXPIRED");
+        }
+        throw new Error(result?.detail || result?.message || `Request failed (${response.status})`);
+    }
+
+    return result;
+}
+
 function collectRepeatData() {
 
 const partsUsed = [];
@@ -3141,62 +3184,6 @@ function setValue(selector, value) {
         
         
 
-        async function fetchAndPrefill(payload) {
-        try {
-            showPageLoader(
-                "Loading customer and equipment data..."
-            );
-            const res = await fetch("https://canary-services-04f32bc2afc5.herokuapp.com/get-airtable-data", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-            });
-
-            const result = await res.json();
-
-            console.log("API RESPONSE:", result);
-
-            if (!result.success) {
-            console.error("API failed");
-            return;
-            }
-
-            // 🔥 TRANSFORM RESPONSE → MATCH YOUR FORM
-            const mappedData = {
-            company: result.company?.Company,
-            po: result.company?.["P.O Number"],
-            phone: result.technician?.fields?.Phone,
-            contact:result.company?.Phone,
-
-            city: result.company?.City,
-            state: result.company?.State,
-            zip: result.company?.Zip,
-
-            location: result.equipment?.Location,
-
-            deviceId: result.equipment?.["Device Id"],
-            name: result.equipment?.Name,
-
-            technicianName:  result.technician?.fields?.["Full Name"] || "",
-            technicianId: result.technician?.id,
-
-            companyId: result.equipment?.["Associated Company"]?.[0]
-            };
-
-            // 🔥 NOW PREFILL
-            prefillForm(mappedData);
-
-        } catch (err) {
-            showError(
-                "Load Failed",
-                "Unable to load form data."
-            );
-            console.error("Fetch error:", err);
-        }
-        }
-
         function prefillEntireForm(data) {
 
 console.log(
@@ -3581,14 +3568,10 @@ async function loadExistingServiceOrder(
         // FETCH RAW JSON
         // =====================================
 
-        const response = await fetch(
-
-            `https://canary-services-04f32bc2afc5.herokuapp.com/service-order-raw/${serviceOrderId}`
-
+        const result = await authenticatedFetch(
+            `/api/service-orders/${encodeURIComponent(serviceOrderId)}/raw`,
+            { method: "GET" }
         );
-
-        const result =
-            await response.json();
 
         console.log(
             "📦 RAW ORDER DATA:",
@@ -3645,6 +3628,11 @@ async function loadExistingServiceOrder(
         event.data.type !== "DEVICE_DATA"
         ) return;
 
+        if (!ALLOWED_PARENT_ORIGINS.has(event.origin)) {
+            console.warn("Ignored DEVICE_DATA from untrusted origin:", event.origin);
+            return;
+        }
+
         console.log(
         "Received postMessage:",
         event.data
@@ -3663,6 +3651,19 @@ async function loadExistingServiceOrder(
         }
 
         const payload = data;
+
+        accessToken =
+            payload.accessToken ||
+            event.data.accessToken ||
+            "";
+
+        if (!accessToken) {
+            showError(
+                "Login Required",
+                "The React application did not pass a login token to this form. Close and reopen the form."
+            );
+            return;
+        }
 
         // ====================================
         // EDIT MODE
@@ -3692,10 +3693,12 @@ async function loadExistingServiceOrder(
         "🆕 CREATE MODE"
       );
 
-      fetchAndPrefill(payload);
+      prefillForm(payload);
 
     }
 });
+
+sendToParent("IFRAME_READY");
 
     
     /* =========================================================
@@ -4749,13 +4752,18 @@ try {
 
     updateProgress(55);
 
+    if (!accessToken) {
+        throw new Error("Your login session was not passed to the service-order form.");
+    }
+
     const response = await fetch(
-        "http://127.0.0.1:8000/generate-pdf",
+        `${API_BASE_URL}/generate-pdf`,
         {
             method: "POST",
 
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${accessToken}`
             },
 
             body: JSON.stringify({
@@ -4927,24 +4935,18 @@ try {
                 !!window.currentEditingServiceOrderId;
 
             const endpoint = isEditing
-
-            ? `https://canary-services-04f32bc2afc5.herokuapp.com/update-service-order/${window.currentEditingServiceOrderId}`
-
-            : `https://canary-services-04f32bc2afc5.herokuapp.com/submit-service-order`;
+                ? `/api/service-orders/${encodeURIComponent(window.currentEditingServiceOrderId)}/submit`
+                : `/api/service-orders/submit`;
 
             const method =
                 isEditing
                     ? "PUT"
                     : "POST";
 
-            const res = await fetch(
+            const result = await authenticatedFetch(
                 endpoint,
                 {
                     method: method,
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
 
                     body: JSON.stringify(
                         structuredData
@@ -4953,17 +4955,6 @@ try {
             );
 
             updateProgress(85);
-
-            const result =
-                await res.json();
-
-            if (!res.ok) {
-
-                throw new Error(
-                    result.detail ||
-                    "Failed to submit"
-                );
-            }
 
         
 
@@ -4983,7 +4974,9 @@ try {
                     "SERVICE_ORDER_SUCCESS",
                     {
                         success: true,
-                        serviceOrderId: result.service_order_id
+                        serviceOrderId: result.service_order_id,
+                        serviceOrderPdf: result.service_order_pdf,
+                        calibrationCertificate: result.calibration_certificate
                     }
                 );
   
