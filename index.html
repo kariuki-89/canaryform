@@ -717,6 +717,17 @@ background: linear-gradient(
 transform: scale(0.98);
 }
 
+.submit-btn:disabled {
+
+opacity: 0.65;
+
+cursor: not-allowed;
+
+transform: none;
+
+box-shadow: none;
+}
+
 /* MOBILE */
 
 @media (max-width: 768px) {
@@ -2386,6 +2397,8 @@ id="customer-actions-section" style="display:none;"
 <div class="submit-btn-wrapper">
 
     <button
+        id="submit-service-order-button"
+        type="button"
         class="submit-btn"
         onclick="saveForm()"
     >
@@ -4876,7 +4889,51 @@ try {
         return data;
     }
     
+        let serviceOrderSubmissionInProgress = false;
+
+        function setServiceOrderSubmitting(isSubmitting) {
+            serviceOrderSubmissionInProgress = isSubmitting;
+
+            const submitButton = document.getElementById(
+                "submit-service-order-button"
+            );
+
+            if (!submitButton) return;
+
+            submitButton.disabled = isSubmitting;
+            submitButton.textContent = isSubmitting
+                ? "Submitting..."
+                : "Submit Service Order";
+        }
+
+        async function findServiceOrderByNumber(orderNumber) {
+            const normalizedOrderNumber = String(orderNumber || "")
+                .trim()
+                .toLowerCase();
+
+            if (!normalizedOrderNumber) return null;
+
+            const orders = await authenticatedFetch(
+                "/api/service-orders",
+                { method: "GET" }
+            );
+
+            if (!Array.isArray(orders)) return null;
+
+            return orders.find((order) =>
+                String(order?.order_number || "")
+                    .trim()
+                    .toLowerCase() === normalizedOrderNumber
+            ) || null;
+        }
+
         async function saveForm() {
+
+        if (serviceOrderSubmissionInProgress) {
+            return;
+        }
+
+        setServiceOrderSubmitting(true);
 
             const repeatData =
                 collectRepeatData();
@@ -4906,6 +4963,33 @@ try {
 
             let structuredData =
                 getStructuredFormData();
+
+            const isEditing =
+                !!window.currentEditingServiceOrderId;
+
+            const orderNumber = String(
+                structuredData?.service_details?.main?.order_number || ""
+            ).trim();
+
+            if (!orderNumber) {
+                throw new Error(
+                    "Please enter an order number before submitting."
+                );
+            }
+
+            // In create mode, stop before POST if the manually entered
+            // order number is already present in Supabase.
+            if (!isEditing) {
+                const existingOrder =
+                    await findServiceOrderByNumber(orderNumber);
+
+                if (existingOrder) {
+                    throw new Error(
+                        `Order number ${orderNumber} already exists. ` +
+                        "Enter a different order number, or open the existing order in edit mode."
+                    );
+                }
+            }
             
             // =====================================
             // ATTACH REPEAT SECTION DATA
@@ -4932,9 +5016,6 @@ try {
                 finalHTML;
 
             updateProgress(60);
-
-            const isEditing =
-                !!window.currentEditingServiceOrderId;
 
             const endpoint = isEditing
                 ? `/api/service-orders/${encodeURIComponent(window.currentEditingServiceOrderId)}/submit`
@@ -4989,18 +5070,29 @@ try {
 
             console.error(err);
 
+            const errorMessage = String(
+                err?.message ||
+                "Something went wrong while submitting."
+            );
+
+            const userMessage =
+                /duplicate key|order_number_key|already exists/i.test(errorMessage)
+                    ? "That order number already exists. Enter a different order number, or open the existing order in edit mode."
+                    : errorMessage;
+
             showError(
                 "Submission Failed",
-                err.message ||
-                "Something went wrong while submitting."
+                userMessage
             );
 
             sendToParent(
                 "SERVICE_ORDER_FAILED",
                 {
-                    error: err.message
+                    error: userMessage
                 }
             );
+        } finally {
+            setServiceOrderSubmitting(false);
         }
         }   
     // =========================
