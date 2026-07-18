@@ -803,7 +803,7 @@ to {
 
                 <div class="field">
                     <label>Order Number</label>
-                    <input type="text" name="order_number" data-section="service_details" data-subsection="main">
+                    <input type="text" name="order_number" data-section="service_details" data-subsection="main" readonly>
                 </div>
 
                 <div class="field">
@@ -3628,6 +3628,52 @@ async function loadExistingServiceOrder(
     }
 }
         
+    function generateServiceOrderNumber() {
+        const now = new Date();
+
+        const datePart = [
+            now.getFullYear(),
+            String(now.getMonth() + 1).padStart(2, "0"),
+            String(now.getDate()).padStart(2, "0")
+        ].join("");
+
+        if (!window.crypto?.getRandomValues) {
+            throw new Error(
+                "Secure order-number generation is unavailable. Please open this form over HTTPS."
+            );
+        }
+
+        const randomBytes = new Uint8Array(8);
+        window.crypto.getRandomValues(randomBytes);
+
+        const randomPart = Array.from(randomBytes)
+            .map((number) => number.toString(16).padStart(2, "0"))
+            .join("")
+            .toUpperCase();
+
+        return `SO-${datePart}-${randomPart}`;
+    }
+
+    function assignNewServiceOrderNumber({ force = false } = {}) {
+        if (window.currentEditingServiceOrderId) {
+            return;
+        }
+
+        const orderNumberInput = document.querySelector(
+            '[name="order_number"]'
+        );
+
+        if (!orderNumberInput) {
+            throw new Error("The order-number input could not be found.");
+        }
+
+        if (!force && orderNumberInput.value.trim()) {
+            return;
+        }
+
+        orderNumberInput.value = generateServiceOrderNumber();
+    }
+
         // 🔥 LISTEN FOR MESSAGE
     window.addEventListener(
     "message",
@@ -3708,7 +3754,12 @@ async function loadExistingServiceOrder(
         "🆕 CREATE MODE"
       );
 
+      window.currentEditingServiceOrderId = null;
+
       prefillForm(payload);
+
+      // Always assign a fresh number when a new-order form is opened.
+      assignNewServiceOrderNumber({ force: true });
 
     }
 });
@@ -4935,6 +4986,15 @@ try {
 
         setServiceOrderSubmitting(true);
 
+        const isEditing =
+            !!window.currentEditingServiceOrderId;
+
+        // Protect against a missing number if the form was opened outside
+        // the normal DEVICE_DATA create flow.
+        if (!isEditing) {
+            assignNewServiceOrderNumber();
+        }
+
             const repeatData =
                 collectRepeatData();
         
@@ -4963,9 +5023,6 @@ try {
 
             let structuredData =
                 getStructuredFormData();
-
-            const isEditing =
-                !!window.currentEditingServiceOrderId;
 
             const orderNumber = String(
                 structuredData?.service_details?.main?.order_number || ""
