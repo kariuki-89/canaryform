@@ -1241,18 +1241,8 @@ to {
 }
 
 .field[data-autofill-locked="true"] label::after {
-    content: "AUTO-FILLED";
-    display: inline-block;
-    margin-left: 7px;
-    padding: 2px 5px;
-    border: 1px solid #f4ea00;
-    background: #111111;
-    color: #f4ea00;
-    font-size: 7px;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: .45px;
-    vertical-align: middle;
+    content: none;
+    display: none;
 }
 
 input.autofill-locked,
@@ -1282,12 +1272,241 @@ input[name="postalnumber"] {
     border-bottom: 2px solid #f4ea00;
 }
 
+/* =========================================================
+   TOP SUMMARY — PROPORTIONAL, CONTENT-DRIVEN LAYOUT
+   ========================================================= */
+.top-summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    grid-auto-rows: max-content;
+    gap: 12px;
+}
+
+.top-summary-grid > .field-group {
+    align-self: start;
+    height: auto;
+    min-height: 0;
+}
+
+.top-summary-grid .fieldbody {
+    padding: 12px;
+}
+
+.top-summary-grid .field {
+    margin-bottom: 8px;
+}
+
+.top-summary-grid .field:last-child,
+.top-summary-grid .grid-table > .field:last-child {
+    margin-bottom: 0;
+}
+
+.top-summary-grid .grid-table {
+    gap: 8px;
+}
+
+.top-summary-grid .grid-table > .field {
+    margin-bottom: 0;
+}
+
+.top-summary-grid .date-subsection {
+    margin-top: 2px;
+    padding: 10px 0 0;
+}
+
 @media (max-width: 768px) {
     .autofill-notice {
         align-items: flex-start;
     }
 }
 
+
+
+/* =========================================================
+   EQUAL-HEIGHT TOP SUMMARY CARDS
+   ========================================================= */
+.top-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    align-items: stretch;
+}
+.top-summary-grid > .field-group {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.top-summary-grid > .field-group .fieldbody {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    align-content: start;
+}
+.top-summary-grid > .field-group .field,
+.top-summary-grid > .field-group .fieldbody > label,
+.top-summary-grid > .field-group .fieldbody > input,
+.top-summary-grid > .field-group .fieldbody > select {
+    min-width: 0;
+}
+/* Default direct label/input pairs remain full width */
+.top-summary-grid > .field-group .fieldbody > label,
+.top-summary-grid > .field-group .fieldbody > input,
+.top-summary-grid > .field-group .fieldbody > select {
+    grid-column: 1 / -1;
+}
+/* Explicit two-column rows */
+.top-summary-grid .summary-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    grid-column: 1 / -1;
+}
+.top-summary-grid .summary-pair .field {
+    margin: 0;
+}
+/* Asset information is denser: pair selected fields side by side */
+.top-summary-grid .asset-field-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    grid-column: 1 / -1;
+}
+.top-summary-grid .asset-field-grid .field.wide {
+    grid-column: 1 / -1;
+}
+@media (max-width: 900px) {
+    .top-summary-grid { grid-template-columns: 1fr; }
+    .top-summary-grid > .field-group .fieldbody { grid-template-columns: 1fr; }
+    .top-summary-grid .summary-pair,
+    .top-summary-grid .asset-field-grid { grid-template-columns: 1fr; }
+}
+
+/* PDF/static output */
+@media print {
+    .top-summary-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+        align-items: stretch !important;
+    }
+    .top-summary-grid > .field-group {
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .top-summary-grid > .field-group .fieldbody {
+        flex: 1 !important;
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+        align-content: start !important;
+    }
+    .top-summary-grid .summary-pair,
+    .top-summary-grid .asset-field-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+        grid-column: 1 / -1 !important;
+    }
+    .top-summary-grid .asset-field-grid .field.wide {
+        grid-column: 1 / -1 !important;
+    }
+}
+
+
+/* =========================================================
+   TOP SUMMARY — FULL-WIDTH FIELDS + BALANCED EQUAL HEIGHTS
+   ========================================================= */
+.top-summary-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+}
+
+.top-summary-grid > .field-group {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.top-summary-grid > .field-group > .fieldbody {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    min-width: 0 !important;
+}
+
+/* Customer and Asset have different field counts, so distribute their
+   full-width rows through the same available card height. */
+.top-summary-grid .customer-summary-card > .fieldbody,
+.top-summary-grid .asset-summary-card > .fieldbody {
+    justify-content: space-between !important;
+}
+
+/* Service details has an inner container; make it fill the whole card width
+   and distribute its rows vertically instead of collapsing into half width. */
+.top-summary-grid .service-summary-card > .fieldbody > .grid-table {
+    width: 100% !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    min-width: 0 !important;
+}
+
+/* Every regular field takes the complete width of its section. */
+.top-summary-grid .field,
+.top-summary-grid .grid-table > .field {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+}
+
+.top-summary-grid .field > label {
+    width: 100% !important;
+}
+
+.top-summary-grid .field > input,
+.top-summary-grid .field > select,
+.top-summary-grid .field > textarea {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+}
+
+/* Dates are the only intentionally paired fields. */
+.top-summary-grid .service-summary-card .date-subsection {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 10px 0 0 !important;
+    margin: 0 !important;
+}
+
+.top-summary-grid .service-summary-card .date-subsection .field {
+    width: 100% !important;
+}
+
+#tech-level-info:empty {
+    display: none !important;
+}
+
+@media (max-width: 900px) {
+    .top-summary-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .top-summary-grid > .field-group > .fieldbody,
+    .top-summary-grid .service-summary-card > .fieldbody > .grid-table {
+        justify-content: flex-start !important;
+    }
+}
 
 </style>
 
@@ -1312,44 +1531,33 @@ input[name="postalnumber"] {
     <div class="autofill-notice" data-pdf-exclude="true" role="status">
         <div class="autofill-notice__icon">✓</div>
         <div>
-            <strong>SMARTCERT data loaded</strong>
-            <span>Fields marked <b>Auto-filled</b> come from Supabase and are locked. P.O. Number and service-entry fields remain editable.</span>
+            <strong>Complete your service order</strong>
+            <span>Review the information below, enter the required service and calibration details, then submit the form when everything is complete. SMARTCERT will prepare the service order and calibration certificate for you.</span>
         </div>
     </div>
 
 
     <div class="sub-section no-borders">
     <!-- TOP SECTION -->
-    <div class="grid-3">
+    <div class="grid-3 top-summary-grid">
 
         <!-- CUSTOMER INFO -->
-        <div class="field-group">
+        <div class="field-group customer-summary-card">
             <div class="section-title">CUSTOMER INFORMATION</div>
 
             <div class="fieldbody">
-            <label>Company</label>
-            <input type="text" name="company" data-section="customer_information" data-subsection="main">
-
-            <label>P.O. Number</label>
-            <input type="text" name="postalnumber" data-section="customer_information" data-subsection="main" placeholder="Enter P.O. / work order number" autocomplete="off" data-user-entry="true">
-
-            <label>Contact</label>
-            <input type="text" name="contact" data-section="customer_information" data-subsection="main">
-
-            <label>Address</label>
-            <input type="text" name="address" data-section="customer_information" data-subsection="main">
-
-            <label>City, State, Zip</label>
-            <input type="text" name="address_info" data-section="customer_information" data-subsection="main">
-
-            <label>Phone</label>
-            <input type="text" name="phone" data-section="customer_information" data-subsection="main">
+              <div class="field"><label>Company</label><input type="text" name="company" data-section="customer_information" data-subsection="main"></div>
+              <div class="field"><label>P.O. Number</label><input type="text" name="postalnumber" data-section="customer_information" data-subsection="main" placeholder="Enter P.O. / work order number" autocomplete="off" data-user-entry="true"></div>
+              <div class="field"><label>Contact</label><input type="text" name="contact" data-section="customer_information" data-subsection="main"></div>
+              <div class="field"><label>Address</label><input type="text" name="address" data-section="customer_information" data-subsection="main"></div>
+              <div class="field"><label>City, State, Zip</label><input type="text" name="address_info" data-section="customer_information" data-subsection="main"></div>
+              <div class="field"><label>Phone</label><input type="text" name="phone" data-section="customer_information" data-subsection="main"></div>
             </div>
         </div>
 
        <!-- SERVICE DETAILS -->
         <!-- SERVICE DETAILS -->
-        <div class="field-group">
+        <div class="field-group service-summary-card">
             <div class="section-title">SERVICE DETAILS</div>
             <div class="fieldbody">
             <div class="grid-table">
@@ -1453,7 +1661,7 @@ input[name="postalnumber"] {
                 </div>
 
 
-                <div class="grid-table small-2 date-subsection">
+                <div class="summary-pair date-subsection">
                 <div class="field">
                     <label>Service Date</label>
                     <input type="date" name="service_date" data-section="service_details" data-subsection="main">
@@ -1473,18 +1681,13 @@ input[name="postalnumber"] {
         </div>
 
         <!-- ASSET INFO -->
-        <div class="field-group">
+        <div class="field-group asset-summary-card">
             <div class="section-title">ASSET INFORMATION</div>
             
             <div class="fieldbody">
-            <label>Equipment</label>
-            <input type="text" name="equipment_name" data-section="asset_information" data-subsection="main">
-
-            <label>Equipment Location</label>
-            <input type="text" name="equipment_location" data-section="asset_information" data-subsection="main">
-
-            <label>Detector Type</label>
-            <select 
+                <div class="field"><label>Equipment</label><input type="text" name="equipment_name" data-section="asset_information" data-subsection="main"></div>
+                <div class="field"><label>Equipment Location</label><input type="text" name="equipment_location" data-section="asset_information" data-subsection="main"></div>
+                <div class="field"><label>Detector Type</label><select 
             class="dropdown" 
             name="detector_type" 
             data-section="asset_information" 
@@ -1557,23 +1760,13 @@ input[name="postalnumber"] {
             <option value="Other">
                 Other
             </option>
-        </select>
-
-            <label>Classification</label>
-            <input type="text" name="classification" data-section="asset_information" data-subsection="main">
-
-            <label>Manufacturer</label>
-            <input type="text" name="manufacturer" data-section="asset_information" data-subsection="main">
-
-            <label>Part Number</label>
-            <input type="text" name="part_number" data-section="asset_information" data-subsection="main">
-
-            <label>Serial Number</label>
-            <input type="text" name="serial_number" data-section="asset_information" data-subsection="main">
-
-            <label>Tag Number</label>
-            <input type="text" name="tag_number" data-section="asset_information" data-subsection="main">
-        </div>
+        </select></div>
+                <div class="field"><label>Classification</label><input type="text" name="classification" data-section="asset_information" data-subsection="main"></div>
+                <div class="field"><label>Manufacturer</label><input type="text" name="manufacturer" data-section="asset_information" data-subsection="main"></div>
+                <div class="field"><label>Part Number</label><input type="text" name="part_number" data-section="asset_information" data-subsection="main"></div>
+                <div class="field"><label>Serial Number</label><input type="text" name="serial_number" data-section="asset_information" data-subsection="main"></div>
+                <div class="field"><label>Tag Number</label><input type="text" name="tag_number" data-section="asset_information" data-subsection="main"></div>
+            </div>
     </div>
 
     </div>
@@ -3874,7 +4067,7 @@ function markControlLocked(selector, source = "Supabase") {
     el.classList.add("autofill-locked");
     el.dataset.autofillSource = source;
     el.setAttribute("aria-readonly", "true");
-    el.title = `${source} value — locked`;
+    el.title = "This information is protected and cannot be edited here.";
 
     if (el.tagName === "SELECT") {
         el.disabled = true;
@@ -6023,6 +6216,41 @@ body {
     padding: 12px;
 }
 
+/* Keep the first-page summary proportional in the generated report too. */
+.top-summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    grid-auto-rows: max-content;
+    gap: 10px;
+}
+
+.top-summary-grid > .field-group {
+    align-self: start;
+    height: auto;
+    min-height: 0;
+}
+
+.top-summary-grid .fieldbody {
+    padding: 10px;
+}
+
+.top-summary-grid .field {
+    margin-bottom: 7px;
+}
+
+.top-summary-grid .grid-table {
+    gap: 7px;
+}
+
+.top-summary-grid .grid-table > .field {
+    margin-bottom: 0;
+}
+
+.top-summary-grid .date-subsection {
+    margin-top: 2px;
+    padding: 8px 0 0;
+}
+
 .field {
     gap: 0;
     margin-bottom: 9px;
@@ -6096,6 +6324,15 @@ body {
 
 
 
+
+.top-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:stretch;}
+.top-summary-grid>.field-group{height:100%;display:flex;flex-direction:column;}
+.top-summary-grid>.field-group>.fieldbody{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;}
+.top-summary-grid .customer-summary-card>.fieldbody,.top-summary-grid .asset-summary-card>.fieldbody{justify-content:space-between;}
+.top-summary-grid .service-summary-card>.fieldbody>.grid-table{width:100%;flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:6px;min-width:0;}
+.top-summary-grid .field,.top-summary-grid .grid-table>.field{width:100%;min-width:0;margin:0;}
+.top-summary-grid .field>.fake-input,.top-summary-grid .field>.fake-select,.top-summary-grid .field>.fake-textarea{width:100%;max-width:none;}
+.top-summary-grid .service-summary-card .date-subsection{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:7px 0 0;margin:0;}
 </style>
 
 </head>
