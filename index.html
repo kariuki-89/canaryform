@@ -251,6 +251,19 @@
         background: #f9fafb;
     }
     
+    /* GAS TYPE DROPDOWNS */
+    .gas-type-select optgroup {
+        font-weight: 700;
+        color: #111827;
+        background: #f8fafc;
+    }
+
+    .gas-type-select option {
+        font-weight: 500;
+        color: #111827;
+        background: #ffffff;
+    }
+
     /* NOTES LABEL */
     .notes-label {
         font-size: 11px;
@@ -1188,6 +1201,94 @@ to {
         }
     }
 
+/* =========================================================
+   SUPABASE AUTO-FILL / LOCKED FIELDS
+   ========================================================= */
+.autofill-notice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 14px;
+    padding: 11px 13px;
+    border: 1px solid #111111;
+    border-left: 5px solid #f4ea00;
+    background: #fffef0;
+    color: #111827;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.autofill-notice__icon {
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    display: grid;
+    place-items: center;
+    background: #111111;
+    color: #f4ea00;
+    font-weight: 900;
+    border: 2px solid #f4ea00;
+}
+
+.autofill-notice strong,
+.autofill-notice span {
+    display: block;
+}
+
+.autofill-notice strong {
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.field[data-autofill-locked="true"] label::after {
+    content: "AUTO-FILLED";
+    display: inline-block;
+    margin-left: 7px;
+    padding: 2px 5px;
+    border: 1px solid #f4ea00;
+    background: #111111;
+    color: #f4ea00;
+    font-size: 7px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: .45px;
+    vertical-align: middle;
+}
+
+input.autofill-locked,
+select.autofill-locked,
+textarea.autofill-locked {
+    background: #f5f5f5 !important;
+    border-color: #111111 !important;
+    border-bottom: 2px solid #f4ea00 !important;
+    color: #111827 !important;
+    opacity: 1 !important;
+    cursor: not-allowed;
+    box-shadow: none !important;
+    -webkit-text-fill-color: #111827 !important;
+}
+
+input.autofill-locked:focus,
+select.autofill-locked:focus,
+textarea.autofill-locked:focus {
+    border-color: #111111 !important;
+    box-shadow: none !important;
+}
+
+/* P.O. number is intentionally user-entered. */
+input[name="postalnumber"] {
+    background: #fffdf0;
+    border: 1px solid #111111;
+    border-bottom: 2px solid #f4ea00;
+}
+
+@media (max-width: 768px) {
+    .autofill-notice {
+        align-items: flex-start;
+    }
+}
+
+
 </style>
 
 </head>
@@ -1208,6 +1309,14 @@ to {
         </div>
     </section>
 
+    <div class="autofill-notice" data-pdf-exclude="true" role="status">
+        <div class="autofill-notice__icon">✓</div>
+        <div>
+            <strong>SMARTCERT data loaded</strong>
+            <span>Fields marked <b>Auto-filled</b> come from Supabase and are locked. P.O. Number and service-entry fields remain editable.</span>
+        </div>
+    </div>
+
 
     <div class="sub-section no-borders">
     <!-- TOP SECTION -->
@@ -1222,7 +1331,7 @@ to {
             <input type="text" name="company" data-section="customer_information" data-subsection="main">
 
             <label>P.O. Number</label>
-            <input type="text" name="postalnumber" data-section="customer_information" data-subsection="main">
+            <input type="text" name="postalnumber" data-section="customer_information" data-subsection="main" placeholder="Enter P.O. / work order number" autocomplete="off" data-user-entry="true">
 
             <label>Contact</label>
             <input type="text" name="contact" data-section="customer_information" data-subsection="main">
@@ -1368,6 +1477,12 @@ to {
             <div class="section-title">ASSET INFORMATION</div>
             
             <div class="fieldbody">
+            <label>Equipment</label>
+            <input type="text" name="equipment_name" data-section="asset_information" data-subsection="main">
+
+            <label>Equipment Location</label>
+            <input type="text" name="equipment_location" data-section="asset_information" data-subsection="main">
+
             <label>Detector Type</label>
             <select 
             class="dropdown" 
@@ -1740,8 +1855,78 @@ id="customer-actions-section" style="display:none;"
         </div>
   
         <div class="field">
-            <label>Target Gas</label>
-            <input type="text" name="target_gas" data-section="system_information" data-subsection="sensor_data">
+            <label>Gas Type</label>
+            <select
+                class="dropdown gas-type-select"
+                name="target_gas"
+                data-section="system_information"
+                data-subsection="sensor_data"
+            >
+            <option value="">Select Gas Type</option>
+
+            <optgroup label="Combustible / Flammable">
+                <option value="Methane — CH₄">Methane — CH₄</option>
+                <option value="Hydrogen — H₂">Hydrogen — H₂</option>
+                <option value="Propane — C₃H₈">Propane — C₃H₈</option>
+                <option value="Butane — C₄H₁₀">Butane — C₄H₁₀</option>
+                <option value="Isobutane — C₄H₁₀">Isobutane — C₄H₁₀</option>
+                <option value="Pentane — C₅H₁₂">Pentane — C₅H₁₂</option>
+                <option value="Hexane — C₆H₁₄">Hexane — C₆H₁₄</option>
+                <option value="Heptane — C₇H₁₆">Heptane — C₇H₁₆</option>
+                <option value="Ethane — C₂H₆">Ethane — C₂H₆</option>
+                <option value="Ethylene — C₂H₄">Ethylene — C₂H₄</option>
+                <option value="Propylene — C₃H₆">Propylene — C₃H₆</option>
+                <option value="Acetylene — C₂H₂">Acetylene — C₂H₂</option>
+                <option value="Methanol — CH₃OH">Methanol — CH₃OH</option>
+                <option value="Ethanol — C₂H₅OH">Ethanol — C₂H₅OH</option>
+                <option value="Isopropyl Alcohol — C₃H₈O">Isopropyl Alcohol — C₃H₈O</option>
+                <option value="Acetone — C₃H₆O">Acetone — C₃H₆O</option>
+                <option value="Benzene — C₆H₆">Benzene — C₆H₆</option>
+                <option value="Toluene — C₇H₈">Toluene — C₇H₈</option>
+                <option value="Xylene — C₈H₁₀">Xylene — C₈H₁₀</option>
+            </optgroup>
+
+            <optgroup label="Toxic / Industrial">
+                <option value="Hydrogen Sulfide — H₂S">Hydrogen Sulfide — H₂S</option>
+                <option value="Carbon Monoxide — CO">Carbon Monoxide — CO</option>
+                <option value="Carbon Dioxide — CO₂">Carbon Dioxide — CO₂</option>
+                <option value="Ammonia — NH₃">Ammonia — NH₃</option>
+                <option value="Chlorine — Cl₂">Chlorine — Cl₂</option>
+                <option value="Chlorine Dioxide — ClO₂">Chlorine Dioxide — ClO₂</option>
+                <option value="Sulfur Dioxide — SO₂">Sulfur Dioxide — SO₂</option>
+                <option value="Nitrogen Dioxide — NO₂">Nitrogen Dioxide — NO₂</option>
+                <option value="Nitric Oxide — NO">Nitric Oxide — NO</option>
+                <option value="Hydrogen Cyanide — HCN">Hydrogen Cyanide — HCN</option>
+                <option value="Hydrogen Chloride — HCl">Hydrogen Chloride — HCl</option>
+                <option value="Hydrogen Fluoride — HF">Hydrogen Fluoride — HF</option>
+                <option value="Ozone — O₃">Ozone — O₃</option>
+                <option value="Phosphine — PH₃">Phosphine — PH₃</option>
+                <option value="Formaldehyde — CH₂O">Formaldehyde — CH₂O</option>
+            </optgroup>
+
+            <optgroup label="Semiconductor / Specialty">
+                <option value="Silane — SiH₄">Silane — SiH₄</option>
+                <option value="Diborane — B₂H₆">Diborane — B₂H₆</option>
+                <option value="Arsine — AsH₃">Arsine — AsH₃</option>
+                <option value="Phosphine — PH₃">Phosphine — PH₃</option>
+                <option value="Germane — GeH₄">Germane — GeH₄</option>
+                <option value="Boron Trichloride — BCl₃">Boron Trichloride — BCl₃</option>
+                <option value="Boron Trifluoride — BF₃">Boron Trifluoride — BF₃</option>
+                <option value="Hydrogen Bromide — HBr">Hydrogen Bromide — HBr</option>
+                <option value="Dichlorosilane — SiH₂Cl₂">Dichlorosilane — SiH₂Cl₂</option>
+                <option value="Trichlorosilane — HSiCl₃">Trichlorosilane — HSiCl₃</option>
+                <option value="Silicon Tetrachloride — SiCl₄">Silicon Tetrachloride — SiCl₄</option>
+                <option value="Tungsten Hexafluoride — WF₆">Tungsten Hexafluoride — WF₆</option>
+            </optgroup>
+
+            <optgroup label="Oxygen / General">
+                <option value="Oxygen — O₂">Oxygen — O₂</option>
+                <option value="Volatile Organic Compounds — VOC">Volatile Organic Compounds — VOC</option>
+                <option value="Nitrogen — N₂">Nitrogen — N₂</option>
+                <option value="Argon — Ar">Argon — Ar</option>
+                <option value="Helium — He">Helium — He</option>
+            </optgroup>
+            </select>
         </div>
   
     </div>
@@ -2006,80 +2191,75 @@ id="customer-actions-section" style="display:none;"
             <label>Gas Type</label>
   
            <select
-            class="dropdown"
+            class="dropdown gas-type-select"
             name="gas_type"
             data-section="calibration_information"
             data-subsection="span_cylinder_information"
         >
+            <option value="">Select Gas Type</option>
 
-            <option value="">
-                Select Gas Type
-            </option>
+            <optgroup label="Combustible / Flammable">
+                <option value="Methane — CH₄">Methane — CH₄</option>
+                <option value="Hydrogen — H₂">Hydrogen — H₂</option>
+                <option value="Propane — C₃H₈">Propane — C₃H₈</option>
+                <option value="Butane — C₄H₁₀">Butane — C₄H₁₀</option>
+                <option value="Isobutane — C₄H₁₀">Isobutane — C₄H₁₀</option>
+                <option value="Pentane — C₅H₁₂">Pentane — C₅H₁₂</option>
+                <option value="Hexane — C₆H₁₄">Hexane — C₆H₁₄</option>
+                <option value="Heptane — C₇H₁₆">Heptane — C₇H₁₆</option>
+                <option value="Ethane — C₂H₆">Ethane — C₂H₆</option>
+                <option value="Ethylene — C₂H₄">Ethylene — C₂H₄</option>
+                <option value="Propylene — C₃H₆">Propylene — C₃H₆</option>
+                <option value="Acetylene — C₂H₂">Acetylene — C₂H₂</option>
+                <option value="Methanol — CH₃OH">Methanol — CH₃OH</option>
+                <option value="Ethanol — C₂H₅OH">Ethanol — C₂H₅OH</option>
+                <option value="Isopropyl Alcohol — C₃H₈O">Isopropyl Alcohol — C₃H₈O</option>
+                <option value="Acetone — C₃H₆O">Acetone — C₃H₆O</option>
+                <option value="Benzene — C₆H₆">Benzene — C₆H₆</option>
+                <option value="Toluene — C₇H₈">Toluene — C₇H₈</option>
+                <option value="Xylene — C₈H₁₀">Xylene — C₈H₁₀</option>
+            </optgroup>
 
-            <option value="EC-Toxic">
-                EC-Toxic
-            </option>
+            <optgroup label="Toxic / Industrial">
+                <option value="Hydrogen Sulfide — H₂S">Hydrogen Sulfide — H₂S</option>
+                <option value="Carbon Monoxide — CO">Carbon Monoxide — CO</option>
+                <option value="Carbon Dioxide — CO₂">Carbon Dioxide — CO₂</option>
+                <option value="Ammonia — NH₃">Ammonia — NH₃</option>
+                <option value="Chlorine — Cl₂">Chlorine — Cl₂</option>
+                <option value="Chlorine Dioxide — ClO₂">Chlorine Dioxide — ClO₂</option>
+                <option value="Sulfur Dioxide — SO₂">Sulfur Dioxide — SO₂</option>
+                <option value="Nitrogen Dioxide — NO₂">Nitrogen Dioxide — NO₂</option>
+                <option value="Nitric Oxide — NO">Nitric Oxide — NO</option>
+                <option value="Hydrogen Cyanide — HCN">Hydrogen Cyanide — HCN</option>
+                <option value="Hydrogen Chloride — HCl">Hydrogen Chloride — HCl</option>
+                <option value="Hydrogen Fluoride — HF">Hydrogen Fluoride — HF</option>
+                <option value="Ozone — O₃">Ozone — O₃</option>
+                <option value="Phosphine — PH₃">Phosphine — PH₃</option>
+                <option value="Formaldehyde — CH₂O">Formaldehyde — CH₂O</option>
+            </optgroup>
 
-            <option value="EC-Oxygen">
-                EC-Oxygen
-            </option>
+            <optgroup label="Semiconductor / Specialty">
+                <option value="Silane — SiH₄">Silane — SiH₄</option>
+                <option value="Diborane — B₂H₆">Diborane — B₂H₆</option>
+                <option value="Arsine — AsH₃">Arsine — AsH₃</option>
+                <option value="Phosphine — PH₃">Phosphine — PH₃</option>
+                <option value="Germane — GeH₄">Germane — GeH₄</option>
+                <option value="Boron Trichloride — BCl₃">Boron Trichloride — BCl₃</option>
+                <option value="Boron Trifluoride — BF₃">Boron Trifluoride — BF₃</option>
+                <option value="Hydrogen Bromide — HBr">Hydrogen Bromide — HBr</option>
+                <option value="Dichlorosilane — SiH₂Cl₂">Dichlorosilane — SiH₂Cl₂</option>
+                <option value="Trichlorosilane — HSiCl₃">Trichlorosilane — HSiCl₃</option>
+                <option value="Silicon Tetrachloride — SiCl₄">Silicon Tetrachloride — SiCl₄</option>
+                <option value="Tungsten Hexafluoride — WF₆">Tungsten Hexafluoride — WF₆</option>
+            </optgroup>
 
-            <option value="Cat Bead">
-                Cat Bead
-            </option>
-
-            <option value="IR">
-                IR
-            </option>
-
-            <option value="NDIR">
-                NDIR
-            </option>
-
-            <option value="PID">
-                PID
-            </option>
-
-            <option value="FID">
-                FID
-            </option>
-
-            <option value="MOS">
-                MOS
-            </option>
-
-            <option value="Therm. Conductivity">
-                Therm. Conductivity
-            </option>
-
-            <option value="Open Path IR">
-                Open Path IR
-            </option>
-
-            <option value="Ultrasonic">
-                Ultrasonic
-            </option>
-
-            <option value="Zirconia">
-                Zirconia
-            </option>
-
-            <option value="Chem Cassett">
-                Chem Cassett
-            </option>
-
-            <option value="FTIR">
-                FTIR
-            </option>
-
-            <option value="SSO">
-                SSO
-            </option>
-
-            <option value="Other">
-                Other
-            </option>
-
+            <optgroup label="Oxygen / General">
+                <option value="Oxygen — O₂">Oxygen — O₂</option>
+                <option value="Volatile Organic Compounds — VOC">Volatile Organic Compounds — VOC</option>
+                <option value="Nitrogen — N₂">Nitrogen — N₂</option>
+                <option value="Argon — Ar">Argon — Ar</option>
+                <option value="Helium — He">Helium — He</option>
+            </optgroup>
         </select>
         </div>
   
@@ -2290,80 +2470,75 @@ id="customer-actions-section" style="display:none;"
             <label>Gas Type</label>
   
            <select
-            class="dropdown"
+            class="dropdown gas-type-select"
             name="gas_type"
             data-section="calibration_information"
             data-subsection="calibration_cylinder_information"
         >
+            <option value="">Select Gas Type</option>
 
-            <option value="">
-                Select Gas Type
-            </option>
+            <optgroup label="Combustible / Flammable">
+                <option value="Methane — CH₄">Methane — CH₄</option>
+                <option value="Hydrogen — H₂">Hydrogen — H₂</option>
+                <option value="Propane — C₃H₈">Propane — C₃H₈</option>
+                <option value="Butane — C₄H₁₀">Butane — C₄H₁₀</option>
+                <option value="Isobutane — C₄H₁₀">Isobutane — C₄H₁₀</option>
+                <option value="Pentane — C₅H₁₂">Pentane — C₅H₁₂</option>
+                <option value="Hexane — C₆H₁₄">Hexane — C₆H₁₄</option>
+                <option value="Heptane — C₇H₁₆">Heptane — C₇H₁₆</option>
+                <option value="Ethane — C₂H₆">Ethane — C₂H₆</option>
+                <option value="Ethylene — C₂H₄">Ethylene — C₂H₄</option>
+                <option value="Propylene — C₃H₆">Propylene — C₃H₆</option>
+                <option value="Acetylene — C₂H₂">Acetylene — C₂H₂</option>
+                <option value="Methanol — CH₃OH">Methanol — CH₃OH</option>
+                <option value="Ethanol — C₂H₅OH">Ethanol — C₂H₅OH</option>
+                <option value="Isopropyl Alcohol — C₃H₈O">Isopropyl Alcohol — C₃H₈O</option>
+                <option value="Acetone — C₃H₆O">Acetone — C₃H₆O</option>
+                <option value="Benzene — C₆H₆">Benzene — C₆H₆</option>
+                <option value="Toluene — C₇H₈">Toluene — C₇H₈</option>
+                <option value="Xylene — C₈H₁₀">Xylene — C₈H₁₀</option>
+            </optgroup>
 
-            <option value="EC-Toxic">
-                EC-Toxic
-            </option>
+            <optgroup label="Toxic / Industrial">
+                <option value="Hydrogen Sulfide — H₂S">Hydrogen Sulfide — H₂S</option>
+                <option value="Carbon Monoxide — CO">Carbon Monoxide — CO</option>
+                <option value="Carbon Dioxide — CO₂">Carbon Dioxide — CO₂</option>
+                <option value="Ammonia — NH₃">Ammonia — NH₃</option>
+                <option value="Chlorine — Cl₂">Chlorine — Cl₂</option>
+                <option value="Chlorine Dioxide — ClO₂">Chlorine Dioxide — ClO₂</option>
+                <option value="Sulfur Dioxide — SO₂">Sulfur Dioxide — SO₂</option>
+                <option value="Nitrogen Dioxide — NO₂">Nitrogen Dioxide — NO₂</option>
+                <option value="Nitric Oxide — NO">Nitric Oxide — NO</option>
+                <option value="Hydrogen Cyanide — HCN">Hydrogen Cyanide — HCN</option>
+                <option value="Hydrogen Chloride — HCl">Hydrogen Chloride — HCl</option>
+                <option value="Hydrogen Fluoride — HF">Hydrogen Fluoride — HF</option>
+                <option value="Ozone — O₃">Ozone — O₃</option>
+                <option value="Phosphine — PH₃">Phosphine — PH₃</option>
+                <option value="Formaldehyde — CH₂O">Formaldehyde — CH₂O</option>
+            </optgroup>
 
-            <option value="EC-Oxygen">
-                EC-Oxygen
-            </option>
+            <optgroup label="Semiconductor / Specialty">
+                <option value="Silane — SiH₄">Silane — SiH₄</option>
+                <option value="Diborane — B₂H₆">Diborane — B₂H₆</option>
+                <option value="Arsine — AsH₃">Arsine — AsH₃</option>
+                <option value="Phosphine — PH₃">Phosphine — PH₃</option>
+                <option value="Germane — GeH₄">Germane — GeH₄</option>
+                <option value="Boron Trichloride — BCl₃">Boron Trichloride — BCl₃</option>
+                <option value="Boron Trifluoride — BF₃">Boron Trifluoride — BF₃</option>
+                <option value="Hydrogen Bromide — HBr">Hydrogen Bromide — HBr</option>
+                <option value="Dichlorosilane — SiH₂Cl₂">Dichlorosilane — SiH₂Cl₂</option>
+                <option value="Trichlorosilane — HSiCl₃">Trichlorosilane — HSiCl₃</option>
+                <option value="Silicon Tetrachloride — SiCl₄">Silicon Tetrachloride — SiCl₄</option>
+                <option value="Tungsten Hexafluoride — WF₆">Tungsten Hexafluoride — WF₆</option>
+            </optgroup>
 
-            <option value="Cat Bead">
-                Cat Bead
-            </option>
-
-            <option value="IR">
-                IR
-            </option>
-
-            <option value="NDIR">
-                NDIR
-            </option>
-
-            <option value="PID">
-                PID
-            </option>
-
-            <option value="FID">
-                FID
-            </option>
-
-            <option value="MOS">
-                MOS
-            </option>
-
-            <option value="Therm. Conductivity">
-                Therm. Conductivity
-            </option>
-
-            <option value="Open Path IR">
-                Open Path IR
-            </option>
-
-            <option value="Ultrasonic">
-                Ultrasonic
-            </option>
-
-            <option value="Zirconia">
-                Zirconia
-            </option>
-
-            <option value="Chem Cassett">
-                Chem Cassett
-            </option>
-
-            <option value="FTIR">
-                FTIR
-            </option>
-
-            <option value="SSO">
-                SSO
-            </option>
-
-            <option value="Other">
-                Other
-            </option>
-
+            <optgroup label="Oxygen / General">
+                <option value="Oxygen — O₂">Oxygen — O₂</option>
+                <option value="Volatile Organic Compounds — VOC">Volatile Organic Compounds — VOC</option>
+                <option value="Nitrogen — N₂">Nitrogen — N₂</option>
+                <option value="Argon — Ar">Argon — Ar</option>
+                <option value="Helium — He">Helium — He</option>
+            </optgroup>
         </select>
         </div>
   
@@ -2908,8 +3083,13 @@ TOAST
 
 let metaData = {
   companyId: null,
+  company_id: null,
   technicianId: null,
-  deviceId: null
+  equipmentId: null,
+  equipment_id: null,
+  // The backend currently reads meta.deviceId as the equipment UUID.
+  deviceId: null,
+  deviceCode: null
 };
 
 const API_BASE_URL = "https://canary-services-04f32bc2afc5.herokuapp.com";
@@ -3636,80 +3816,530 @@ document.querySelectorAll(".repeat-container")
 
 
 
-function setValue(selector, value) {
-  const el = document.querySelector(selector);
-        if (el && value) el.value = value;
+function hasUsableValue(value) {
+    return value !== undefined && value !== null && String(value).trim() !== "";
+}
+
+function firstValue(...values) {
+    for (const value of values) {
+        if (hasUsableValue(value)) return value;
+    }
+    return "";
+}
+
+function objectValue(value) {
+    return value && typeof value === "object" && !Array.isArray(value)
+        ? value
+        : {};
+}
+
+function setControlValue(selector, value) {
+    const el = document.querySelector(selector);
+    if (!el || !hasUsableValue(value)) return false;
+
+    const nextValue = String(value).trim();
+
+    if (el.tagName === "SELECT") {
+        const options = Array.from(el.options || []);
+        const normalized = nextValue.toLowerCase();
+        const match = options.find((option) =>
+            String(option.value || "").trim().toLowerCase() === normalized ||
+            String(option.textContent || "").trim().toLowerCase() === normalized
+        );
+
+        if (match) {
+            el.value = match.value;
+        } else {
+            // Preserve valid Supabase data even when the select list has not yet
+            // been updated with that exact value.
+            const option = document.createElement("option");
+            option.value = nextValue;
+            option.textContent = nextValue;
+            el.appendChild(option);
+            el.value = nextValue;
         }
+    } else {
+        el.value = nextValue;
+    }
 
-        function createHiddenField(name, value, section, subsection) {
-        if (!value) return;
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+    el.dispatchEvent(new Event("change", { bubbles: true }));
+    return true;
+}
 
-        let input = document.querySelector(`[name="${name}"]`);
+function markControlLocked(selector, source = "Supabase") {
+    const el = document.querySelector(selector);
+    if (!el || !hasUsableValue(el.value)) return;
 
-        if (!input) {
-            input = document.createElement("input");
-            input.type = "hidden";
-            input.name = name;
-            input.setAttribute("data-section", section);
-            input.setAttribute("data-subsection", subsection);
-            document.body.appendChild(input);
-        }
+    el.classList.add("autofill-locked");
+    el.dataset.autofillSource = source;
+    el.setAttribute("aria-readonly", "true");
+    el.title = `${source} value — locked`;
 
-        input.value = value;
-        }
+    if (el.tagName === "SELECT") {
+        el.disabled = true;
+    } else {
+        el.readOnly = true;
+    }
 
-        function prefillForm(data) {
-        if (!data) {
-            console.warn("No data received yet");
-            return;
-        }
+    const field = el.closest(".field");
+    if (field) {
+        field.dataset.autofillLocked = "true";
+        field.dataset.autofillSource = source;
+    }
+}
 
-        console.log("Prefill Data (postMessage):", data);
+function setAndLock(selector, value, source = "Supabase") {
+    if (setControlValue(selector, value)) {
+        markControlLocked(selector, source);
+    }
+}
 
-        // CUSTOMER
-        setValue('[name="company"]', data.company);
-        setValue('[name="contact"]', data.phone);
+function createHiddenField(name, value, section, subsection) {
+    if (!hasUsableValue(value)) return null;
 
-        if (data.city || data.state || data.zip) {
-            setValue(
-            '[name="address_info"]',
-            `${data.city || ""}, ${data.state || ""} ${data.zip || ""}`
+    // Hidden identifiers may legitimately share a name with visible fields in
+    // another section, so locate an existing hidden field first.
+    let input = Array.from(document.querySelectorAll(`input[name="${name}"]`))
+        .find((item) => item.type === "hidden");
+
+    if (!input) {
+        input = document.createElement("input");
+        input.type = "hidden";
+        input.name = name;
+        input.setAttribute("data-section", section);
+        input.setAttribute("data-subsection", subsection);
+        document.body.appendChild(input);
+    }
+
+    input.value = String(value);
+    return input;
+}
+
+function formatCompanyAddressLine(city, state, zip) {
+    const locality = [state, zip]
+        .filter(hasUsableValue)
+        .map((value) => String(value).trim())
+        .join(" ");
+
+    return [city, locality]
+        .filter(hasUsableValue)
+        .map((value) => String(value).trim())
+        .join(", ");
+}
+
+function syncPoNumberForBackend() {
+    const visiblePo = document.querySelector('[name="postalnumber"]');
+    const poValue = String(visiblePo?.value || "").trim();
+
+    let backendPo = Array.from(document.querySelectorAll('input[name="po_number"]'))
+        .find((item) => item.type === "hidden");
+
+    if (!backendPo) {
+        backendPo = document.createElement("input");
+        backendPo.type = "hidden";
+        backendPo.name = "po_number";
+        backendPo.setAttribute("data-section", "service_details");
+        backendPo.setAttribute("data-subsection", "main");
+        document.body.appendChild(backendPo);
+    }
+
+    backendPo.value = poValue;
+}
+
+function resolveSupabasePrefill(data) {
+    const prefill = objectValue(data?.prefill);
+    const records = objectValue(data?.records);
+
+    const company = objectValue(
+        data?.companyRecord ||
+        data?.companyData ||
+        prefill.company ||
+        records.company ||
+        (typeof data?.company === "object" ? data.company : null)
+    );
+
+    const equipment = objectValue(
+        data?.equipmentRecord ||
+        data?.equipmentData ||
+        prefill.equipment ||
+        records.equipment ||
+        data?.equipment
+    );
+
+    const technician = objectValue(
+        data?.technicianProfile ||
+        prefill.technician ||
+        records.technician ||
+        data?.technician ||
+        data?.profile
+    );
+
+    const customer = objectValue(
+        data?.customerProfile ||
+        data?.contactProfile ||
+        prefill.customer ||
+        records.customer
+    );
+
+    return {
+        company,
+        equipment,
+        technician,
+        customer,
+        companyName: firstValue(
+            company.company_name,
+            company.company,
+            data?.companyName,
+            data?.company_name,
+            typeof data?.company === "string" ? data.company : ""
+        ),
+        companyStreet: firstValue(
+            company.street,
+            data?.companyStreet,
+            data?.street,
+            data?.company_address
+        ),
+        companyCity: firstValue(company.city, data?.city),
+        companyState: firstValue(company.state, data?.state),
+        companyZip: firstValue(company.zip, data?.zip),
+        companyPhone: firstValue(company.phone, data?.companyPhone, data?.phone),
+        contactName: firstValue(
+            data?.contactName,
+            data?.customerName,
+            customer.full_name,
+            customer.name
+        ),
+        equipmentName: firstValue(
+            equipment.name,
+            data?.equipmentName,
+            data?.deviceName,
+            data?.name
+        ),
+        equipmentLocation: firstValue(
+            equipment.location,
+            data?.equipmentLocation,
+            data?.location
+        ),
+        gasDetectorType: firstValue(
+            equipment.gas_detector_type,
+            data?.gasDetectorType,
+            data?.detectorType,
+            data?.detector_type
+        ),
+        controllerType: firstValue(
+            equipment.controller_type,
+            data?.controllerType,
+            data?.controller_type
+        ),
+        serialNumber: firstValue(
+            equipment.serial_number,
+            data?.serialNumber,
+            data?.serial_number
+        ),
+        partNumber: firstValue(
+            equipment.part_number,
+            data?.partNumber,
+            data?.part_number
+        ),
+        tagNumber: firstValue(
+            equipment.tag_number,
+            data?.tagNumber,
+            data?.tag_number
+        ),
+        equipmentId: firstValue(
+            equipment.id,
+            data?.equipmentId,
+            data?.equipment_id,
+            data?.deviceId
+        ),
+        deviceCode: firstValue(
+            equipment.device_id,
+            data?.deviceCode,
+            data?.device_code,
+            data?.device_id
+        ),
+        companyId: firstValue(
+            company.id,
+            data?.companyId,
+            data?.company_id,
+            equipment.company_id
+        ),
+        technicianId: firstValue(
+            data?.technicianId,
+            data?.technician_id,
+            technician.id
+        ),
+        technicianName: firstValue(
+            data?.technicianName,
+            data?.technician_name,
+            technician.full_name,
+            technician.name
+        )
+    };
+}
+
+function looksLikeUuid(value) {
+    return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+        .test(String(value || "").trim());
+}
+
+async function loadSupabasePrefill(payload) {
+    const original = objectValue(payload);
+
+    const candidateEquipmentId = firstValue(
+        original.equipmentId,
+        original.equipment_id,
+        original.deviceId,
+        objectValue(original.equipment).id,
+        objectValue(original.equipmentRecord).id
+    );
+
+    let equipmentRecord = objectValue(
+        original.equipmentRecord ||
+        original.equipmentData ||
+        original.equipment
+    );
+
+    let companyRecord = objectValue(
+        original.companyRecord ||
+        original.companyData ||
+        (typeof original.company === "object" ? original.company : null)
+    );
+
+    let technicianProfile = objectValue(
+        original.technicianProfile ||
+        original.technician ||
+        original.profile
+    );
+
+    let customerProfile = objectValue(
+        original.customerProfile ||
+        original.contactProfile
+    );
+
+    // The authenticated backend already exposes the equipment record joined to
+    // companies. Use that as the source of truth whenever an equipment UUID is
+    // available, so the iframe does not depend on stale URL/query data.
+    if (looksLikeUuid(candidateEquipmentId)) {
+        try {
+            const equipmentResponse = await authenticatedFetch(
+                `/api/equipments/${encodeURIComponent(candidateEquipmentId)}`,
+                { method: "GET", timeoutMs: 30000 }
             );
+
+            if (equipmentResponse && typeof equipmentResponse === "object") {
+                equipmentRecord = equipmentResponse;
+                companyRecord = objectValue(equipmentResponse.company) || companyRecord;
+            }
+        } catch (error) {
+            console.warn("Could not refresh equipment/company prefill from Supabase:", error);
         }
+    }
 
-        setValue('[name="address"]', data.location);
+    // If the parent did not explicitly select a technician, use the current
+    // authenticated profile. /api/me returns the Supabase profile joined to the
+    // authenticated user session.
+    const hasExplicitTechnician = hasUsableValue(original.technicianId) ||
+        hasUsableValue(original.technician_id) ||
+        hasUsableValue(original.technicianName) ||
+        hasUsableValue(original.technician_name);
 
-        // SERVICE
-        //setValue('[name="order_number"]', data.deviceId);
-
-        // ASSET
-        setValue('[name="tag_number"]', data.name);
-
-        // TECHNICIAN
-        setValue('[name="technician_name"]', data.technicianName);
-
-        // HIDDEN IDS
-        createHiddenField("company_id", data.companyId, "customer_information", "main");
-        createHiddenField("technician_id", data.technicianId, "calibration_information", "signature");
-        createHiddenField("device_id", data.deviceId, "service_details", "main");
-        metaData.companyId = data.companyId;
-        metaData.technicianId = data.technicianId;
-        metaData.deviceId = data.deviceId;
-
-        updateProgress(100);
-
-        setTimeout(() => {
-
-            closeModal();
-
-            document.body.style.overflow = "";
-
-        }, 500);
-
+    if (!hasExplicitTechnician) {
+        try {
+            const me = await authenticatedFetch("/api/me", {
+                method: "GET",
+                timeoutMs: 30000
+            });
+            if (me && typeof me === "object") {
+                technicianProfile = me;
+            }
+        } catch (error) {
+            console.warn("Could not load current technician profile:", error);
         }
+    }
 
-        
-        
+    const authoritativeCompanyId = firstValue(
+        equipmentRecord.company_id,
+        companyRecord.id,
+        original.companyId,
+        original.company_id
+    );
+
+    // Customer contact is optional in the companies table. When the parent did
+    // not pass one, use the linked customer profile only when there is exactly
+    // one customer profile for this company; otherwise leave it editable.
+    const hasExplicitContact = hasUsableValue(original.contactName) ||
+        hasUsableValue(original.customerName) ||
+        hasUsableValue(customerProfile.full_name);
+
+    if (!hasExplicitContact && hasUsableValue(authoritativeCompanyId)) {
+        try {
+            const profiles = await authenticatedFetch("/api/profiles?roles=customer", {
+                method: "GET",
+                timeoutMs: 30000
+            });
+
+            if (Array.isArray(profiles)) {
+                const matches = profiles.filter((profile) =>
+                    String(profile?.company_id || "") === String(authoritativeCompanyId)
+                );
+                if (matches.length === 1) {
+                    customerProfile = objectValue(matches[0]);
+                }
+            }
+        } catch (error) {
+            console.warn("Could not load linked customer contact profile:", error);
+        }
+    }
+
+    return {
+        ...original,
+        equipmentRecord,
+        companyRecord,
+        technicianProfile,
+        customerProfile,
+        equipmentId: firstValue(equipmentRecord.id, candidateEquipmentId),
+        companyId: authoritativeCompanyId,
+        // Keep deviceId as the equipment UUID for backend compatibility.
+        deviceId: firstValue(equipmentRecord.id, candidateEquipmentId),
+        deviceCode: firstValue(
+            equipmentRecord.device_id,
+            original.deviceCode,
+            original.device_code
+        )
+    };
+}
+
+function prefillForm(data) {
+    if (!data) {
+        console.warn("No data received yet");
+        return;
+    }
+
+    console.log("Prefill Data (postMessage):", data);
+
+    const source = resolveSupabasePrefill(data);
+
+    // ---------------------------------------------------------
+    // CUSTOMER / COMPANY DATA — Supabase companies + customer profile
+    // ---------------------------------------------------------
+    setAndLock('[name="company"]', source.companyName, "Company record");
+    setAndLock('[name="contact"]', source.contactName, "Customer profile");
+    setAndLock('[name="address"]', source.companyStreet, "Company record");
+    setAndLock(
+        '[name="address_info"]',
+        formatCompanyAddressLine(
+            source.companyCity,
+            source.companyState,
+            source.companyZip
+        ),
+        "Company record"
+    );
+    setAndLock('[name="phone"]', source.companyPhone, "Company record");
+
+    // P.O. Number is deliberately NOT populated from company/address data.
+    // It is entered by the person completing this service order.
+    const poInput = document.querySelector('[name="postalnumber"]');
+    if (poInput) {
+        poInput.readOnly = false;
+        poInput.disabled = false;
+        poInput.classList.remove("autofill-locked");
+        poInput.title = "Enter the customer P.O. / work order number";
+    }
+
+    // ---------------------------------------------------------
+    // EQUIPMENT DATA — Supabase equipments
+    // ---------------------------------------------------------
+    setAndLock('[name="equipment_name"]', source.equipmentName, "Equipment record");
+    setAndLock('[name="equipment_location"]', source.equipmentLocation, "Equipment record");
+    setAndLock('[name="detector_type"]', source.gasDetectorType, "Equipment record");
+
+    // Asset identifiers
+    setAndLock(
+        '[data-section="asset_information"][data-subsection="main"][name="part_number"]',
+        source.partNumber,
+        "Equipment record"
+    );
+    setAndLock(
+        '[data-section="asset_information"][data-subsection="main"][name="serial_number"]',
+        source.serialNumber,
+        "Equipment record"
+    );
+    setAndLock(
+        '[data-section="asset_information"][data-subsection="main"][name="tag_number"]',
+        source.tagNumber,
+        "Equipment record"
+    );
+
+    // System Information repeats the detector identity on the service report.
+    setAndLock(
+        '[data-section="system_information"][data-subsection="gas_detector"][name="detector_model"]',
+        source.equipmentName,
+        "Equipment record"
+    );
+    setAndLock(
+        '[data-section="system_information"][data-subsection="gas_detector"][name="part_number"]',
+        source.partNumber,
+        "Equipment record"
+    );
+    setAndLock(
+        '[data-section="system_information"][data-subsection="gas_detector"][name="serial_number"]',
+        source.serialNumber,
+        "Equipment record"
+    );
+    setAndLock(
+        '[data-section="system_information"][data-subsection="gas_detector"][name="tag_number"]',
+        source.tagNumber,
+        "Equipment record"
+    );
+
+    // The sensor-type dropdown uses the same detector taxonomy in the current
+    // SMARTCERT form. It is safe to prefill when the equipment record has it.
+    setAndLock(
+        '[data-section="system_information"][data-subsection="sensor_data"][name="sensor_type"]',
+        source.gasDetectorType,
+        "Equipment record"
+    );
+
+    // ---------------------------------------------------------
+    // TECHNICIAN DATA — Supabase profiles
+    // ---------------------------------------------------------
+    setAndLock('[name="technician_name"]', source.technicianName, "Technician profile");
+
+    // ---------------------------------------------------------
+    // IDS FOR THE BACKEND / SERVICE_ORDERS RELATIONSHIPS
+    // ---------------------------------------------------------
+    createHiddenField("company_id", source.companyId, "customer_information", "main");
+    createHiddenField("technician_id", source.technicianId, "calibration_information", "signature");
+    createHiddenField("equipment_id", source.equipmentId, "service_details", "main");
+    createHiddenField("device_id", source.deviceCode, "service_details", "main");
+
+    metaData.companyId = source.companyId || null;
+    metaData.company_id = source.companyId || null;
+    metaData.technicianId = source.technicianId || null;
+    metaData.equipmentId = source.equipmentId || null;
+    metaData.equipment_id = source.equipmentId || null;
+    // Required by the current FastAPI service_order_payload implementation.
+    metaData.deviceId = source.equipmentId || null;
+    metaData.deviceCode = source.deviceCode || null;
+
+    // Helpful default: today is used as the service date, but remains editable
+    // because the technician may be entering a report for another date.
+    const serviceDate = document.querySelector('[name="service_date"]');
+    if (serviceDate && !serviceDate.value) {
+        serviceDate.value = new Date().toISOString().slice(0, 10);
+    }
+
+    syncPoNumberForBackend();
+
+    updateProgress(100);
+
+    setTimeout(() => {
+        closeModal();
+        document.body.style.overflow = "";
+    }, 500);
+}
 
         function prefillEntireForm(data) {
 
@@ -4184,12 +4814,13 @@ async function loadExistingServiceOrder(
         }
 
         orderNumberInput.value = generateServiceOrderNumber();
+        markControlLocked('[name="order_number"]', "System generated");
     }
 
         // 🔥 LISTEN FOR MESSAGE
     window.addEventListener(
     "message",
-    (event) => {
+    async (event) => {
 
         console.log(
         "🫀🏄🏽🐋🐟😹🦴👻Received postMessage event:",
@@ -4270,13 +4901,29 @@ async function loadExistingServiceOrder(
 
       window.currentEditingServiceOrderId = null;
 
-      prefillForm(payload);
+      showPageLoader("Loading company, equipment, and technician data from SMARTCERT...");
+
+      let hydratedPayload = payload;
+      try {
+          hydratedPayload = await loadSupabasePrefill(payload);
+      } catch (error) {
+          console.warn("SMARTCERT prefill refresh failed; using parent data instead:", error);
+      }
+
+      prefillForm(hydratedPayload);
 
       // Always assign a fresh number when a new-order form is opened.
       assignNewServiceOrderNumber({ force: true });
 
     }
 });
+
+const poNumberInput = document.querySelector('[name="postalnumber"]');
+if (poNumberInput) {
+    poNumberInput.addEventListener("input", syncPoNumberForBackend);
+    poNumberInput.addEventListener("change", syncPoNumberForBackend);
+}
+syncPoNumberForBackend();
 
 sendToParent("IFRAME_READY");
 
@@ -4366,32 +5013,45 @@ clone.querySelectorAll(".hidden").forEach(el => {
 // CONVERT FORM ELEMENTS
 // =========================================
 
+const EMPTY_FIELD_TEXT = "Not Provided";
+
 clone.querySelectorAll(
     "input, textarea, select"
 ).forEach(el => {
 
-    let value = "—";
+    let value = EMPTY_FIELD_TEXT;
+    let isEmpty = true;
 
     if (
         el.tagName === "INPUT" ||
         el.tagName === "TEXTAREA"
     ) {
-        value = el.value?.trim() || "—";
+        const rawValue = el.value?.trim() || "";
+        if (rawValue) {
+            value = rawValue;
+            isEmpty = false;
+        }
     }
 
     if (el.tagName === "SELECT") {
+        const rawValue = el.value?.trim() || "";
+        const selectedOption = el.options[el.selectedIndex];
 
-        const selectedOption =
-            el.options[el.selectedIndex];
-
-        value =
-            selectedOption?.text?.trim() || "—";
+        // If the select is still on its placeholder option, show a clear
+        // empty-state message instead of text such as "Select Cylinder Type".
+        if (rawValue) {
+            value = selectedOption?.text?.trim() || rawValue;
+            isEmpty = false;
+        }
     }
 
-    const div =
-        document.createElement("div");
+    const div = document.createElement("div");
 
     div.className = "fake-input";
+
+    if (isEmpty) {
+        div.classList.add("is-empty");
+    }
 
     if (el.tagName === "TEXTAREA") {
         div.classList.add("fake-textarea");
@@ -4475,7 +5135,7 @@ return clone.innerHTML;
         if (subsection === "signature") return;
         if (!input.name) return;
         if (input.offsetParent === null) return;
-        if (input.readOnly) return;
+        if (input.readOnly || input.disabled) return;
         if (input.type === "button") return;
     
         if (!input.value || input.value.trim() === "") {
@@ -5229,11 +5889,22 @@ border-bottom: 1px solid #4a4a4a;
 }
 
 
+.fake-input.is-empty {
+
+color: #6b7280;
+
+font-style: italic;
+
+font-weight: 500;
+}
+
 .fake-input:empty::after {
 
-content: "N/A";
+content: "Not Provided";
 
-color: #9ca3af;
+color: #6b7280;
+
+font-style: italic;
 }
 
 
@@ -5421,6 +6092,9 @@ body {
     box-shadow: inset 0 0 0 1px var(--sc-yellow);
     border-radius: 0;
 }
+
+
+
 
 </style>
 
@@ -5697,6 +6371,8 @@ try {
 
             try {
                 setModalStage(12, "Checking Service Order", "Validating the order and preparing service data...");
+
+                syncPoNumberForBackend();
 
                 const structuredData = getStructuredFormData();
                 const orderNumber = String(
