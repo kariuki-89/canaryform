@@ -5206,13 +5206,17 @@ clone.querySelectorAll(".hidden").forEach(el => {
 // CONVERT FORM ELEMENTS
 // =========================================
 
-const EMPTY_FIELD_TEXT = "Not Provided";
+const EMPTY_FIELD_TEXT = "N/A";
 
 clone.querySelectorAll(
     "input, textarea, select"
 ).forEach(el => {
 
-    let value = EMPTY_FIELD_TEXT;
+    const isSignatureField = Boolean(
+        el.closest(".signature-card") || el.dataset.subsection === "signature"
+    );
+
+    let value = isSignatureField ? "" : EMPTY_FIELD_TEXT;
     let isEmpty = true;
 
     if (
@@ -5291,22 +5295,40 @@ const clonedCanvases =
 
 clonedCanvases.forEach((canvas, index) => {
 
-    const originalCanvas =
-        originalCanvases[index];
+    const originalCanvas = originalCanvases[index];
+    const wrapper = document.createElement("div");
+    wrapper.className = "signature-box";
 
-    const img =
-        document.createElement("img");
+    // A blank canvas still produces a PNG data URL. Check its pixels first so
+    // an unsigned service report stays visually empty instead of embedding a
+    // meaningless blank image.
+    let hasSignatureInk = false;
 
-    img.src =
-        originalCanvas.toDataURL("image/png");
+    try {
+        const context = originalCanvas?.getContext("2d");
+        const width = originalCanvas?.width || 0;
+        const height = originalCanvas?.height || 0;
 
-    const wrapper =
-        document.createElement("div");
+        if (context && width > 0 && height > 0) {
+            const pixels = context.getImageData(0, 0, width, height).data;
+            for (let pixel = 3; pixel < pixels.length; pixel += 4) {
+                if (pixels[pixel] !== 0) {
+                    hasSignatureInk = true;
+                    break;
+                }
+            }
+        }
+    } catch (error) {
+        console.warn("Unable to inspect signature canvas; preserving it.", error);
+        hasSignatureInk = true;
+    }
 
-    wrapper.className =
-        "signature-box";
-
-    wrapper.appendChild(img);
+    if (hasSignatureInk && originalCanvas) {
+        const img = document.createElement("img");
+        img.src = originalCanvas.toDataURL("image/png");
+        img.alt = "Signature";
+        wrapper.appendChild(img);
+    }
 
     canvas.replaceWith(wrapper);
 });
@@ -6093,11 +6115,21 @@ font-weight: 500;
 
 .fake-input:empty::after {
 
-content: "Not Provided";
+content: "N/A";
 
 color: #6b7280;
 
 font-style: italic;
+}
+
+/* Signature names/dates stay blank when they were not supplied. */
+.signature-card .fake-input.is-empty {
+    color: #111827;
+    font-style: normal;
+}
+
+.signature-card .fake-input:empty::after {
+    content: "" !important;
 }
 
 
@@ -6325,14 +6357,78 @@ body {
 
 
 
-.top-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:stretch;}
-.top-summary-grid>.field-group{height:100%;display:flex;flex-direction:column;}
-.top-summary-grid>.field-group>.fieldbody{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;}
-.top-summary-grid .customer-summary-card>.fieldbody,.top-summary-grid .asset-summary-card>.fieldbody{justify-content:space-between;}
-.top-summary-grid .service-summary-card>.fieldbody>.grid-table{width:100%;flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:6px;min-width:0;}
-.top-summary-grid .field,.top-summary-grid .grid-table>.field{width:100%;min-width:0;margin:0;}
-.top-summary-grid .field>.fake-input,.top-summary-grid .field>.fake-select,.top-summary-grid .field>.fake-textarea{width:100%;max-width:none;}
-.top-summary-grid .service-summary-card .date-subsection{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:7px 0 0;margin:0;}
+/* =========================================================
+   FIRST PAGE SUMMARY - WEASYPRINT-SAFE TABLE LAYOUT
+   Tables are used here deliberately: they produce equal-height columns
+   reliably in WeasyPrint, while nested Grid/Flex combinations can collapse.
+   ========================================================= */
+.top-summary-grid {
+    display: table !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: separate !important;
+    border-spacing: 8px 0 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: always !important;
+}
+
+.top-summary-grid > .field-group {
+    display: table-cell !important;
+    width: 33.333% !important;
+    height: auto !important;
+    vertical-align: top !important;
+    overflow: visible !important;
+}
+
+.top-summary-grid > .field-group > .fieldbody {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 10px !important;
+}
+
+.top-summary-grid .service-summary-card > .fieldbody > .grid-table {
+    display: block !important;
+    width: 100% !important;
+}
+
+.top-summary-grid .field,
+.top-summary-grid .grid-table > .field {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 0 7px !important;
+}
+
+.top-summary-grid .field > .fake-input,
+.top-summary-grid .field > .fake-textarea {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.top-summary-grid .service-summary-card .date-subsection {
+    display: table !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: separate !important;
+    border-spacing: 6px 0 !important;
+    padding: 7px 0 0 !important;
+    margin: 0 !important;
+}
+
+.top-summary-grid .service-summary-card .date-subsection > .field {
+    display: table-cell !important;
+    width: 50% !important;
+    vertical-align: top !important;
+    margin: 0 !important;
+}
+
+/* Keep repeat-section headings with at least their first row. */
+.repeat-container,
+.repeat-item {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
 </style>
 
 </head>
