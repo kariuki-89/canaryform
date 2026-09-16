@@ -1,0 +1,6865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service Order Form</title>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap');
+    
+    /* RESET */
+    * {
+        box-sizing: border-box;
+    }
+    
+    /* BODY */
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        background: #ffffff;
+        padding: 20px;
+        color: #1f2937;
+    }
+    
+    /* CONTAINER */
+    .form-container {
+        max-width: 1100px;
+        width: 100%;
+        margin: auto;
+        padding: 12px;
+    }
+    
+
+    .form-container > * {
+        margin-bottom: 14px;
+    }
+    
+
+    /* HEADER */
+    .header {
+        display: none;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .logo {
+        font-size: 28px;
+        font-weight: 600;
+        color: #d4c800;
+    }
+    
+    .title {
+        text-align: right;
+    }
+    
+    .title h1 {
+        margin: 0;
+        letter-spacing: 1px;
+        font-size: 20px;
+    }
+    
+    /* SECTION TITLES */
+    .section-title {
+        background: #4a4a4a;
+        color: #fff;
+        padding: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: 0px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        text-align: center;
+    }
+    
+    .section-title.main {
+        text-align: center;
+        letter-spacing: 1px;
+        margin: 24px 0 12px;
+    }
+
+    .field-group,
+        .signature-card {
+            padding: 16px;
+        }
+
+    
+    /* SUB TITLES */
+    .sub-title {
+        background: #ffffff;
+        color: #fff;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 6px 6px 0 0;
+        text-align: center;
+    }
+    
+    /* GRID SYSTEM */
+    .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    
+    .grid-3-equal {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 12px;
+    }
+    
+    .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .date-subsection{
+        border: 1px solid #e5e7eb;
+        padding: 8px;
+    }
+    
+    .grid-table {
+        display: grid;
+        gap: 10px;
+    }
+    
+    .cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .cols-4 { grid-template-columns: repeat(4, 1fr); }
+    .cols-5 { grid-template-columns: repeat(5, 1fr); }
+    
+    .grid-table.small-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-table.small-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-table.small-6 { grid-template-columns: repeat(6, 1fr); }
+    .grid-table.small-9 { grid-template-columns: repeat(9, 1fr); }
+    .grid-table.small-10 { grid-template-columns: repeat(10, 1fr); }
+    
+    /* FIELD GROUP */
+    .field-group {
+        background: #ffffff; /* grey card */
+        border-radius: 3px;
+        padding: 0px;
+        border: solid 1px #e5e7eb;
+        overflow: hidden;
+        
+    }
+
+    .small-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .field-group label {
+        margin-top: 6px;
+    }
+
+    .fieldbody {
+        padding: 12px 16px 16px;
+    }
+
+    .grid-3 {
+        gap: 10px;
+    }
+    
+    /* SUB SECTION */
+    .sub-section {
+        background: #ffffff; /* same as top cards */
+        border-radius: 3px;
+        margin-top: 16px;
+        border: solid 1px #e5e7eb;
+        overflow: hidden;
+    }
+
+    .no-borders{
+        border: none;
+    }
+
+    .sub-title {
+        background: #4a4a4a;
+        color: #fff;
+        padding: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: 0px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+    
+    /* FIELD */
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    /* LABELS */
+    label {
+        font-size: 10px;
+        color: #4a4a4a;
+        margin-bottom: 3px;
+        letter-spacing: 0.3px;
+    }
+    
+    /* INPUTS */
+    input,
+    select,
+    textarea {
+        width: 100%;
+        height: 30px;
+        padding: 4px 6px;
+
+        border: 1px solid #facc15; /* 🔥 yellow border */
+        border-radius: 3px;
+
+        background: #ffffff;
+        font-size: 12px;
+
+        outline: none;
+        margin-bottom: 8px; 
+    }
+    
+    /* HEIGHT */
+    input,
+    select {
+        height: 32px;
+    }
+    
+    /* TEXTAREA */
+    textarea {
+        min-height: 70px;
+        resize: vertical;
+    }
+    
+    /* FOCUS STATE */
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #facc15;
+        box-shadow: 0 0 4px rgba(250, 204, 21, 0.6);
+    }
+    
+    /* INVALID STATE */
+    .input-error {
+        border-color: #ef4444 !important;
+        background: #fff5f5;
+    }
+    
+    .input-error:focus {
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
+    }
+    
+    /* DROPDOWN STYLE (IMPROVED) */
+    .dropdown {
+        background: #f9fafb;
+    }
+    
+    /* GAS TYPE DROPDOWNS */
+    .gas-type-select optgroup {
+        font-weight: 700;
+        color: #111827;
+        background: #f8fafc;
+    }
+
+    .gas-type-select option {
+        font-weight: 500;
+        color: #111827;
+        background: #ffffff;
+    }
+
+    /* NOTES LABEL */
+    .notes-label {
+        font-size: 11px;
+        margin-top: 6px;
+    }
+    
+    /* BUTTON */
+    button {
+        background: #111827;
+        color: white;
+        padding: 8px 14px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 16px;
+        font-size: 13px;
+        transition: 0.2s;
+    }
+    
+    button:hover {
+        background: #1f2937;
+    }
+    
+    /* SIGNATURE */
+    .signature-card {
+        background: #ffffff;
+        border-radius: 0px;
+        padding: 12px;
+        border: none;
+
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    
+    .sig-title {
+        background: #4a4a4a;
+        color: #fff;
+        padding: 6px 8px;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: 0px;
+        text-transform: uppercase;
+    }
+    
+    /* CANVAS */
+    canvas {
+        width: 100%;
+        height: 120px;
+
+        border: 2px solid #facc15; /* 🔥 yellow like inputs */
+        border-radius:0px;
+
+        background: #ffffff;
+    }
+    
+    /* SIGNATURE FIELDS */
+    .sig-fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    /* MOBILE FIX */
+    @media (max-width: 768px) {
+    
+        .grid-3 {
+            grid-template-columns: 1fr;
+        }
+    
+        .grid-table {
+            display: block;
+        }
+    
+        .grid-table input,
+        .grid-table select {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    
+        .grid-table .th {
+            display: block;
+            background: none;
+            color: #000;
+            border: none;
+            padding: 5px 0 2px;
+            font-weight: bold;
+        }
+        .grid-2 {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .notes-block {
+        margin-top: 10px;
+    }
+
+    .notes-toggle {
+        background: #111827;
+        color: white;
+        padding: 6px 10px;
+        font-size: 11px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .notes-toggle:hover {
+        background: #1f2937;
+    }
+
+    .notes-textarea {
+        margin-top: 8px;
+        border: 2px solid #facc15;
+        
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    /* DEFAULT (desktop) */
+    .repeat-item {
+        display: grid;
+        grid-template-columns: 100px 1fr auto;
+        gap: 10px;
+        align-items: end;
+    }
+
+    .add-item {
+        margin-top: 10px;
+        background: #111827;
+        color: white;
+        padding: 6px 10px;
+        font-size: 11px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .remove-item {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: 6px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        height: 30px;
+    }
+
+    .repeat-item.labor {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+        align-items: end;
+        margin-bottom: 10px;
+    }
+
+    .repeat-container .repeat-item:first-child .remove-item {
+        display: none;
+    }
+
+    
+    /* =========================================
+MODAL
+========================================= */
+
+.app-modal {
+
+position: fixed;
+inset: 0;
+
+background: rgba(15, 23, 42, 0.72);
+
+backdrop-filter: blur(6px);
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+z-index: 999999;
+
+padding: 20px;
+}
+
+.app-modal.hidden {
+display: none;
+}
+
+/* =========================================
+CARD
+========================================= */
+
+.app-modal-card {
+
+width: 100%;
+max-width: 420px;
+
+background: white;
+
+border-radius: 20px;
+
+padding: 34px 28px;
+
+box-shadow:
+    0 20px 50px rgba(0,0,0,0.25);
+
+text-align: center;
+
+animation: popupIn .25s ease;
+}
+
+@keyframes popupIn {
+
+from {
+    opacity: 0;
+    transform: translateY(10px) scale(.96);
+}
+
+to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+}
+
+/* =========================================
+LOADER
+========================================= */
+
+.loader-ring {
+
+width: 74px;
+height: 74px;
+
+margin: 0 auto 20px;
+
+border-radius: 50%;
+
+border:
+    5px solid #e5e7eb;
+
+border-top:
+    5px solid #facc15;
+
+animation:
+    spin 1s linear infinite;
+}
+
+@keyframes spin {
+
+to {
+    transform: rotate(360deg);
+}
+}
+
+/* =========================================
+TEXT
+========================================= */
+
+.modal-title {
+
+font-size: 22px;
+font-weight: 700;
+
+color: #111827;
+
+margin-bottom: 10px;
+}
+
+.modal-message {
+
+font-size: 14px;
+
+color: #6b7280;
+
+line-height: 1.6;
+
+margin-bottom: 20px;
+}
+
+/* =========================================
+PROGRESS
+========================================= */
+
+.progress-bar {
+
+width: 100%;
+height: 10px;
+
+background: #f3f4f6;
+
+border-radius: 999px;
+
+overflow: hidden;
+}
+
+.progress-fill {
+
+width: 30%;
+
+height: 100%;
+
+background: linear-gradient(
+    90deg,
+    #facc15,
+    #eab308
+);
+
+border-radius: 999px;
+
+transition: width .4s ease;
+}
+
+/* =========================================
+SUCCESS / ERROR ICONS
+========================================= */
+
+.modal-icon {
+
+width: 80px;
+height: 80px;
+
+margin: 0 auto 18px;
+
+border-radius: 50%;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+font-size: 36px;
+
+color: white;
+}
+
+.modal-icon.success {
+background: #22c55e;
+}
+
+.modal-icon.error {
+background: #ef4444;
+}
+
+/* =========================================
+BUTTON
+========================================= */
+
+.modal-btn {
+
+margin-top: 22px;
+
+width: 100%;
+
+padding: 12px;
+
+border: none;
+
+border-radius: 10px;
+
+background: #111827;
+
+color: white;
+
+font-weight: 600;
+
+cursor: pointer;
+}
+
+.modal-btn:hover {
+background: #1f2937;
+}
+
+/* =========================================
+TOAST
+========================================= */
+
+.toast {
+
+position: fixed;
+
+bottom: 30px;
+right: 30px;
+
+background: #111827;
+
+color: white;
+
+padding: 14px 18px;
+
+border-radius: 10px;
+
+box-shadow:
+    0 10px 30px rgba(0,0,0,0.2);
+
+z-index: 999999;
+
+animation: toastIn .25s ease;
+}
+
+/* =========================================
+SUBMIT BUTTON
+========================================= */
+
+.submit-btn-wrapper {
+
+display: flex;
+
+justify-content: center;
+
+margin-top: 28px;
+}
+
+.submit-btn {
+
+background: linear-gradient(
+    135deg,
+    #facc15,
+    #eab308
+);
+
+color: #111827;
+
+border: none;
+
+padding: 16px 34px;
+
+border-radius: 14px;
+
+font-size: 16px;
+
+font-weight: 800;
+
+letter-spacing: 0.4px;
+
+cursor: pointer;
+
+min-width: 320px;
+
+transition: all 0.2s ease;
+
+box-shadow:
+    0 10px 24px rgba(250, 204, 21, 0.35);
+
+text-transform: uppercase;
+}
+
+.submit-btn:hover {
+
+transform: translateY(-2px);
+
+box-shadow:
+    0 14px 30px rgba(250, 204, 21, 0.45);
+
+background: linear-gradient(
+    135deg,
+    #fde047,
+    #facc15
+);
+}
+
+.submit-btn:active {
+
+transform: scale(0.98);
+}
+
+.submit-btn:disabled {
+
+opacity: 0.65;
+
+cursor: not-allowed;
+
+transform: none;
+
+box-shadow: none;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+.submit-btn {
+
+    width: 100%;
+
+    min-width: unset;
+}
+}
+
+.toast.hidden {
+display: none;
+}
+
+@keyframes toastIn {
+
+from {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+    
+    
+
+    /* =========================================================
+       SMARTCERT 2026 UI REFRESH
+       - straight corners
+       - black/yellow field shells
+       - label on top, value/input below
+       ========================================================= */
+    :root {
+        --sc-yellow: #F2E900;
+        --sc-yellow-dark: #D8CF00;
+        --sc-black: #171717;
+        --sc-charcoal: #262626;
+        --sc-text: #202124;
+        --sc-muted: #6B7280;
+        --sc-page: #F3F4F2;
+        --sc-panel: #FFFFFF;
+        --sc-border: #171717;
+        --sc-danger: #D92D20;
+        --sc-success: #15803D;
+    }
+
+    html {
+        background: var(--sc-page);
+    }
+
+    body {
+        margin: 0;
+        padding: 22px;
+        background:
+            linear-gradient(180deg, #ffffff 0, #ffffff 150px, var(--sc-page) 150px, var(--sc-page) 100%);
+        color: var(--sc-text);
+    }
+
+    .form-container {
+        max-width: 1240px;
+        padding: 0 0 34px;
+    }
+
+    .smartcert-form-hero {
+        background: var(--sc-black);
+        border: 1px solid var(--sc-black);
+        box-shadow: 0 0 0 2px var(--sc-yellow);
+        color: #fff;
+        padding: 18px 20px;
+        margin: 2px 2px 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+    }
+
+    .smartcert-form-hero__eyebrow {
+        color: var(--sc-yellow);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    .smartcert-form-hero h1 {
+        margin: 0;
+        font-size: 23px;
+        line-height: 1.15;
+        letter-spacing: .3px;
+        color: #fff;
+    }
+
+    .smartcert-form-hero p {
+        margin: 6px 0 0;
+        font-size: 12px;
+        line-height: 1.5;
+        color: #D1D5DB;
+    }
+
+    .smartcert-form-hero__status {
+        flex: 0 0 auto;
+        border-left: 3px solid var(--sc-yellow);
+        padding: 8px 0 8px 14px;
+        min-width: 150px;
+    }
+
+    .smartcert-form-hero__status strong {
+        display: block;
+        color: var(--sc-yellow);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: .9px;
+    }
+
+    .smartcert-form-hero__status span {
+        display: block;
+        margin-top: 4px;
+        color: #fff;
+        font-size: 12px;
+    }
+
+    .field-group,
+    .sub-section {
+        border: 1px solid var(--sc-black);
+        box-shadow: 0 0 0 1px var(--sc-yellow);
+        border-radius: 0;
+        background: #fff;
+    }
+
+    .no-borders {
+        border: 0;
+        box-shadow: none;
+    }
+
+    .section-title,
+    .sub-title,
+    .sig-title {
+        background: var(--sc-black);
+        color: #fff;
+        border: 0;
+        border-bottom: 3px solid var(--sc-yellow);
+        border-radius: 0;
+        margin: 0;
+        padding: 10px 12px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .65px;
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    .section-title.main {
+        border: 1px solid var(--sc-black);
+        border-bottom: 3px solid var(--sc-yellow);
+        margin: 28px 0 14px;
+        text-align: center;
+    }
+
+    .fieldbody {
+        padding: 14px;
+    }
+
+    .grid-table {
+        gap: 12px;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        min-width: 0;
+        margin-bottom: 10px;
+    }
+
+    .field > label:not(.sig-title) {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 6px 9px;
+        background: var(--sc-black);
+        color: #fff;
+        border: 1px solid var(--sc-black);
+        border-bottom: 2px solid var(--sc-yellow);
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1.25;
+        letter-spacing: .25px;
+    }
+
+    .field > input,
+    .field > select,
+    .field > textarea {
+        margin: 0;
+        border: 1px solid var(--sc-black);
+        border-top: 0;
+        border-radius: 0;
+        box-shadow: 0 0 0 1px var(--sc-yellow);
+        background: #fff;
+        color: var(--sc-text);
+        font-size: 12px;
+        min-height: 38px;
+        padding: 8px 10px;
+        transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .field > textarea {
+        min-height: 86px;
+        line-height: 1.45;
+    }
+
+    .field > input:focus,
+    .field > select:focus,
+    .field > textarea:focus {
+        border-color: var(--sc-black);
+        box-shadow: 0 0 0 2px var(--sc-yellow);
+        background: #FFFDEB;
+    }
+
+    .field > input[readonly] {
+        background: #F5F5F4;
+        color: #3F3F46;
+        font-weight: 600;
+    }
+
+    .input-error,
+    .field > .input-error {
+        border-color: var(--sc-danger) !important;
+        box-shadow: 0 0 0 2px rgba(217, 45, 32, .22) !important;
+        background: #FFF5F4 !important;
+    }
+
+    .date-subsection {
+        border: 0;
+        border-top: 1px solid #D4D4D4;
+        padding: 12px 0 0;
+        margin-top: 2px;
+        gap: 12px;
+    }
+
+    .signature-card {
+        border: 1px solid var(--sc-black);
+        box-shadow: 0 0 0 1px var(--sc-yellow);
+        border-radius: 0;
+        padding: 0 12px 12px;
+        background: #fff;
+    }
+
+    .signature-card .sig-title {
+        margin: 0 -12px 12px;
+    }
+
+    canvas {
+        border: 1px solid var(--sc-black);
+        box-shadow: 0 0 0 1px var(--sc-yellow);
+        border-radius: 0;
+        touch-action: none;
+        cursor: crosshair;
+    }
+
+    .signature-clear {
+        align-self: flex-end;
+        margin: 4px 0 2px;
+        padding: 6px 10px;
+        background: #fff;
+        color: var(--sc-black);
+        border: 1px solid var(--sc-black);
+        border-bottom: 2px solid var(--sc-yellow);
+        border-radius: 0;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    button,
+    .notes-toggle,
+    .add-item,
+    .modal-btn {
+        border-radius: 0;
+    }
+
+    .notes-toggle,
+    .add-item {
+        background: var(--sc-black);
+        border: 1px solid var(--sc-black);
+        border-bottom: 3px solid var(--sc-yellow);
+        font-weight: 700;
+    }
+
+    .remove-item {
+        border-radius: 0;
+        min-width: 34px;
+    }
+
+    .submit-btn-wrapper {
+        position: sticky;
+        bottom: 0;
+        z-index: 50;
+        margin: 28px -2px 0;
+        padding: 12px 2px 8px;
+        background: linear-gradient(to top, rgba(243,244,242,.98) 72%, rgba(243,244,242,0));
+        border-top: 1px solid rgba(23,23,23,.12);
+    }
+
+    .submit-btn {
+        min-width: 330px;
+        background: var(--sc-yellow);
+        color: var(--sc-black);
+        border: 2px solid var(--sc-black);
+        border-radius: 0;
+        box-shadow: 5px 5px 0 var(--sc-black);
+        padding: 14px 30px;
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: .8px;
+    }
+
+    .submit-btn:hover {
+        transform: translate(-1px, -1px);
+        background: #FFF600;
+        box-shadow: 6px 6px 0 var(--sc-black);
+    }
+
+    .submit-btn:disabled {
+        transform: none;
+        background: #E5E7EB;
+        color: #6B7280;
+        border-color: #9CA3AF;
+        box-shadow: 3px 3px 0 #9CA3AF;
+    }
+
+    .app-modal {
+        background: rgba(10, 10, 10, .72);
+        backdrop-filter: blur(4px);
+    }
+
+    .app-modal-card {
+        max-width: 440px;
+        border-radius: 0;
+        border: 2px solid var(--sc-black);
+        border-top: 8px solid var(--sc-yellow);
+        padding: 30px 28px 26px;
+        box-shadow: 12px 12px 0 rgba(0,0,0,.38);
+    }
+
+    .loader-ring {
+        border-radius: 50%;
+        border-color: #E5E7EB;
+        border-top-color: var(--sc-yellow);
+        box-shadow: inset 0 0 0 1px #111;
+    }
+
+    .progress-bar {
+        height: 8px;
+        border: 1px solid var(--sc-black);
+        border-radius: 0;
+        background: #F3F4F6;
+    }
+
+    .progress-fill {
+        border-radius: 0;
+        background: var(--sc-yellow);
+    }
+
+    .modal-icon {
+        border-radius: 0;
+        border: 2px solid var(--sc-black);
+    }
+
+    .modal-icon.success {
+        background: var(--sc-yellow);
+        color: var(--sc-black);
+    }
+
+    .toast {
+        border-radius: 0;
+        border: 1px solid var(--sc-black);
+        border-left: 6px solid var(--sc-yellow);
+        box-shadow: 6px 6px 0 rgba(0,0,0,.22);
+    }
+
+    @media (max-width: 768px) {
+        body {
+            padding: 12px;
+            background: var(--sc-page);
+        }
+
+        .form-container {
+            padding-bottom: 24px;
+        }
+
+        .smartcert-form-hero {
+            margin: 2px 2px 18px;
+            padding: 15px;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .smartcert-form-hero h1 {
+            font-size: 19px;
+        }
+
+        .smartcert-form-hero__status {
+            width: 100%;
+            min-width: 0;
+            border-left: 0;
+            border-top: 2px solid var(--sc-yellow);
+            padding: 10px 0 0;
+        }
+
+        .fieldbody {
+            padding: 12px;
+        }
+
+        .grid-table,
+        .grid-2,
+        .grid-3,
+        .grid-3-equal,
+        .cols-2,
+        .cols-3,
+        .cols-4,
+        .cols-5,
+        .small-2,
+        .sig-fields {
+            grid-template-columns: 1fr !important;
+        }
+
+        .grid-table {
+            display: grid;
+            gap: 10px;
+        }
+
+        .repeat-item,
+        .repeat-item.labor {
+            grid-template-columns: 1fr !important;
+            align-items: stretch;
+        }
+
+        .submit-btn-wrapper {
+            margin-left: -12px;
+            margin-right: -12px;
+            padding: 12px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            min-width: 0;
+            box-shadow: 4px 4px 0 var(--sc-black);
+        }
+
+        .app-modal-card {
+            padding: 26px 20px 22px;
+        }
+    }
+
+/* =========================================================
+   SUPABASE AUTO-FILL / LOCKED FIELDS
+   ========================================================= */
+.autofill-notice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 14px;
+    padding: 11px 13px;
+    border: 1px solid #111111;
+    border-left: 5px solid #f4ea00;
+    background: #fffef0;
+    color: #111827;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.autofill-notice__icon {
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    display: grid;
+    place-items: center;
+    background: #111111;
+    color: #f4ea00;
+    font-weight: 900;
+    border: 2px solid #f4ea00;
+}
+
+.autofill-notice strong,
+.autofill-notice span {
+    display: block;
+}
+
+.autofill-notice strong {
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.field[data-autofill-locked="true"] label::after {
+    content: none;
+    display: none;
+}
+
+input.autofill-locked,
+select.autofill-locked,
+textarea.autofill-locked {
+    background: #f5f5f5 !important;
+    border-color: #111111 !important;
+    border-bottom: 2px solid #f4ea00 !important;
+    color: #111827 !important;
+    opacity: 1 !important;
+    cursor: not-allowed;
+    box-shadow: none !important;
+    -webkit-text-fill-color: #111827 !important;
+}
+
+input.autofill-locked:focus,
+select.autofill-locked:focus,
+textarea.autofill-locked:focus {
+    border-color: #111111 !important;
+    box-shadow: none !important;
+}
+
+/* P.O. number is intentionally user-entered. */
+input[name="postalnumber"] {
+    background: #fffdf0;
+    border: 1px solid #111111;
+    border-bottom: 2px solid #f4ea00;
+}
+
+/* =========================================================
+   TOP SUMMARY — PROPORTIONAL, CONTENT-DRIVEN LAYOUT
+   ========================================================= */
+.top-summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    grid-auto-rows: max-content;
+    gap: 12px;
+}
+
+.top-summary-grid > .field-group {
+    align-self: start;
+    height: auto;
+    min-height: 0;
+}
+
+.top-summary-grid .fieldbody {
+    padding: 12px;
+}
+
+.top-summary-grid .field {
+    margin-bottom: 8px;
+}
+
+.top-summary-grid .field:last-child,
+.top-summary-grid .grid-table > .field:last-child {
+    margin-bottom: 0;
+}
+
+.top-summary-grid .grid-table {
+    gap: 8px;
+}
+
+.top-summary-grid .grid-table > .field {
+    margin-bottom: 0;
+}
+
+.top-summary-grid .date-subsection {
+    margin-top: 2px;
+    padding: 10px 0 0;
+}
+
+@media (max-width: 768px) {
+    .autofill-notice {
+        align-items: flex-start;
+    }
+}
+
+
+
+/* =========================================================
+   EQUAL-HEIGHT TOP SUMMARY CARDS
+   ========================================================= */
+.top-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    align-items: stretch;
+}
+.top-summary-grid > .field-group {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.top-summary-grid > .field-group .fieldbody {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    align-content: start;
+}
+.top-summary-grid > .field-group .field,
+.top-summary-grid > .field-group .fieldbody > label,
+.top-summary-grid > .field-group .fieldbody > input,
+.top-summary-grid > .field-group .fieldbody > select {
+    min-width: 0;
+}
+/* Default direct label/input pairs remain full width */
+.top-summary-grid > .field-group .fieldbody > label,
+.top-summary-grid > .field-group .fieldbody > input,
+.top-summary-grid > .field-group .fieldbody > select {
+    grid-column: 1 / -1;
+}
+/* Explicit two-column rows */
+.top-summary-grid .summary-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    grid-column: 1 / -1;
+}
+.top-summary-grid .summary-pair .field {
+    margin: 0;
+}
+/* Asset information is denser: pair selected fields side by side */
+.top-summary-grid .asset-field-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    grid-column: 1 / -1;
+}
+.top-summary-grid .asset-field-grid .field.wide {
+    grid-column: 1 / -1;
+}
+@media (max-width: 900px) {
+    .top-summary-grid { grid-template-columns: 1fr; }
+    .top-summary-grid > .field-group .fieldbody { grid-template-columns: 1fr; }
+    .top-summary-grid .summary-pair,
+    .top-summary-grid .asset-field-grid { grid-template-columns: 1fr; }
+}
+
+/* PDF/static output */
+@media print {
+    .top-summary-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+        align-items: stretch !important;
+    }
+    .top-summary-grid > .field-group {
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .top-summary-grid > .field-group .fieldbody {
+        flex: 1 !important;
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+        align-content: start !important;
+    }
+    .top-summary-grid .summary-pair,
+    .top-summary-grid .asset-field-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+        grid-column: 1 / -1 !important;
+    }
+    .top-summary-grid .asset-field-grid .field.wide {
+        grid-column: 1 / -1 !important;
+    }
+}
+
+
+/* =========================================================
+   TOP SUMMARY — FULL-WIDTH FIELDS + BALANCED EQUAL HEIGHTS
+   ========================================================= */
+.top-summary-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+}
+
+.top-summary-grid > .field-group {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.top-summary-grid > .field-group > .fieldbody {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    min-width: 0 !important;
+}
+
+/* Customer and Asset have different field counts, so distribute their
+   full-width rows through the same available card height. */
+.top-summary-grid .customer-summary-card > .fieldbody,
+.top-summary-grid .asset-summary-card > .fieldbody {
+    justify-content: space-between !important;
+}
+
+/* Service details has an inner container; make it fill the whole card width
+   and distribute its rows vertically instead of collapsing into half width. */
+.top-summary-grid .service-summary-card > .fieldbody > .grid-table {
+    width: 100% !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    min-width: 0 !important;
+}
+
+/* Every regular field takes the complete width of its section. */
+.top-summary-grid .field,
+.top-summary-grid .grid-table > .field {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+}
+
+.top-summary-grid .field > label {
+    width: 100% !important;
+}
+
+.top-summary-grid .field > input,
+.top-summary-grid .field > select,
+.top-summary-grid .field > textarea {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+}
+
+/* Dates are the only intentionally paired fields. */
+.top-summary-grid .service-summary-card .date-subsection {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 10px 0 0 !important;
+    margin: 0 !important;
+}
+
+.top-summary-grid .service-summary-card .date-subsection .field {
+    width: 100% !important;
+}
+
+#tech-level-info:empty {
+    display: none !important;
+}
+
+@media (max-width: 900px) {
+    .top-summary-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .top-summary-grid > .field-group > .fieldbody,
+    .top-summary-grid .service-summary-card > .fieldbody > .grid-table {
+        justify-content: flex-start !important;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <section class="smartcert-form-hero" data-pdf-exclude="true" aria-label="SMARTCERT service order">
+        <div>
+            <div class="smartcert-form-hero__eyebrow">SMARTCERT • Canary Gas Detection Services</div>
+            <h1>Service Order</h1>
+            <p>Complete the service details below. The report and calibration certificate are prepared when the order is submitted.</p>
+        </div>
+        <div class="smartcert-form-hero__status">
+            <strong>Secure submission</strong>
+            <span>Service data + report PDF</span>
+        </div>
+    </section>
+
+    <div class="autofill-notice" data-pdf-exclude="true" role="status">
+        <div class="autofill-notice__icon">✓</div>
+        <div>
+            <strong>Complete your service order</strong>
+            <span>Review the information below, enter the required service and calibration details, then submit the form when everything is complete. SMARTCERT will prepare the service order and calibration certificate for you.</span>
+        </div>
+    </div>
+
+
+    <div class="sub-section no-borders">
+    <!-- TOP SECTION -->
+    <div class="grid-3 top-summary-grid">
+
+        <!-- CUSTOMER INFO -->
+        <div class="field-group customer-summary-card">
+            <div class="section-title">CUSTOMER INFORMATION</div>
+
+            <div class="fieldbody">
+              <div class="field"><label>Company</label><input type="text" name="company" data-section="customer_information" data-subsection="main"></div>
+              <div class="field"><label>P.O. Number</label><input type="text" name="postalnumber" data-section="customer_information" data-subsection="main" placeholder="Enter P.O. / work order number" autocomplete="off" data-user-entry="true"></div>
+              <div class="field"><label>Contact</label><input type="text" name="contact" data-section="customer_information" data-subsection="main"></div>
+              <div class="field"><label>Address</label><input type="text" name="address" data-section="customer_information" data-subsection="main"></div>
+              <div class="field"><label>City, State, Zip</label><input type="text" name="address_info" data-section="customer_information" data-subsection="main"></div>
+              <div class="field"><label>Phone</label><input type="text" name="phone" data-section="customer_information" data-subsection="main"></div>
+            </div>
+        </div>
+
+       <!-- SERVICE DETAILS -->
+        <!-- SERVICE DETAILS -->
+        <div class="field-group service-summary-card">
+            <div class="section-title">SERVICE DETAILS</div>
+            <div class="fieldbody">
+            <div class="grid-table">
+
+                <div class="field">
+                    <label>Order Number</label>
+                    <input type="text" name="order_number" data-section="service_details" data-subsection="main" readonly>
+                </div>
+
+                <div class="field">
+                    <label>Service Level</label>
+                    <select 
+                    class="dropdown" 
+                    name="service_level" 
+                    data-section="service_details" 
+                    data-subsection="main"
+                >
+                    <option value="">Select Service Level</option>
+                
+                    <option value="BASIC">
+                        BASIC
+                    </option>
+                
+                    <option value="STANDARD">
+                        STANDARD
+                    </option>
+                
+                    <option value="STANDARD_SMARTCERT">
+                        STANDARD + Smartcert
+                    </option>
+                
+                    <option value="ADVANCED">
+                        ADVANCED
+                    </option>
+                
+                    <option value="ADVANCED_SMARTCERT">
+                        ADVANCED + Smartcert
+                    </option>
+                </select>
+                </div>
+
+                <div class="field">
+                    <label>Tech Level</label>
+                    <select class="dropdown" id="tech-level" name="tech_level" data-section="service_details" data-subsection="main">
+                        <option value="">Select Level</option>
+
+                        <option value="Level 1">
+                            Level 1
+                        </option>
+
+                        <option value="Level 2">
+                            Level 2
+                        </option>
+
+                        <option value="Level 3">
+                            Level 3
+                        </option>
+
+                        <option value="Level 4">
+                            Level 4
+                        </option>
+
+                        <option value="Level 5">
+                            Level 5
+                        </option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Service Frequency</label>
+                    <select 
+                    class="dropdown" 
+                    name="service_frequency" 
+                    data-section="service_details" 
+                    data-subsection="main"
+                >
+                    <option value="">
+                        Select Service Frequency
+                    </option>
+
+                    <option value="Weekly">
+                        Weekly
+                    </option>
+
+                    <option value="Monthly">
+                        Monthly
+                    </option>
+
+                    <option value="Quarterly">
+                        Quarterly
+                    </option>
+
+                    <option value="Bi-Yearly">
+                        Bi-Yearly
+                    </option>
+
+                    <option value="Yearly">
+                        Yearly
+                    </option>
+                </select>
+                </div>
+
+
+                <div class="summary-pair date-subsection">
+                <div class="field">
+                    <label>Service Date</label>
+                    <input type="date" name="service_date" data-section="service_details" data-subsection="main">
+                </div>
+
+                <div class="field">
+                    <label>Next Service</label>
+                    <input type="date" name="next_service" data-section="service_details" data-subsection="main">
+                </div>
+               </div>
+
+            </div>
+            </div>  
+
+            <!-- Optional Tech Level Info -->
+            <small id="tech-level-info" style="display:block; margin-top:8px; color:#555;"></small>
+        </div>
+
+        <!-- ASSET INFO -->
+        <div class="field-group asset-summary-card">
+            <div class="section-title">ASSET INFORMATION</div>
+            
+            <div class="fieldbody">
+                <div class="field"><label>Equipment</label><input type="text" name="equipment_name" data-section="asset_information" data-subsection="main"></div>
+                <div class="field"><label>Equipment Location</label><input type="text" name="equipment_location" data-section="asset_information" data-subsection="main"></div>
+                <div class="field"><label>Detector Type</label><select 
+            class="dropdown" 
+            name="detector_type" 
+            data-section="asset_information" 
+            data-subsection="main"
+        >
+            <option value="">
+                Select Detector Type
+            </option>
+        
+            <option value="EC-Toxic">
+                EC-Toxic
+            </option>
+        
+            <option value="EC-Oxygen">
+                EC-Oxygen
+            </option>
+        
+            <option value="Cat Bead">
+                Cat Bead
+            </option>
+        
+            <option value="IR">
+                IR
+            </option>
+        
+            <option value="NDIR">
+                NDIR
+            </option>
+        
+            <option value="PID">
+                PID
+            </option>
+        
+            <option value="FID">
+                FID
+            </option>
+        
+            <option value="MOS">
+                MOS
+            </option>
+        
+            <option value="Therm. Conductivity">
+                Therm. Conductivity
+            </option>
+        
+            <option value="Open Path IR">
+                Open Path IR
+            </option>
+        
+            <option value="Ultrasonic">
+                Ultrasonic
+            </option>
+        
+            <option value="Zirconia">
+                Zirconia
+            </option>
+        
+            <option value="Chem Cassett">
+                Chem Cassett
+            </option>
+        
+            <option value="FTIR">
+                FTIR
+            </option>
+        
+            <option value="SSO">
+                SSO
+            </option>
+        
+            <option value="Other">
+                Other
+            </option>
+        </select></div>
+                <div class="field"><label>Classification</label><input type="text" name="classification" data-section="asset_information" data-subsection="main"></div>
+                <div class="field"><label>Manufacturer</label><input type="text" name="manufacturer" data-section="asset_information" data-subsection="main"></div>
+                <div class="field"><label>Part Number</label><input type="text" name="part_number" data-section="asset_information" data-subsection="main"></div>
+                <div class="field"><label>Serial Number</label><input type="text" name="serial_number" data-section="asset_information" data-subsection="main"></div>
+                <div class="field"><label>Tag Number</label><input type="text" name="tag_number" data-section="asset_information" data-subsection="main"></div>
+            </div>
+    </div>
+
+    </div>
+    </div>
+
+    
+    <!-- SYSTEM NOTES TOGGLE -->
+<button
+type="button"
+onclick="toggleOptionalSection('system-notes-section', this)"
+style="
+    margin-bottom:10px;
+"
+>
+System Notes
+</button>
+
+<!-- SYSTEM NOTES -->
+<div
+class="sub-section"
+id="system-notes-section" style="display:none;"
+>
+
+<div class="section-title">
+    SYSTEM NOTES
+</div>
+<div class="fieldbody">
+<textarea
+    name="system_notes"
+    data-section="System_notes"
+    data-subsection="main"
+></textarea>
+</div>
+</div>
+
+
+<!-- CUSTOMER ACTION ITEMS TOGGLE -->
+<button
+type="button"
+onclick="toggleOptionalSection('customer-actions-section', this)"
+style="
+    margin-top:14px;
+    margin-bottom:10px;
+"
+>
+Customer Action Items
+</button>
+
+<!-- CUSTOMER ACTION ITEMS -->
+<div
+class="sub-section"
+id="customer-actions-section" style="display:none;"
+>
+
+<div class="section-title">
+    CUSTOMER ACTION ITEMS
+</div>
+<div class="fieldbody"> 
+<textarea
+    name="customer_action_items"
+    data-section="customer_action_items"
+    data-subsection="main"
+></textarea>
+</div>
+</div>
+   
+
+    <!-- SYSTEM INFORMATION -->
+<div class="section-title main">SYSTEM INFORMATION</div>
+
+<!-- GAS DETECTOR -->
+<div class="sub-section">
+  <div class="sub-title">GAS DETECTOR</div>
+   <div class="fieldbody">
+  <div class="grid-table cols-5">
+
+      <div class="field">
+          <label>Manufacture</label>
+          <input type="text" name="manufacturer" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Detector Model</label>
+          <input type="text" name="detector_model" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Part Number</label>
+          <input type="text" name="part_number" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Serial Number</label>
+          <input type="text" name="serial_number" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Tag Number</label>
+          <input type="text" name="tag_number" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+
+  </div>
+
+  <div class="grid-table cols-3">
+
+      <div class="field">
+          <label>Power Input</label>
+          <input type="text" name="power_input" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Relays</label>
+          <input type="text" name="relays" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+          <label>Pyrolyzer</label>
+          <select 
+            class="dropdown" 
+            name="pyrolyzer" 
+            data-section="system_information" 
+            data-subsection="gas_detector"
+        >
+            <option value="">
+                Select Option
+            </option>
+
+            <option value="Yes">
+                Yes
+            </option>
+
+            <option value="No">
+                No
+            </option>
+        </select>
+      </div>
+
+      <div class="field">
+          <label>Classification</label>
+          <input type="text" name="gas_classification" data-section="system_information" data-subsection="gas_detector">
+      </div>
+
+      <div class="field">
+        <label>SW Version</label>
+    
+        <input
+          type="text"
+          name="sw_version"
+          data-section="system_information"
+          data-subsection="gas_detector"
+        >
+    </div>
+
+    <div class="field">
+        <label>Measurement Type</label>
+    
+        <input
+          type="text"
+          name="measurement_type"
+          data-section="system_information"
+          data-subsection="gas_detector"
+        >
+    </div>
+</div>
+
+  </div>
+
+  <!-- NOTES (COLLAPSIBLE + LIMITED) -->
+  
+  <div class="notes-block fieldbody">
+    <button type="button" class="notes-toggle">Add Notes</button>
+        <textarea class="notes-textarea hidden" name="notes" data-section="system_information" data-subsection="gas_detector"></textarea>
+  </div>
+
+
+</div>
+
+<!-- SENSOR DATA -->
+
+<div class="sub-section no-borders">
+    <div class="sub-section">
+    <div class="sub-title">SENSOR DATA</div>
+    <div class="fieldbody">
+    <!-- ROW 1 -->
+    <div class="grid-table cols-5">
+  
+        <div class="field">
+            <label>Manufacturer</label>
+            <input type="text" class="field" name="manufacturer" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Sensor Type</label>
+            <select 
+            class="dropdown" 
+            name="sensor_type" 
+            data-section="system_information" 
+            data-subsection="sensor_data"
+        >
+            <option value="">
+                Select Sensor Type
+            </option>
+
+            <option value="EC-Toxic">
+                EC-Toxic
+            </option>
+
+            <option value="EC-Oxygen">
+                EC-Oxygen
+            </option>
+
+            <option value="Cat Bead">
+                Cat Bead
+            </option>
+
+            <option value="IR">
+                IR
+            </option>
+
+            <option value="NDIR">
+                NDIR
+            </option>
+
+            <option value="PID">
+                PID
+            </option>
+
+            <option value="FID">
+                FID
+            </option>
+
+            <option value="MOS">
+                MOS
+            </option>
+
+            <option value="Therm. Conductivity">
+                Therm. Conductivity
+            </option>
+
+            <option value="Open Path IR">
+                Open Path IR
+            </option>
+
+            <option value="Ultrasonic">
+                Ultrasonic
+            </option>
+
+            <option value="Zirconia">
+                Zirconia
+            </option>
+
+            <option value="Chem Cassett">
+                Chem Cassett
+            </option>
+
+            <option value="FTIR">
+                FTIR
+            </option>
+
+            <option value="SSO">
+                SSO
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+        </select>
+        </div>
+  
+        <div class="field">
+            <label>Part Number</label>
+            <input type="text" name="part_number" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Serial Number</label>
+            <input type="text" name="serial_number" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Gas Type</label>
+            <select
+                class="dropdown gas-type-select"
+                name="target_gas"
+                data-section="system_information"
+                data-subsection="sensor_data"
+            >
+            <option value="">Select Gas Type</option>
+
+            <optgroup label="Combustible / Flammable">
+                <option value="Methane — CH₄">Methane — CH₄</option>
+                <option value="Hydrogen — H₂">Hydrogen — H₂</option>
+                <option value="Propane — C₃H₈">Propane — C₃H₈</option>
+                <option value="Butane — C₄H₁₀">Butane — C₄H₁₀</option>
+                <option value="Isobutane — C₄H₁₀">Isobutane — C₄H₁₀</option>
+                <option value="Pentane — C₅H₁₂">Pentane — C₅H₁₂</option>
+                <option value="Hexane — C₆H₁₄">Hexane — C₆H₁₄</option>
+                <option value="Heptane — C₇H₁₆">Heptane — C₇H₁₆</option>
+                <option value="Ethane — C₂H₆">Ethane — C₂H₆</option>
+                <option value="Ethylene — C₂H₄">Ethylene — C₂H₄</option>
+                <option value="Propylene — C₃H₆">Propylene — C₃H₆</option>
+                <option value="Acetylene — C₂H₂">Acetylene — C₂H₂</option>
+                <option value="Methanol — CH₃OH">Methanol — CH₃OH</option>
+                <option value="Ethanol — C₂H₅OH">Ethanol — C₂H₅OH</option>
+                <option value="Isopropyl Alcohol — C₃H₈O">Isopropyl Alcohol — C₃H₈O</option>
+                <option value="Acetone — C₃H₆O">Acetone — C₃H₆O</option>
+                <option value="Benzene — C₆H₆">Benzene — C₆H₆</option>
+                <option value="Toluene — C₇H₈">Toluene — C₇H₈</option>
+                <option value="Xylene — C₈H₁₀">Xylene — C₈H₁₀</option>
+            </optgroup>
+
+            <optgroup label="Toxic / Industrial">
+                <option value="Hydrogen Sulfide — H₂S">Hydrogen Sulfide — H₂S</option>
+                <option value="Carbon Monoxide — CO">Carbon Monoxide — CO</option>
+                <option value="Carbon Dioxide — CO₂">Carbon Dioxide — CO₂</option>
+                <option value="Ammonia — NH₃">Ammonia — NH₃</option>
+                <option value="Chlorine — Cl₂">Chlorine — Cl₂</option>
+                <option value="Chlorine Dioxide — ClO₂">Chlorine Dioxide — ClO₂</option>
+                <option value="Sulfur Dioxide — SO₂">Sulfur Dioxide — SO₂</option>
+                <option value="Nitrogen Dioxide — NO₂">Nitrogen Dioxide — NO₂</option>
+                <option value="Nitric Oxide — NO">Nitric Oxide — NO</option>
+                <option value="Hydrogen Cyanide — HCN">Hydrogen Cyanide — HCN</option>
+                <option value="Hydrogen Chloride — HCl">Hydrogen Chloride — HCl</option>
+                <option value="Hydrogen Fluoride — HF">Hydrogen Fluoride — HF</option>
+                <option value="Ozone — O₃">Ozone — O₃</option>
+                <option value="Phosphine — PH₃">Phosphine — PH₃</option>
+                <option value="Formaldehyde — CH₂O">Formaldehyde — CH₂O</option>
+            </optgroup>
+
+            <optgroup label="Semiconductor / Specialty">
+                <option value="Silane — SiH₄">Silane — SiH₄</option>
+                <option value="Diborane — B₂H₆">Diborane — B₂H₆</option>
+                <option value="Arsine — AsH₃">Arsine — AsH₃</option>
+                <option value="Phosphine — PH₃">Phosphine — PH₃</option>
+                <option value="Germane — GeH₄">Germane — GeH₄</option>
+                <option value="Boron Trichloride — BCl₃">Boron Trichloride — BCl₃</option>
+                <option value="Boron Trifluoride — BF₃">Boron Trifluoride — BF₃</option>
+                <option value="Hydrogen Bromide — HBr">Hydrogen Bromide — HBr</option>
+                <option value="Dichlorosilane — SiH₂Cl₂">Dichlorosilane — SiH₂Cl₂</option>
+                <option value="Trichlorosilane — HSiCl₃">Trichlorosilane — HSiCl₃</option>
+                <option value="Silicon Tetrachloride — SiCl₄">Silicon Tetrachloride — SiCl₄</option>
+                <option value="Tungsten Hexafluoride — WF₆">Tungsten Hexafluoride — WF₆</option>
+            </optgroup>
+
+            <optgroup label="Oxygen / General">
+                <option value="Oxygen — O₂">Oxygen — O₂</option>
+                <option value="Volatile Organic Compounds — VOC">Volatile Organic Compounds — VOC</option>
+                <option value="Nitrogen — N₂">Nitrogen — N₂</option>
+                <option value="Argon — Ar">Argon — Ar</option>
+                <option value="Helium — He">Helium — He</option>
+            </optgroup>
+            </select>
+        </div>
+  
+    </div>
+  
+    <!-- ROW 2 -->
+    <div class="grid-table cols-5">
+  
+        <div class="field">
+            <label>Measurement Type</label>
+            <select 
+            class="dropdown" 
+            name="measurement_type" 
+            data-section="system_information" 
+            data-subsection="sensor_data"
+        >
+            <option value="">
+                Select Measurement Type
+            </option>
+
+            <option value="% Volume">
+                % Volume
+            </option>
+
+            <option value="PPM">
+                PPM
+            </option>
+
+            <option value="PPB">
+                PPB
+            </option>
+
+            <option value="LEL">
+                LEL
+            </option>
+
+            <option value="UEL">
+                UEL
+            </option>
+        </select>
+        </div>
+  
+        <div class="field">
+            <label>Range</label>
+            <input type="text" name="range" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Install Date</label>
+            <input type="date" name="install_date" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Sensor Age</label>
+            <input type="text" name="sensor_age" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Sensor Life</label>
+            <input type="text" name="sensor_life" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+    </div>
+  
+    <!-- ROW 3 -->
+    <div class="grid-table cols-5">
+  
+        <div class="field">
+            <label>Lag Time</label>
+            <input type="text" name="lag_time" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Tube Length</label>
+            <input type="text" name="tube_length" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>T-50</label>
+            <input type="text" name="t_50" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>T-90</label>
+            <input type="text" name="t_90" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>T-100</label>
+            <input type="text" name="t_100" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+    </div>
+  
+    <!-- ROW 4 -->
+    <div class="grid-table cols-5">
+  
+        <div class="field">
+            <label>Zero As Found</label>
+            <input type="text" name="zero_as_found" data-section="system_information" data-subsection="sensor_data">
+        </div>
+
+        <div class="field">
+            <label>Zero Cal</label>
+            <input type="text" name="zero_cal" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Span As Found</label>
+            <input type="number" id="span-as-found" name="span_as_found" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+      
+  
+        <div class="field">
+            <label>Span Cal</label>
+            <input type="number" id="span-cal" name="span_cal" data-section="system_information" data-subsection="sensor_data">
+        </div>
+  
+        <div class="field">
+            <label>Span Deviation (%)</label>
+            <input type="text" id="span-deviation" name="span_deviation" data-section="system_information" data-subsection="sensor_data" readonly>
+        </div>
+        <div></div>
+  
+    </div>
+  
+    <!-- NOTES (COLLAPSIBLE + LIMITED) -->
+    <div class="notes-block">
+        <button type="button" class="notes-toggle">Add Notes</button>
+            <textarea class="notes-textarea hidden" name="sensor_notes" data-section="system_information" data-subsection="sensor_data"></textarea>
+      </div>
+      </div>
+  </div>
+<!-- SERVICE PERFORMED -->
+<div class="sub-section">
+    <div class="fieldbody">
+    <label><strong>SERVICE PERFORMED:</strong></label>
+    <textarea name="service_performed" data-section="system_information" data-subsection="sensor_data"></textarea>
+    </div>
+</div>
+
+<!-- CALIBRATION INFORMATION -->
+<div class="section-title main">CALIBRATION INFORMATION</div>
+
+
+<!-- CALIBRATION CYLINDER -->
+<div class="sub-section">
+
+    <div class="sub-title">
+      ZERO SPAN CYLINDER INFORMATION
+    </div>
+    <div class="fieldbody">
+    <div class="grid-table cols-5">
+  
+        <!-- MANUFACTURER -->
+        <div class="field">
+            <label>Manufacturer</label>
+  
+            <input
+                type="text"
+                name="manufacturer"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+        <!-- CYLINDER TYPE -->
+        <div class="field">
+            <label>Cylinder Type</label>
+  
+            <select
+            class="dropdown"
+            name="cylinder_type"
+            data-section="calibration_information"
+            data-subsection="span_cylinder_information"
+        >
+
+            <option value="">
+                Select Cylinder Type
+            </option>
+
+            <option value="Non-Refillable (DOT-39) - Aluminum">
+                Non-Refillable (DOT-39) - Aluminum
+            </option>
+
+            <option value="Refillable (DOT-3A/3AA/3AL or UN-Certified) - Steel">
+                Refillable (DOT-3A/3AA/3AL or UN-Certified) - Steel
+            </option>
+
+            <option value="Refillable (DOT-3A/3AA/3AL or UN-Certified) - Composite">
+                Refillable (DOT-3A/3AA/3AL or UN-Certified) - Composite
+            </option>
+
+            <option value="Refillable (DOT-3A/3AA/3AL or UN-Certified) - Stainless Steel">
+                Refillable (DOT-3A/3AA/3AL or UN-Certified) - Stainless Steel
+            </option>
+
+        </select>
+        </div>
+  
+        <!-- CYLINDER SIZE -->
+        <div class="field">
+            <label>Cylinder Size</label>
+  
+            <select
+            class="dropdown"
+            name="cylinder_size"
+            data-section="calibration_information"
+            data-subsection="span_cylinder_information"
+        >
+
+            <option value="">
+                Select Cylinder Size
+            </option>
+
+            <option value="5.8L">
+                5.8L
+            </option>
+
+            <option value="34L">
+                34L
+            </option>
+
+            <option value="58L">
+                58L
+            </option>
+
+            <option value="103L">
+                103L
+            </option>
+
+            <option value="105L">
+                105L
+            </option>
+
+            <option value="116L">
+                116L
+            </option>
+
+            <option value="650L">
+                650L
+            </option>
+
+        </select>
+        </div>
+  
+        <!-- CYLINDER PRESSURE -->
+        <div class="field">
+            <label>Cylinder Pressure</label>
+  
+            <input
+                type="text"
+                name="cylinder_pressure"
+                placeholder="e.g. 2000 PSI"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+        <!-- GAS TYPE -->
+        <div class="field">
+            <label>Gas Type</label>
+  
+           <select
+            class="dropdown gas-type-select"
+            name="gas_type"
+            data-section="calibration_information"
+            data-subsection="span_cylinder_information"
+        >
+            <option value="">Select Gas Type</option>
+
+            <optgroup label="Combustible / Flammable">
+                <option value="Methane — CH₄">Methane — CH₄</option>
+                <option value="Hydrogen — H₂">Hydrogen — H₂</option>
+                <option value="Propane — C₃H₈">Propane — C₃H₈</option>
+                <option value="Butane — C₄H₁₀">Butane — C₄H₁₀</option>
+                <option value="Isobutane — C₄H₁₀">Isobutane — C₄H₁₀</option>
+                <option value="Pentane — C₅H₁₂">Pentane — C₅H₁₂</option>
+                <option value="Hexane — C₆H₁₄">Hexane — C₆H₁₄</option>
+                <option value="Heptane — C₇H₁₆">Heptane — C₇H₁₆</option>
+                <option value="Ethane — C₂H₆">Ethane — C₂H₆</option>
+                <option value="Ethylene — C₂H₄">Ethylene — C₂H₄</option>
+                <option value="Propylene — C₃H₆">Propylene — C₃H₆</option>
+                <option value="Acetylene — C₂H₂">Acetylene — C₂H₂</option>
+                <option value="Methanol — CH₃OH">Methanol — CH₃OH</option>
+                <option value="Ethanol — C₂H₅OH">Ethanol — C₂H₅OH</option>
+                <option value="Isopropyl Alcohol — C₃H₈O">Isopropyl Alcohol — C₃H₈O</option>
+                <option value="Acetone — C₃H₆O">Acetone — C₃H₆O</option>
+                <option value="Benzene — C₆H₆">Benzene — C₆H₆</option>
+                <option value="Toluene — C₇H₈">Toluene — C₇H₈</option>
+                <option value="Xylene — C₈H₁₀">Xylene — C₈H₁₀</option>
+            </optgroup>
+
+            <optgroup label="Toxic / Industrial">
+                <option value="Hydrogen Sulfide — H₂S">Hydrogen Sulfide — H₂S</option>
+                <option value="Carbon Monoxide — CO">Carbon Monoxide — CO</option>
+                <option value="Carbon Dioxide — CO₂">Carbon Dioxide — CO₂</option>
+                <option value="Ammonia — NH₃">Ammonia — NH₃</option>
+                <option value="Chlorine — Cl₂">Chlorine — Cl₂</option>
+                <option value="Chlorine Dioxide — ClO₂">Chlorine Dioxide — ClO₂</option>
+                <option value="Sulfur Dioxide — SO₂">Sulfur Dioxide — SO₂</option>
+                <option value="Nitrogen Dioxide — NO₂">Nitrogen Dioxide — NO₂</option>
+                <option value="Nitric Oxide — NO">Nitric Oxide — NO</option>
+                <option value="Hydrogen Cyanide — HCN">Hydrogen Cyanide — HCN</option>
+                <option value="Hydrogen Chloride — HCl">Hydrogen Chloride — HCl</option>
+                <option value="Hydrogen Fluoride — HF">Hydrogen Fluoride — HF</option>
+                <option value="Ozone — O₃">Ozone — O₃</option>
+                <option value="Phosphine — PH₃">Phosphine — PH₃</option>
+                <option value="Formaldehyde — CH₂O">Formaldehyde — CH₂O</option>
+            </optgroup>
+
+            <optgroup label="Semiconductor / Specialty">
+                <option value="Silane — SiH₄">Silane — SiH₄</option>
+                <option value="Diborane — B₂H₆">Diborane — B₂H₆</option>
+                <option value="Arsine — AsH₃">Arsine — AsH₃</option>
+                <option value="Phosphine — PH₃">Phosphine — PH₃</option>
+                <option value="Germane — GeH₄">Germane — GeH₄</option>
+                <option value="Boron Trichloride — BCl₃">Boron Trichloride — BCl₃</option>
+                <option value="Boron Trifluoride — BF₃">Boron Trifluoride — BF₃</option>
+                <option value="Hydrogen Bromide — HBr">Hydrogen Bromide — HBr</option>
+                <option value="Dichlorosilane — SiH₂Cl₂">Dichlorosilane — SiH₂Cl₂</option>
+                <option value="Trichlorosilane — HSiCl₃">Trichlorosilane — HSiCl₃</option>
+                <option value="Silicon Tetrachloride — SiCl₄">Silicon Tetrachloride — SiCl₄</option>
+                <option value="Tungsten Hexafluoride — WF₆">Tungsten Hexafluoride — WF₆</option>
+            </optgroup>
+
+            <optgroup label="Oxygen / General">
+                <option value="Oxygen — O₂">Oxygen — O₂</option>
+                <option value="Volatile Organic Compounds — VOC">Volatile Organic Compounds — VOC</option>
+                <option value="Nitrogen — N₂">Nitrogen — N₂</option>
+                <option value="Argon — Ar">Argon — Ar</option>
+                <option value="Helium — He">Helium — He</option>
+            </optgroup>
+        </select>
+        </div>
+  
+        <!-- CONCENTRATION -->
+        <div class="field">
+            <label>Concentration</label>
+  
+            <input
+                type="text"
+                name="concentration"
+                placeholder="e.g. 25 PPM"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+        <!-- GAS BALANCE -->
+        <div class="field">
+            <label>Gas Balance</label>
+  
+            <input
+                type="text"
+                name="gas_balance"
+                placeholder="e.g. Nitrogen"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+        <!-- EXP DATE -->
+        <div class="field">
+            <label>Exp Date</label>
+  
+            <input
+                type="date"
+                name="exp_date"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+        <!-- CERT NUMBER -->
+        <div class="field">
+            <label>Certificate Number</label>
+  
+            <input
+                type="text"
+                name="cert_number"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+  
+        <!-- LOT NUMBER -->
+        <div class="field">
+            <label>Lot Number</label>
+  
+            <input
+                type="text"
+                name="lot_number"
+                data-section="calibration_information"
+                data-subsection="span_cylinder_information"
+            >
+        </div>
+       
+  
+    </div>
+  
+    <!-- NOTES -->
+    <div class="notes-block">
+  
+      <button
+          type="button"
+          class="notes-toggle"
+      >
+          Add Notes
+      </button>
+  
+      <textarea
+          class="notes-textarea hidden"
+          name="notes"
+          data-section="calibration_information"
+          data-subsection="span_cylinder_information"
+      ></textarea>
+  
+    </div>
+    </div>
+  </div>
+
+
+
+<!-- CALIBRATION CYLINDER -->
+<div class="sub-section">
+
+    <div class="sub-title">
+      CALIBRATION SPAN CYLINDER INFORMATION
+    </div>
+    <div class="fieldbody">
+    <div class="grid-table cols-5">
+  
+        <!-- MANUFACTURER -->
+        <div class="field">
+            <label>Manufacturer</label>
+  
+            <input
+                type="text"
+                name="manufacturer"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+        <!-- CYLINDER TYPE -->
+        <div class="field">
+            <label>Cylinder Type</label>
+  
+            <select
+            class="dropdown"
+            name="cylinder_type"
+            data-section="calibration_information"
+            data-subsection="calibration_cylinder_information"
+        >
+
+            <option value="">
+                Select Cylinder Type
+            </option>
+
+            <option value="Non-Refillable (DOT-39) - Aluminum">
+                Non-Refillable (DOT-39) - Aluminum
+            </option>
+
+            <option value="Refillable (DOT-3A/3AA/3AL or UN-Certified) - Steel">
+                Refillable (DOT-3A/3AA/3AL or UN-Certified) - Steel
+            </option>
+
+            <option value="Refillable (DOT-3A/3AA/3AL or UN-Certified) - Composite">
+                Refillable (DOT-3A/3AA/3AL or UN-Certified) - Composite
+            </option>
+
+            <option value="Refillable (DOT-3A/3AA/3AL or UN-Certified) - Stainless Steel">
+                Refillable (DOT-3A/3AA/3AL or UN-Certified) - Stainless Steel
+            </option>
+
+        </select>
+        </div>
+  
+        <!-- CYLINDER SIZE -->
+        <div class="field">
+            <label>Cylinder Size</label>
+  
+            <select
+            class="dropdown"
+            name="cylinder_size"
+            data-section="calibration_information"
+            data-subsection="calibration_cylinder_information"
+        >
+
+            <option value="">
+                Select Cylinder Size
+            </option>
+
+            <option value="5.8L">
+                5.8L
+            </option>
+
+            <option value="34L">
+                34L
+            </option>
+
+            <option value="58L">
+                58L
+            </option>
+
+            <option value="103L">
+                103L
+            </option>
+
+            <option value="105L">
+                105L
+            </option>
+
+            <option value="116L">
+                116L
+            </option>
+
+            <option value="650L">
+                650L
+            </option>
+
+        </select>
+        </div>
+  
+        <!-- CYLINDER PRESSURE -->
+        <div class="field">
+            <label>Cylinder Pressure</label>
+  
+            <input
+                type="text"
+                name="cylinder_pressure"
+                placeholder="e.g. 2000 PSI"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+        <!-- GAS TYPE -->
+        <div class="field">
+            <label>Gas Type</label>
+  
+           <select
+            class="dropdown gas-type-select"
+            name="gas_type"
+            data-section="calibration_information"
+            data-subsection="calibration_cylinder_information"
+        >
+            <option value="">Select Gas Type</option>
+
+            <optgroup label="Combustible / Flammable">
+                <option value="Methane — CH₄">Methane — CH₄</option>
+                <option value="Hydrogen — H₂">Hydrogen — H₂</option>
+                <option value="Propane — C₃H₈">Propane — C₃H₈</option>
+                <option value="Butane — C₄H₁₀">Butane — C₄H₁₀</option>
+                <option value="Isobutane — C₄H₁₀">Isobutane — C₄H₁₀</option>
+                <option value="Pentane — C₅H₁₂">Pentane — C₅H₁₂</option>
+                <option value="Hexane — C₆H₁₄">Hexane — C₆H₁₄</option>
+                <option value="Heptane — C₇H₁₆">Heptane — C₇H₁₆</option>
+                <option value="Ethane — C₂H₆">Ethane — C₂H₆</option>
+                <option value="Ethylene — C₂H₄">Ethylene — C₂H₄</option>
+                <option value="Propylene — C₃H₆">Propylene — C₃H₆</option>
+                <option value="Acetylene — C₂H₂">Acetylene — C₂H₂</option>
+                <option value="Methanol — CH₃OH">Methanol — CH₃OH</option>
+                <option value="Ethanol — C₂H₅OH">Ethanol — C₂H₅OH</option>
+                <option value="Isopropyl Alcohol — C₃H₈O">Isopropyl Alcohol — C₃H₈O</option>
+                <option value="Acetone — C₃H₆O">Acetone — C₃H₆O</option>
+                <option value="Benzene — C₆H₆">Benzene — C₆H₆</option>
+                <option value="Toluene — C₇H₈">Toluene — C₇H₈</option>
+                <option value="Xylene — C₈H₁₀">Xylene — C₈H₁₀</option>
+            </optgroup>
+
+            <optgroup label="Toxic / Industrial">
+                <option value="Hydrogen Sulfide — H₂S">Hydrogen Sulfide — H₂S</option>
+                <option value="Carbon Monoxide — CO">Carbon Monoxide — CO</option>
+                <option value="Carbon Dioxide — CO₂">Carbon Dioxide — CO₂</option>
+                <option value="Ammonia — NH₃">Ammonia — NH₃</option>
+                <option value="Chlorine — Cl₂">Chlorine — Cl₂</option>
+                <option value="Chlorine Dioxide — ClO₂">Chlorine Dioxide — ClO₂</option>
+                <option value="Sulfur Dioxide — SO₂">Sulfur Dioxide — SO₂</option>
+                <option value="Nitrogen Dioxide — NO₂">Nitrogen Dioxide — NO₂</option>
+                <option value="Nitric Oxide — NO">Nitric Oxide — NO</option>
+                <option value="Hydrogen Cyanide — HCN">Hydrogen Cyanide — HCN</option>
+                <option value="Hydrogen Chloride — HCl">Hydrogen Chloride — HCl</option>
+                <option value="Hydrogen Fluoride — HF">Hydrogen Fluoride — HF</option>
+                <option value="Ozone — O₃">Ozone — O₃</option>
+                <option value="Phosphine — PH₃">Phosphine — PH₃</option>
+                <option value="Formaldehyde — CH₂O">Formaldehyde — CH₂O</option>
+            </optgroup>
+
+            <optgroup label="Semiconductor / Specialty">
+                <option value="Silane — SiH₄">Silane — SiH₄</option>
+                <option value="Diborane — B₂H₆">Diborane — B₂H₆</option>
+                <option value="Arsine — AsH₃">Arsine — AsH₃</option>
+                <option value="Phosphine — PH₃">Phosphine — PH₃</option>
+                <option value="Germane — GeH₄">Germane — GeH₄</option>
+                <option value="Boron Trichloride — BCl₃">Boron Trichloride — BCl₃</option>
+                <option value="Boron Trifluoride — BF₃">Boron Trifluoride — BF₃</option>
+                <option value="Hydrogen Bromide — HBr">Hydrogen Bromide — HBr</option>
+                <option value="Dichlorosilane — SiH₂Cl₂">Dichlorosilane — SiH₂Cl₂</option>
+                <option value="Trichlorosilane — HSiCl₃">Trichlorosilane — HSiCl₃</option>
+                <option value="Silicon Tetrachloride — SiCl₄">Silicon Tetrachloride — SiCl₄</option>
+                <option value="Tungsten Hexafluoride — WF₆">Tungsten Hexafluoride — WF₆</option>
+            </optgroup>
+
+            <optgroup label="Oxygen / General">
+                <option value="Oxygen — O₂">Oxygen — O₂</option>
+                <option value="Volatile Organic Compounds — VOC">Volatile Organic Compounds — VOC</option>
+                <option value="Nitrogen — N₂">Nitrogen — N₂</option>
+                <option value="Argon — Ar">Argon — Ar</option>
+                <option value="Helium — He">Helium — He</option>
+            </optgroup>
+        </select>
+        </div>
+  
+        <!-- CONCENTRATION -->
+        <div class="field">
+            <label>Concentration</label>
+  
+            <input
+                type="text"
+                name="concentration"
+                placeholder="e.g. 25 PPM"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+        <!-- GAS BALANCE -->
+        <div class="field">
+            <label>Gas Balance</label>
+  
+            <input
+                type="text"
+                name="gas_balance"
+                placeholder="e.g. Nitrogen"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+        <!-- EXP DATE -->
+        <div class="field">
+            <label>Exp Date</label>
+  
+            <input
+                type="date"
+                name="exp_date"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+        <!-- CERT NUMBER -->
+        <div class="field">
+            <label>Certificate Number</label>
+  
+            <input
+                type="text"
+                name="cert_number"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+        <!-- LOT NUMBER -->
+        <div class="field">
+            <label>Lot Number</label>
+  
+            <input
+                type="text"
+                name="lot_number"
+                data-section="calibration_information"
+                data-subsection="calibration_cylinder_information"
+            >
+        </div>
+  
+    </div>
+  
+    <!-- NOTES -->
+    <div class="notes-block">
+  
+      <button
+          type="button"
+          class="notes-toggle"
+      >
+          Add Notes
+      </button>
+  
+      <textarea
+          class="notes-textarea hidden"
+          name="notes"
+          data-section="calibration_information"
+          data-subsection="calibration_cylinder_information"
+      ></textarea>
+  
+    </div>
+   </div>
+  </div>
+
+
+<!-- GAS GENERATOR -->
+<div class="sub-section">
+  <div class="sub-title">GAS GENERATOR</div>
+  
+  <div class="fieldbody">
+  <div class="grid-table cols-4">
+      
+      <div class="field">
+          <label>Manufacturer</label>
+          <input type="text" name="manufacturer" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Model</label>
+          <input type="text" name="model" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Cal Gas</label>
+          <select 
+            class="dropdown" 
+            name="cal_gas" 
+            data-section="calibration_information" 
+            data-subsection="gas_generator"
+        >
+
+            <option value="">
+                Select Calibration Gas
+            </option>
+
+            <option value="EC-Toxic">
+                EC-Toxic
+            </option>
+
+            <option value="EC-Oxygen">
+                EC-Oxygen
+            </option>
+
+            <option value="Cat Bead">
+                Cat Bead
+            </option>
+
+            <option value="IR">
+                IR
+            </option>
+
+            <option value="NDIR">
+                NDIR
+            </option>
+
+            <option value="PID">
+                PID
+            </option>
+
+            <option value="FID">
+                FID
+            </option>
+
+            <option value="MOS">
+                MOS
+            </option>
+
+            <option value="Therm. Conductivity">
+                Therm. Conductivity
+            </option>
+
+            <option value="Open Path IR">
+                Open Path IR
+            </option>
+
+            <option value="Ultrasonic">
+                Ultrasonic
+            </option>
+
+            <option value="Zirconia">
+                Zirconia
+            </option>
+
+            <option value="Chem Cassett">
+                Chem Cassett
+            </option>
+
+            <option value="FTIR">
+                FTIR
+            </option>
+
+            <option value="SSO">
+                SSO
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
+      </div>
+
+      <div class="field">
+          <label>Flow Rate</label>
+          <input type="text" name="flow_rate" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Tolerance</label>
+          <input type="text" name="tolerance" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Part Number</label>
+          <input type="text" name="part_number" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Serial Number</label>
+          <input type="text" name="serial_number" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Lot Number</label>
+          <input type="text" name="lot_number" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+      <div class="field">
+          <label>Expiration</label>
+          <input type="date" name="expiration" data-section="calibration_information" data-subsection="gas_generator">
+      </div>
+
+  </div>
+
+  <div class="notes-block">
+    <button type="button" class="notes-toggle">Add Notes</button>
+    <textarea class="notes-textarea hidden" name="notes" data-section="calibration_information" data-subsection="gas_generator"></textarea>
+    </div>
+    </div>
+  </div>
+
+<!-- PERMEATION OVEN -->
+<div class="sub-section">
+  <div class="sub-title">PERMEATION OVEN</div>
+  <div class="fieldbody">
+  <div class="grid-table cols-5">
+
+      <div class="field">
+          <label>Manufacturer</label>
+          <input type="text" name="manufacturer" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Model</label>
+          <input type="text" name="model" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Permeation Tube</label>
+          <input type="text" name="permeation_tube" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Flow Rate</label>
+          <input type="text" name="flow_rate" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+      <label>Heater Temp</label>
+
+        <input
+            type="text"
+            name="heater_temp"
+            data-section="calibration_information"
+            data-subsection="permeation_oven"
+        >
+
+      </div>
+
+      <div class="field">
+          <label>Tolerance</label>
+          <input type="text" name="tolerance" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Gas Concentration</label>
+          <input type="text" name="gas_concentration" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Serial Number</label>
+          <input type="text" name="serial_number" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Lot Number</label>
+          <input type="text" name="lot_number" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+      <div class="field">
+          <label>Expiration</label>
+          <input type="date" name="expiration" data-section="calibration_information" data-subsection="permeation_oven">
+      </div>
+
+  </div>
+
+  <div class="notes-block">
+    <button type="button" class="notes-toggle">Add Notes</button>
+    <textarea class="notes-textarea hidden" name="notes" data-section="calibration_information" data-subsection="permeation_oven"></textarea>
+    </div>
+    </div>
+  </div>
+
+<!-- REGULATOR / TEDLAR / TUBING -->
+<div class="sub-section no-borders">
+
+  <div class="grid-3-equal">
+
+      <!-- REGULATOR -->
+      <div class="field-group">
+          <div class="sub-title">CALIBRATION REGULATOR</div>
+          <div class="fieldbody">
+          <div class="grid-table cols-1">
+              <div class="field"><label>Regulator Type</label><input name="regulator_type" data-section="calibration_information" data-subsection="calibration_regulator"></div>
+              <div class="field"><label>Reg Material</label><input name="reg_material" data-section="calibration_information" data-subsection="calibration_regulator"></div>
+              <div class="field"><label>Reg Flow Rate</label><input name="reg_flow_rate" data-section="calibration_information" data-subsection="calibration_regulator"></div>
+          </div>
+          </div>
+      </div>
+
+      <!-- TEDLAR -->
+      <div class="field-group">
+          <div class="sub-title">TEDLAR BAG</div>
+          <div class="fieldbody">
+          <div class="grid-table cols-1">
+              <div class="field"><label>Bag Material</label><input name="bag_material" data-section="calibration_information" data-subsection="tedlar_bag"></div>
+              <div class="field"><label>Valve Material</label><input name="valve_material" data-section="calibration_information" data-subsection="tedlar_bag"></div>
+              <div class="field"><label>Bag Size</label><input name="bag_size" data-section="calibration_information" data-subsection="tedlar_bag"></div>
+          </div>
+          </div>
+      </div>
+
+      <!-- TUBING -->
+      <div class="field-group">
+          <div class="sub-title">CALIBRATION TUBING</div>
+          <div class="fieldbody">
+          <div class="grid-table cols-1">
+              <div class="field"><label>Material</label><input name="material" data-section="calibration_information" data-subsection="calibration_tubing"></div>
+              <div class="field">
+                <label>Tubing Size</label>
+            
+                <input
+                  name="tubing_size"
+                  data-section="calibration_information"
+                  data-subsection="calibration_tubing"
+                >
+            </div>
+              <div class="field"><label>Sample Line Distance</label><input name="sample_line_distance" data-section="calibration_information" data-subsection="calibration_tubing"></div>
+              
+          </div>
+          </div>
+      </div>
+
+  </div>
+  <div class="notes-block fieldbody">
+    <button type="button" class="notes-toggle">Add Notes</button>
+    <textarea class="notes-textarea hidden" name="notes" data-section="calibration_information" data-subsection="notes"></textarea>
+    </div>
+   </div>
+
+<!-- PARTS USED + ORDER -->
+
+
+  <div class="grid-2">
+
+      <div class="sub-section">
+        <div class="repeat-section">
+
+            <div class="sub-title">PARTS USED</div>
+
+            <div class="fieldbody">
+        
+            <div class="repeat-container" id="parts-used-container">
+        
+        
+            </div>
+        
+            <button type="button" class="add-item" data-target="parts-used-container">
+                + Add Item
+            </button>
+        
+        </div>
+        </div>
+      </div>
+   
+
+   <div class="sub-section">
+    <div class="repeat-section">
+
+        
+        <div class="sub-title">PARTS TO BE ORDERED</div>
+        <div class="fieldbody">
+        <div class="repeat-container" id="parts-order-container">
+    
+            
+        </div>
+    
+        <button 
+            type="button" 
+            class="add-item" 
+            data-target="parts-order-container"
+        >
+            + Add Item
+        </button>
+    
+   </div>
+    </div>
+   </div>
+   </div>
+
+
+<!-- LABOR -->
+<div class="sub-section">
+  <div class="repeat-section">
+
+    <div class="sub-title">LABOR TIMES AND TRAVEL</div>
+
+    <div class="fieldbody">
+
+    <div class="repeat-container" id="labor-container">
+
+       
+    </div>
+
+    <button 
+        type="button" 
+        class="add-item" 
+        data-target="labor-container"
+    >
+        + Add Entry
+    </button>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="sub-section">
+    <div class="sub-title">SIGNATURE</div>
+
+    <div class="grid-table cols-2">
+
+        <!-- TECH SIGNATURE -->
+        <div class="signature-card">
+            <label class="sig-title">Technician Signature</label>
+
+            <canvas id="tech-signature"></canvas>
+
+            <div class="field">
+                <label>Technician Name</label>
+                <input type="text" name="technician_name" data-section="calibration_information" data-subsection="signature">
+            </div>
+
+            <div class="field">
+                <label>Date</label>
+                <input type="date" name="technician_signature_date" data-section="calibration_information" data-subsection="signature">
+            </div>
+        </div>
+
+        <!-- CUSTOMER SIGNATURE -->
+        <div class="signature-card">
+            <label class="sig-title">Customer Signature</label>
+
+            <canvas id="customer-signature"></canvas>
+
+            <div class="field">
+                <label>Name</label>
+                <input type="text" name="customer_name" data-section="calibration_information" data-subsection="signature">
+            </div>
+
+            <div class="field">
+                <label>Date</label>
+                <input type="date" name="customer_signature_date" data-section="calibration_information" data-subsection="signature">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="submit-btn-wrapper">
+
+    <button
+        id="submit-service-order-button"
+        type="button"
+        class="submit-btn"
+        onclick="saveForm()"
+    >
+        Submit Service Order
+    </button>
+
+</div>
+
+
+  </div>
+  </div>
+
+  <!-- =========================================
+GLOBAL LOADER / MODAL
+========================================= -->
+
+<div id="app-modal" class="app-modal hidden">
+
+    <div class="app-modal-card">
+
+        <!-- LOADER -->
+        <div class="loader-ring" id="modal-loader"></div>
+
+        <!-- ICON -->
+        <div id="modal-icon" class="modal-icon hidden"></div>
+
+        <!-- TITLE -->
+        <div id="modal-title" class="modal-title">
+            Processing...
+        </div>
+
+        <!-- MESSAGE -->
+        <div id="modal-message" class="modal-message">
+            Please wait while we process your request.
+        </div>
+
+        <!-- PROGRESS -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <!-- BUTTON -->
+        <button
+            id="modal-close-btn"
+            class="modal-btn hidden"
+            onclick="closeModal()"
+        >
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+TOAST
+========================================= -->
+
+<div id="toast" class="toast hidden"></div>
+
+
+<script>
+
+let metaData = {
+  companyId: null,
+  company_id: null,
+  technicianId: null,
+  equipmentId: null,
+  equipment_id: null,
+  // The backend currently reads meta.deviceId as the equipment UUID.
+  deviceId: null,
+  deviceCode: null
+};
+
+const API_BASE_URL = "https://canary-services-04f32bc2afc5.herokuapp.com";
+const ALLOWED_PARENT_ORIGINS = new Set([
+    "https://portal.canarygds.com",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://canary-gds.com",
+    "https://www.canary-gds.com"
+]);
+let accessToken = "";
+
+async function readApiResponse(response) {
+    const contentType = response.headers.get("content-type") || "";
+    if (contentType.includes("application/json")) {
+        return response.json();
+    }
+    return { detail: await response.text() };
+}
+
+async function authenticatedFetch(path, options = {}) {
+    if (!accessToken) {
+        throw new Error("Your login session was not passed to the service-order form. Please reopen the form.");
+    }
+
+    const {
+        timeoutMs = 120000,
+        ...fetchOptions
+    } = options;
+
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs);
+
+    const headers = new Headers(fetchOptions.headers || {});
+    headers.set("Authorization", `Bearer ${accessToken}`);
+    headers.set("Accept", "application/json");
+
+    if (fetchOptions.body && !headers.has("Content-Type")) {
+        headers.set("Content-Type", "application/json");
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}${path}`, {
+            ...fetchOptions,
+            headers,
+            signal: fetchOptions.signal || controller.signal,
+            cache: "no-store"
+        });
+
+        const result = await readApiResponse(response);
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                sendToParent("SERVICE_ORDER_SESSION_EXPIRED");
+            }
+
+            const apiMessage =
+                result?.detail ||
+                result?.message ||
+                `Request failed (${response.status})`;
+
+            throw new Error(apiMessage);
+        }
+
+        return result;
+    } catch (error) {
+        if (error?.name === "AbortError") {
+            throw new Error("The request took too long. Check your connection and try again.");
+        }
+
+        if (error instanceof TypeError) {
+            throw new Error("Unable to reach the SMARTCERT service. Check your connection and try again.");
+        }
+
+        throw error;
+    } finally {
+        window.clearTimeout(timeoutId);
+    }
+}
+
+function setModalStage(percent, title, message) {
+    updateProgress(percent);
+
+    const titleEl = document.getElementById("modal-title");
+    const messageEl = document.getElementById("modal-message");
+
+    if (titleEl && title) titleEl.innerText = title;
+    if (messageEl && message) messageEl.innerText = message;
+}
+
+function compactRows(rows = []) {
+    return rows.filter((row) =>
+        Object.values(row || {}).some((value) =>
+            String(value ?? "").trim() !== ""
+        )
+    );
+}
+
+function collectRepeatData() {
+
+const partsUsed = [];
+
+document.querySelectorAll(
+"#parts-used-container .repeat-item"
+).forEach(row => {
+
+partsUsed.push({
+
+quantity:
+    row.querySelector(
+        '[name="parts_used_quantity[]"]'
+    )?.value || "",
+
+description:
+    row.querySelector(
+        '[name="parts_used_description[]"]'
+    )?.value || ""
+
+});
+
+});
+
+const partsOrdered = [];
+
+document.querySelectorAll(
+"#parts-order-container .repeat-item"
+).forEach(row => {
+
+partsOrdered.push({
+
+quantity:
+    row.querySelector(
+        '[name="parts_order_quantity[]"]'
+    )?.value || "",
+
+description:
+    row.querySelector(
+        '[name="parts_order_description[]"]'
+    )?.value || ""
+
+});
+
+});
+
+const labor = [];
+
+document.querySelectorAll(
+"#labor-container .repeat-item"
+).forEach(row => {
+
+labor.push({
+
+date:
+    row.querySelector(
+        '[name="labor_date[]"]'
+    )?.value || "",
+
+arrive:
+    row.querySelector(
+        '[name="labor_arrive[]"]'
+    )?.value || "",
+
+departure:
+    row.querySelector(
+        '[name="labor_departure[]"]'
+    )?.value || "",
+
+    hours:
+    row.querySelector(
+        '[name="labor_hours[]"]'
+    )?.value || "",
+
+distance:
+    row.querySelector(
+        '[name="labor_distance[]"]'
+    )?.value || "",
+
+travel_hours:
+    row.querySelector(
+        '[name="labor_travel_hours[]"]'
+    )?.value || ""
+
+});
+});
+
+return {
+partsUsed,
+partsOrdered,
+labor
+};
+
+}
+
+function toggleOptionalSection(sectionId, button) {
+
+const section =
+    document.getElementById(sectionId);
+
+const isHidden =
+    section.style.display === "none";
+
+if (isHidden) {
+
+    section.style.display = "block";
+
+    if (sectionId === "system-notes-section") {
+        button.innerText = "System Notes";
+    }
+
+    if (sectionId === "customer-actions-section") {
+        button.innerText = "Customer Action Items";
+    }
+
+} else {
+
+    section.style.display = "none";
+
+    if (sectionId === "system-notes-section") {
+        button.innerText = "System Notes";
+    }
+
+    if (sectionId === "customer-actions-section") {
+        button.innerText = "Customer Action Items";
+    }
+}
+}
+
+/* =========================================
+MODAL HELPERS
+========================================= */
+
+function openModal(title, message) {
+
+const modal =
+    document.getElementById("app-modal");
+
+modal.classList.remove("hidden");
+
+document.getElementById("modal-title").innerText =
+    title;
+
+document.getElementById("modal-message").innerText =
+    message;
+
+document.getElementById("modal-loader")
+    .classList.remove("hidden");
+
+document.getElementById("modal-icon")
+    .classList.add("hidden");
+
+document.getElementById("modal-close-btn")
+    .classList.add("hidden");
+
+updateProgress(20);
+}
+
+function updateProgress(percent) {
+
+document.getElementById("progress-fill")
+    .style.width = percent + "%";
+}
+
+function showSuccess(title, message) {
+
+const icon =
+    document.getElementById("modal-icon");
+
+icon.innerHTML = "✓";
+
+icon.className =
+    "modal-icon success";
+
+icon.classList.remove("hidden");
+
+document.getElementById("modal-loader")
+    .classList.add("hidden");
+
+document.getElementById("modal-title")
+    .innerText = title;
+
+document.getElementById("modal-message")
+    .innerText = message;
+
+document.getElementById("modal-close-btn")
+    .classList.remove("hidden");
+
+updateProgress(100);
+}
+
+function showError(title, message) {
+
+const icon =
+    document.getElementById("modal-icon");
+
+icon.innerHTML = "✕";
+
+icon.className =
+    "modal-icon error";
+
+icon.classList.remove("hidden");
+
+document.getElementById("modal-loader")
+    .classList.add("hidden");
+
+document.getElementById("modal-title")
+    .innerText = title;
+
+document.getElementById("modal-message")
+    .innerText = message;
+
+document.getElementById("modal-close-btn")
+    .classList.remove("hidden");
+}
+
+function closeModal() {
+
+document.getElementById("app-modal")
+    .classList.add("hidden");
+}
+
+
+function showPageLoader(message = "Loading service order data...") {
+
+openModal(
+    "Loading...",
+    message
+);
+
+updateProgress(35);
+
+document.body.style.overflow = "hidden";
+
+}
+/* =========================================
+TOAST
+========================================= */
+
+function showToast(message) {
+
+const toast =
+    document.getElementById("toast");
+
+toast.innerText = message;
+
+toast.classList.remove("hidden");
+
+setTimeout(() => {
+    toast.classList.add("hidden");
+}, 3000);
+}
+
+/* =========================================
+POST MESSAGE TO PARENT
+========================================= */
+
+let trustedParentOrigin = (() => {
+    try {
+        if (!document.referrer) return null;
+        const origin = new URL(document.referrer).origin;
+        return ALLOWED_PARENT_ORIGINS.has(origin) ? origin : null;
+    } catch (_) {
+        return null;
+    }
+})();
+
+function sendToParent(type, payload = {}) {
+    if (window.parent === window) return;
+
+    // IFRAME_READY can safely use a wildcard as a last-resort handshake.
+    // All later messages use the validated parent origin captured from DEVICE_DATA.
+    const targetOrigin = trustedParentOrigin || (type === "IFRAME_READY" ? "*" : null);
+
+    if (!targetOrigin) {
+        console.warn(`Unable to send ${type}: trusted parent origin is not known yet.`);
+        return;
+    }
+
+    window.parent.postMessage({
+        type,
+        payload
+    }, targetOrigin);
+}
+
+function updateRemoveButtons(container) {
+    const items = container.querySelectorAll(".repeat-item");
+
+    items.forEach((item, index) => {
+        const btn = item.querySelector(".remove-item");
+
+        if (btn) {
+            btn.style.display = index === 0 ? "none" : "block";
+        }
+    });
+}
+
+function createPartsUsedRow(item = {}) {
+
+return `
+<div class="repeat-item">
+
+    <div class="field">
+        <label>Quantity</label>
+
+        <input
+            name="parts_used_quantity[]"
+            value="${item.quantity || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Description</label>
+
+        <input
+            name="parts_used_description[]"
+            value="${item.description || ""}"
+        >
+    </div>
+
+    <button type="button" class="remove-item">
+        ✖
+    </button>
+
+</div>
+`;
+
+}
+
+function createPartsOrderRow(item = {}) {
+
+return `
+<div class="repeat-item">
+
+    <div class="field">
+        <label>Quantity</label>
+
+        <input
+            name="parts_order_quantity[]"
+            value="${item.quantity || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Description</label>
+
+        <input
+            name="parts_order_description[]"
+            value="${item.description || ""}"
+        >
+    </div>
+
+    <button type="button" class="remove-item">
+        ✖
+    </button>
+
+</div>
+`;
+
+}
+
+function createLaborRow(item = {}) {
+
+return `
+<div class="repeat-item labor">
+
+    <div class="field">
+        <label>Date</label>
+
+        <input
+            type="date"
+            name="labor_date[]"
+            value="${item.date || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Arrive</label>
+
+        <input
+            type="time"
+            name="labor_arrive[]"
+            value="${item.arrive || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Departure</label>
+
+        <input
+            type="time"
+            name="labor_departure[]"
+            value="${item.departure || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Hours</label>
+
+        <input
+            name="labor_hours[]"
+            value="${item.hours || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Travel Distance</label>
+
+        <input
+            name="labor_distance[]"
+            value="${item.distance || ""}"
+        >
+    </div>
+
+    <div class="field">
+        <label>Travel Hours</label>
+
+        <input
+            name="labor_travel_hours[]"
+            value="${item.travel_hours || ""}"
+        >
+    </div>
+
+    <button
+        type="button"
+        class="remove-item"
+    >
+        ✖
+    </button>
+
+</div>
+`;
+
+}
+
+function restoreRepeatSection({
+containerId,
+items,
+renderRow
+}) {
+
+const container =
+document.getElementById(containerId);
+
+container.innerHTML = "";
+
+items.forEach(item => {
+
+container.insertAdjacentHTML(
+    "beforeend",
+    renderRow(item)
+);
+
+});
+
+updateRemoveButtons(container);
+
+}
+
+document.addEventListener("click", function (e) {
+
+
+// =========================================
+// ADD ITEM
+// =========================================
+
+if (e.target.classList.contains("add-item")) {
+
+    const containerId =
+        e.target.dataset.target;
+
+    const container =
+        document.getElementById(containerId);
+
+    let html = "";
+
+    if (containerId === "parts-used-container") {
+        html = createPartsUsedRow();
+    }
+
+    if (containerId === "parts-order-container") {
+        html = createPartsOrderRow();
+    }
+
+    if (containerId === "labor-container") {
+        html = createLaborRow();
+    }
+
+    container.insertAdjacentHTML(
+        "beforeend",
+        html
+    );
+
+    updateRemoveButtons(container);
+}
+
+
+// =========================================
+// REMOVE ITEM
+// =========================================
+
+if (e.target.classList.contains("remove-item")) {
+
+    const item =
+        e.target.closest(".repeat-item");
+
+    const container =
+        item.parentElement;
+
+    if (container.children.length > 1) {
+        item.remove();
+    }
+
+    updateRemoveButtons(container);
+}
+
+
+// =========================================
+// NOTES TOGGLE
+// =========================================
+
+if (e.target.classList.contains("notes-toggle")) {
+
+    const container =
+        e.target.closest(".notes-block");
+
+    const textarea =
+        container.querySelector(
+            ".notes-textarea"
+        );
+
+    const isHidden =
+        textarea.classList.toggle("hidden");
+
+    textarea.style.display =
+        isHidden ? "none" : "block";
+
+    e.target.textContent =
+        isHidden
+            ? "Add Notes"
+            : "Hide Notes";
+}
+
+});
+
+
+/*
+
+document.addEventListener("click", function (e) {
+
+// ================= ADD ITEM =================
+if (e.target.classList.contains("add-item")) {
+
+    const container = document.getElementById(e.target.dataset.target);
+    const firstItem = container.querySelector(".repeat-item");
+    const newItem = firstItem.cloneNode(true);
+
+    newItem.querySelectorAll("input").forEach(input => input.value = "");
+
+    container.appendChild(newItem);
+
+    updateRemoveButtons(container);
+}
+
+// ================= REMOVE ITEM =================
+if (e.target.classList.contains("remove-item")) {
+
+    const item = e.target.closest(".repeat-item");
+    const container = item.parentElement;
+
+    if (container.children.length > 1) {
+        item.remove();
+    }
+
+    updateRemoveButtons(container);
+}
+
+// ================= NOTES TOGGLE =================
+if (e.target.classList.contains("notes-toggle")) {
+
+    const container = e.target.closest(".notes-block");
+    const textarea = container.querySelector(".notes-textarea");
+
+    const isHidden = textarea.classList.toggle("hidden");
+
+    e.target.textContent = isHidden ? "Add Notes" : "Hide Notes";
+}
+
+});
+*/
+
+/* RUN ON LOAD */
+
+// =====================================
+// INITIAL EMPTY ROWS
+// =====================================
+
+restoreRepeatSection({
+    containerId: "parts-used-container",
+    items: [{}],
+    renderRow: createPartsUsedRow
+});
+
+restoreRepeatSection({
+    containerId: "parts-order-container",
+    items: [{}],
+    renderRow: createPartsOrderRow
+});
+
+restoreRepeatSection({
+    containerId: "labor-container",
+    items: [{}],
+    renderRow: createLaborRow
+});
+
+// =====================================
+// UPDATE REMOVE BUTTONS
+// =====================================
+
+document.querySelectorAll(".repeat-container")
+.forEach(container => {
+
+    updateRemoveButtons(container);
+
+});
+
+
+
+function hasUsableValue(value) {
+    return value !== undefined && value !== null && String(value).trim() !== "";
+}
+
+function firstValue(...values) {
+    for (const value of values) {
+        if (hasUsableValue(value)) return value;
+    }
+    return "";
+}
+
+function objectValue(value) {
+    return value && typeof value === "object" && !Array.isArray(value)
+        ? value
+        : {};
+}
+
+function setControlValue(selector, value) {
+    const el = document.querySelector(selector);
+    if (!el || !hasUsableValue(value)) return false;
+
+    const nextValue = String(value).trim();
+
+    if (el.tagName === "SELECT") {
+        const options = Array.from(el.options || []);
+        const normalized = nextValue.toLowerCase();
+        const match = options.find((option) =>
+            String(option.value || "").trim().toLowerCase() === normalized ||
+            String(option.textContent || "").trim().toLowerCase() === normalized
+        );
+
+        if (match) {
+            el.value = match.value;
+        } else {
+            // Preserve valid Supabase data even when the select list has not yet
+            // been updated with that exact value.
+            const option = document.createElement("option");
+            option.value = nextValue;
+            option.textContent = nextValue;
+            el.appendChild(option);
+            el.value = nextValue;
+        }
+    } else {
+        el.value = nextValue;
+    }
+
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+    el.dispatchEvent(new Event("change", { bubbles: true }));
+    return true;
+}
+
+function markControlLocked(selector, source = "Supabase") {
+    const el = document.querySelector(selector);
+    if (!el || !hasUsableValue(el.value)) return;
+
+    el.classList.add("autofill-locked");
+    el.dataset.autofillSource = source;
+    el.setAttribute("aria-readonly", "true");
+    el.title = "This information is protected and cannot be edited here.";
+
+    if (el.tagName === "SELECT") {
+        el.disabled = true;
+    } else {
+        el.readOnly = true;
+    }
+
+    const field = el.closest(".field");
+    if (field) {
+        field.dataset.autofillLocked = "true";
+        field.dataset.autofillSource = source;
+    }
+}
+
+function setAndLock(selector, value, source = "Supabase") {
+    if (setControlValue(selector, value)) {
+        markControlLocked(selector, source);
+    }
+}
+
+function createHiddenField(name, value, section, subsection) {
+    if (!hasUsableValue(value)) return null;
+
+    // Hidden identifiers may legitimately share a name with visible fields in
+    // another section, so locate an existing hidden field first.
+    let input = Array.from(document.querySelectorAll(`input[name="${name}"]`))
+        .find((item) => item.type === "hidden");
+
+    if (!input) {
+        input = document.createElement("input");
+        input.type = "hidden";
+        input.name = name;
+        input.setAttribute("data-section", section);
+        input.setAttribute("data-subsection", subsection);
+        document.body.appendChild(input);
+    }
+
+    input.value = String(value);
+    return input;
+}
+
+function formatCompanyAddressLine(city, state, zip) {
+    const locality = [state, zip]
+        .filter(hasUsableValue)
+        .map((value) => String(value).trim())
+        .join(" ");
+
+    return [city, locality]
+        .filter(hasUsableValue)
+        .map((value) => String(value).trim())
+        .join(", ");
+}
+
+function syncPoNumberForBackend() {
+    const visiblePo = document.querySelector('[name="postalnumber"]');
+    const poValue = String(visiblePo?.value || "").trim();
+
+    let backendPo = Array.from(document.querySelectorAll('input[name="po_number"]'))
+        .find((item) => item.type === "hidden");
+
+    if (!backendPo) {
+        backendPo = document.createElement("input");
+        backendPo.type = "hidden";
+        backendPo.name = "po_number";
+        backendPo.setAttribute("data-section", "service_details");
+        backendPo.setAttribute("data-subsection", "main");
+        document.body.appendChild(backendPo);
+    }
+
+    backendPo.value = poValue;
+}
+
+function resolveSupabasePrefill(data) {
+    const prefill = objectValue(data?.prefill);
+    const records = objectValue(data?.records);
+
+    const company = objectValue(
+        data?.companyRecord ||
+        data?.companyData ||
+        prefill.company ||
+        records.company ||
+        (typeof data?.company === "object" ? data.company : null)
+    );
+
+    const equipment = objectValue(
+        data?.equipmentRecord ||
+        data?.equipmentData ||
+        prefill.equipment ||
+        records.equipment ||
+        data?.equipment
+    );
+
+    const technician = objectValue(
+        data?.technicianProfile ||
+        prefill.technician ||
+        records.technician ||
+        data?.technician ||
+        data?.profile
+    );
+
+    const customer = objectValue(
+        data?.customerProfile ||
+        data?.contactProfile ||
+        prefill.customer ||
+        records.customer
+    );
+
+    return {
+        company,
+        equipment,
+        technician,
+        customer,
+        companyName: firstValue(
+            company.company_name,
+            company.company,
+            data?.companyName,
+            data?.company_name,
+            typeof data?.company === "string" ? data.company : ""
+        ),
+        companyStreet: firstValue(
+            company.street,
+            data?.companyStreet,
+            data?.street,
+            data?.company_address
+        ),
+        companyCity: firstValue(company.city, data?.city),
+        companyState: firstValue(company.state, data?.state),
+        companyZip: firstValue(company.zip, data?.zip),
+        companyPhone: firstValue(company.phone, data?.companyPhone, data?.phone),
+        contactName: firstValue(
+            data?.contactName,
+            data?.customerName,
+            customer.full_name,
+            customer.name
+        ),
+        equipmentName: firstValue(
+            equipment.name,
+            data?.equipmentName,
+            data?.deviceName,
+            data?.name
+        ),
+        equipmentLocation: firstValue(
+            equipment.location,
+            data?.equipmentLocation,
+            data?.location
+        ),
+        gasDetectorType: firstValue(
+            equipment.gas_detector_type,
+            data?.gasDetectorType,
+            data?.detectorType,
+            data?.detector_type
+        ),
+        controllerType: firstValue(
+            equipment.controller_type,
+            data?.controllerType,
+            data?.controller_type
+        ),
+        serialNumber: firstValue(
+            equipment.serial_number,
+            data?.serialNumber,
+            data?.serial_number
+        ),
+        partNumber: firstValue(
+            equipment.part_number,
+            data?.partNumber,
+            data?.part_number
+        ),
+        tagNumber: firstValue(
+            equipment.tag_number,
+            data?.tagNumber,
+            data?.tag_number
+        ),
+        equipmentId: firstValue(
+            equipment.id,
+            data?.equipmentId,
+            data?.equipment_id,
+            data?.deviceId
+        ),
+        deviceCode: firstValue(
+            equipment.device_id,
+            data?.deviceCode,
+            data?.device_code,
+            data?.device_id
+        ),
+        companyId: firstValue(
+            company.id,
+            data?.companyId,
+            data?.company_id,
+            equipment.company_id
+        ),
+        technicianId: firstValue(
+            data?.technicianId,
+            data?.technician_id,
+            technician.id
+        ),
+        technicianName: firstValue(
+            data?.technicianName,
+            data?.technician_name,
+            technician.full_name,
+            technician.name
+        )
+    };
+}
+
+function looksLikeUuid(value) {
+    return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+        .test(String(value || "").trim());
+}
+
+async function loadSupabasePrefill(payload) {
+    const original = objectValue(payload);
+
+    const candidateEquipmentId = firstValue(
+        original.equipmentId,
+        original.equipment_id,
+        original.deviceId,
+        objectValue(original.equipment).id,
+        objectValue(original.equipmentRecord).id
+    );
+
+    let equipmentRecord = objectValue(
+        original.equipmentRecord ||
+        original.equipmentData ||
+        original.equipment
+    );
+
+    let companyRecord = objectValue(
+        original.companyRecord ||
+        original.companyData ||
+        (typeof original.company === "object" ? original.company : null)
+    );
+
+    let technicianProfile = objectValue(
+        original.technicianProfile ||
+        original.technician ||
+        original.profile
+    );
+
+    let customerProfile = objectValue(
+        original.customerProfile ||
+        original.contactProfile
+    );
+
+    // The authenticated backend already exposes the equipment record joined to
+    // companies. Use that as the source of truth whenever an equipment UUID is
+    // available, so the iframe does not depend on stale URL/query data.
+    if (looksLikeUuid(candidateEquipmentId)) {
+        try {
+            const equipmentResponse = await authenticatedFetch(
+                `/api/equipments/${encodeURIComponent(candidateEquipmentId)}`,
+                { method: "GET", timeoutMs: 30000 }
+            );
+
+            if (equipmentResponse && typeof equipmentResponse === "object") {
+                equipmentRecord = equipmentResponse;
+                companyRecord = objectValue(equipmentResponse.company) || companyRecord;
+            }
+        } catch (error) {
+            console.warn("Could not refresh equipment/company prefill from Supabase:", error);
+        }
+    }
+
+    // If the parent did not explicitly select a technician, use the current
+    // authenticated profile. /api/me returns the Supabase profile joined to the
+    // authenticated user session.
+    const hasExplicitTechnician = hasUsableValue(original.technicianId) ||
+        hasUsableValue(original.technician_id) ||
+        hasUsableValue(original.technicianName) ||
+        hasUsableValue(original.technician_name);
+
+    if (!hasExplicitTechnician) {
+        try {
+            const me = await authenticatedFetch("/api/me", {
+                method: "GET",
+                timeoutMs: 30000
+            });
+            if (me && typeof me === "object") {
+                technicianProfile = me;
+            }
+        } catch (error) {
+            console.warn("Could not load current technician profile:", error);
+        }
+    }
+
+    const authoritativeCompanyId = firstValue(
+        equipmentRecord.company_id,
+        companyRecord.id,
+        original.companyId,
+        original.company_id
+    );
+
+    // Customer contact is optional in the companies table. When the parent did
+    // not pass one, use the linked customer profile only when there is exactly
+    // one customer profile for this company; otherwise leave it editable.
+    const hasExplicitContact = hasUsableValue(original.contactName) ||
+        hasUsableValue(original.customerName) ||
+        hasUsableValue(customerProfile.full_name);
+
+    if (!hasExplicitContact && hasUsableValue(authoritativeCompanyId)) {
+        try {
+            const profiles = await authenticatedFetch("/api/profiles?roles=customer", {
+                method: "GET",
+                timeoutMs: 30000
+            });
+
+            if (Array.isArray(profiles)) {
+                const matches = profiles.filter((profile) =>
+                    String(profile?.company_id || "") === String(authoritativeCompanyId)
+                );
+                if (matches.length === 1) {
+                    customerProfile = objectValue(matches[0]);
+                }
+            }
+        } catch (error) {
+            console.warn("Could not load linked customer contact profile:", error);
+        }
+    }
+
+    return {
+        ...original,
+        equipmentRecord,
+        companyRecord,
+        technicianProfile,
+        customerProfile,
+        equipmentId: firstValue(equipmentRecord.id, candidateEquipmentId),
+        companyId: authoritativeCompanyId,
+        // Keep deviceId as the equipment UUID for backend compatibility.
+        deviceId: firstValue(equipmentRecord.id, candidateEquipmentId),
+        deviceCode: firstValue(
+            equipmentRecord.device_id,
+            original.deviceCode,
+            original.device_code
+        )
+    };
+}
+
+function prefillForm(data) {
+    if (!data) {
+        console.warn("No data received yet");
+        return;
+    }
+
+    console.log("Prefill Data (postMessage):", data);
+
+    const source = resolveSupabasePrefill(data);
+
+    // ---------------------------------------------------------
+    // CUSTOMER / COMPANY DATA — Supabase companies + customer profile
+    // ---------------------------------------------------------
+    setAndLock('[name="company"]', source.companyName, "Company record");
+    setAndLock('[name="contact"]', source.contactName, "Customer profile");
+    setAndLock('[name="address"]', source.companyStreet, "Company record");
+    setAndLock(
+        '[name="address_info"]',
+        formatCompanyAddressLine(
+            source.companyCity,
+            source.companyState,
+            source.companyZip
+        ),
+        "Company record"
+    );
+    setAndLock('[name="phone"]', source.companyPhone, "Company record");
+
+    // P.O. Number is deliberately NOT populated from company/address data.
+    // It is entered by the person completing this service order.
+    const poInput = document.querySelector('[name="postalnumber"]');
+    if (poInput) {
+        poInput.readOnly = false;
+        poInput.disabled = false;
+        poInput.classList.remove("autofill-locked");
+        poInput.title = "Enter the customer P.O. / work order number";
+    }
+
+    // ---------------------------------------------------------
+    // EQUIPMENT DATA — Supabase equipments
+    // ---------------------------------------------------------
+    setAndLock('[name="equipment_name"]', source.equipmentName, "Equipment record");
+    setAndLock('[name="equipment_location"]', source.equipmentLocation, "Equipment record");
+    setAndLock('[name="detector_type"]', source.gasDetectorType, "Equipment record");
+
+    // Asset identifiers
+    setAndLock(
+        '[data-section="asset_information"][data-subsection="main"][name="part_number"]',
+        source.partNumber,
+        "Equipment record"
+    );
+    setAndLock(
+        '[data-section="asset_information"][data-subsection="main"][name="serial_number"]',
+        source.serialNumber,
+        "Equipment record"
+    );
+    setAndLock(
+        '[data-section="asset_information"][data-subsection="main"][name="tag_number"]',
+        source.tagNumber,
+        "Equipment record"
+    );
+
+    // System Information repeats the detector identity on the service report.
+    setAndLock(
+        '[data-section="system_information"][data-subsection="gas_detector"][name="detector_model"]',
+        source.equipmentName,
+        "Equipment record"
+    );
+    setAndLock(
+        '[data-section="system_information"][data-subsection="gas_detector"][name="part_number"]',
+        source.partNumber,
+        "Equipment record"
+    );
+    setAndLock(
+        '[data-section="system_information"][data-subsection="gas_detector"][name="serial_number"]',
+        source.serialNumber,
+        "Equipment record"
+    );
+    setAndLock(
+        '[data-section="system_information"][data-subsection="gas_detector"][name="tag_number"]',
+        source.tagNumber,
+        "Equipment record"
+    );
+
+    // The sensor-type dropdown uses the same detector taxonomy in the current
+    // SMARTCERT form. It is safe to prefill when the equipment record has it.
+    setAndLock(
+        '[data-section="system_information"][data-subsection="sensor_data"][name="sensor_type"]',
+        source.gasDetectorType,
+        "Equipment record"
+    );
+
+    // ---------------------------------------------------------
+    // TECHNICIAN DATA — Supabase profiles
+    // ---------------------------------------------------------
+    setAndLock('[name="technician_name"]', source.technicianName, "Technician profile");
+
+    // ---------------------------------------------------------
+    // IDS FOR THE BACKEND / SERVICE_ORDERS RELATIONSHIPS
+    // ---------------------------------------------------------
+    createHiddenField("company_id", source.companyId, "customer_information", "main");
+    createHiddenField("technician_id", source.technicianId, "calibration_information", "signature");
+    createHiddenField("equipment_id", source.equipmentId, "service_details", "main");
+    createHiddenField("device_id", source.deviceCode, "service_details", "main");
+
+    metaData.companyId = source.companyId || null;
+    metaData.company_id = source.companyId || null;
+    metaData.technicianId = source.technicianId || null;
+    metaData.equipmentId = source.equipmentId || null;
+    metaData.equipment_id = source.equipmentId || null;
+    // Required by the current FastAPI service_order_payload implementation.
+    metaData.deviceId = source.equipmentId || null;
+    metaData.deviceCode = source.deviceCode || null;
+
+    // Helpful default: today is used as the service date, but remains editable
+    // because the technician may be entering a report for another date.
+    const serviceDate = document.querySelector('[name="service_date"]');
+    if (serviceDate && !serviceDate.value) {
+        serviceDate.value = new Date().toISOString().slice(0, 10);
+    }
+
+    syncPoNumberForBackend();
+
+    updateProgress(100);
+
+    setTimeout(() => {
+        closeModal();
+        document.body.style.overflow = "";
+    }, 500);
+}
+
+        function prefillEntireForm(data) {
+
+console.log(
+    "🔄 RESTORING FORM:",
+    data
+);
+
+// =========================================
+// SAFETY
+// =========================================
+
+if (!data || typeof data !== "object") {
+    console.warn("Invalid restore data");
+    return;
+}
+
+// =========================================
+// LOOP THROUGH TOP LEVEL SECTIONS
+// =========================================
+
+Object.entries(data).forEach(
+
+    ([sectionKey, sectionValue]) => {
+
+        if (
+            typeof sectionValue !== "object" ||
+            sectionValue === null
+        ) return;
+
+        // =====================================
+        // LOOP SUBSECTIONS
+        // =====================================
+
+        Object.entries(sectionValue).forEach(
+
+            ([subsectionKey, subsectionValue]) => {
+
+                if (
+                    subsectionValue === null ||
+                    subsectionValue === undefined
+                ) return;
+
+                // =====================================
+                // PARTS USED
+                // =====================================
+
+                if (
+                    subsectionKey === "parts_used" &&
+                    Array.isArray(subsectionValue)
+                ) {
+
+                    restoreRepeatSection({
+
+                        containerId:
+                            "parts-used-container",
+
+                        items:
+                            subsectionValue,
+
+                        renderRow:
+                            createPartsUsedRow
+
+                    });
+
+                    return;
+                }
+
+                // =====================================
+                // PARTS ORDER
+                // =====================================
+
+                if (
+                    subsectionKey === "parts_to_be_ordered" &&
+                    Array.isArray(subsectionValue)
+                ) {
+
+                    restoreRepeatSection({
+
+                        containerId:
+                            "parts-order-container",
+
+                        items:
+                            subsectionValue,
+
+                        renderRow:
+                            createPartsOrderRow
+
+                    });
+
+                    return;
+                }
+
+                // =====================================
+                // LABOR
+                // =====================================
+
+                if (
+                    subsectionKey === "labor_times_and_travel" &&
+                    Array.isArray(subsectionValue)
+                ) {
+
+                    restoreRepeatSection({
+
+                        containerId:
+                            "labor-container",
+
+                        items:
+                            subsectionValue,
+
+                        renderRow:
+                            createLaborRow
+
+                    });
+
+                    return;
+                }
+
+                // =====================================
+                // NORMAL OBJECT SECTIONS
+                // =====================================
+
+                if (
+                    typeof subsectionValue !== "object" ||
+                    subsectionValue === null
+                ) return;
+
+                // =====================================
+                // LOOP FIELDS
+                // =====================================
+
+                Object.entries(subsectionValue).forEach(
+
+                    ([fieldName, fieldValue]) => {
+
+                        // =============================
+                        // SKIP ARRAYS
+                        // =============================
+
+                        if (
+                            Array.isArray(fieldValue)
+                        ) return;
+
+                        // =============================
+                        // FIND FIELD
+                        // =============================
+
+                        const selector =
+                            `[name="${fieldName}"]` +
+                            `[data-section="${sectionKey}"]` +
+                            `[data-subsection="${subsectionKey}"]`;
+
+                        const field =
+                            document.querySelector(
+                                selector
+                            );
+
+                        // =============================
+                        // FIELD NOT FOUND
+                        // =============================
+
+                        if (!field) {
+
+                            console.warn(
+                                "⚠️ Field not found:",
+                                selector
+                            );
+
+                            return;
+                        }
+
+                        // =============================
+                        // INPUT / TEXTAREA / SELECT
+                        // =============================
+
+                        if (
+                            field.tagName === "INPUT" ||
+                            field.tagName === "TEXTAREA" ||
+                            field.tagName === "SELECT"
+                        ) {
+
+                            field.value =
+                                fieldValue ?? "";
+
+                        }
+                        updateProgress(100);
+
+                        setTimeout(() => {
+
+                            closeModal();
+
+                            document.body.style.overflow = "";
+
+                        }, 500);
+                        console.log(
+                            "✅ RESTORED:",
+                            fieldName,
+                            fieldValue
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
+
+// =========================================
+// RESTORE META DATA
+// =========================================
+
+if (data.meta) {
+
+    metaData.companyId =
+        data.meta.companyId || null;
+
+    metaData.technicianId =
+        data.meta.technicianId || null;
+
+    metaData.deviceId =
+        data.meta.deviceId || null;
+
+    console.log(
+        "✅ META RESTORED:",
+        metaData
+    );
+}
+
+// =========================================
+// OPTIONAL SECTION:
+// SYSTEM NOTES
+// =========================================
+
+const systemNotes =
+    document.querySelector(
+        '[name="system_notes"]'
+    );
+
+if (
+    systemNotes &&
+    systemNotes.value?.trim()
+) {
+
+    const section =
+        document.getElementById(
+            "system-notes-section"
+        );
+
+    if (section) {
+        section.style.display = "block";
+    }
+}
+
+// =========================================
+// OPTIONAL SECTION:
+// CUSTOMER ACTION ITEMS
+// =========================================
+
+const customerActions =
+    document.querySelector(
+        '[name="customer_action_items"]'
+    );
+
+if (
+    customerActions &&
+    customerActions.value?.trim()
+) {
+
+    const section =
+        document.getElementById(
+            "customer-actions-section"
+        );
+
+    if (section) {
+        section.style.display = "block";
+    }
+}
+
+// =========================================
+// RESTORE ALL NOTES TEXTAREAS
+// =========================================
+
+document.querySelectorAll(
+    ".notes-textarea"
+).forEach(textarea => {
+
+    const hasValue =
+        textarea.value &&
+        textarea.value.trim() !== "";
+
+    if (!hasValue) return;
+
+    // =============================
+    // SHOW TEXTAREA
+    // =============================
+
+    textarea.classList.remove(
+        "hidden"
+    );
+
+    textarea.style.display =
+        "block";
+
+    // =============================
+    // FIND TOGGLE BUTTON
+    // =============================
+
+    const notesBlock =
+        textarea.closest(".notes-block");
+
+    if (!notesBlock) return;
+
+    const btn =
+        notesBlock.querySelector(
+            ".notes-toggle"
+        );
+
+    if (btn) {
+
+        btn.textContent =
+            "Hide Notes";
+    }
+
+});
+
+// =========================================
+// UPDATE REMOVE BUTTONS
+// =========================================
+
+document.querySelectorAll(
+    ".repeat-container"
+).forEach(container => {
+
+    updateRemoveButtons(
+        container
+    );
+
+});
+
+// =========================================
+// COMPLETE
+// =========================================
+updateProgress(100);
+
+setTimeout(() => {
+
+    closeModal();
+
+    document.body.style.overflow = "";
+
+}, 500);
+console.log(
+    "🎉 FORM RESTORE COMPLETE"
+);
+
+}
+
+async function loadExistingServiceOrder(
+    serviceOrderId
+) {
+
+    try {
+
+        showPageLoader(
+            "Loading existing service order..."
+        );
+
+        console.log(
+            "✏️ Loading existing order:",
+            serviceOrderId
+        );
+
+        // =====================================
+        // SAVE CURRENT EDITING ID
+        // =====================================
+
+        window.currentEditingServiceOrderId =
+            serviceOrderId;
+
+        // =====================================
+        // FETCH RAW JSON
+        // =====================================
+
+        const result = await authenticatedFetch(
+            `/api/service-orders/${encodeURIComponent(serviceOrderId)}/raw`,
+            { method: "GET" }
+        );
+
+        console.log(
+            "📦 RAW ORDER DATA:",
+            result
+        );
+
+        if (!result.success) {
+
+            alert(
+                "Failed to load service order"
+            );
+
+            return;
+        }
+
+        // =====================================
+        // RESTORE FORM
+        // =====================================
+
+        prefillEntireForm(
+            result.data
+        );
+
+    } catch (err) {
+
+        showError(
+        "Load Failed",
+        "Unable to load form data."
+    );
+
+        console.error(
+            "❌ Edit load failed:",
+            err
+        );
+
+        alert(
+            "Failed to load edit form"
+        );
+    }
+}
+        
+    function generateServiceOrderNumber() {
+        const now = new Date();
+
+        const datePart = [
+            now.getFullYear(),
+            String(now.getMonth() + 1).padStart(2, "0"),
+            String(now.getDate()).padStart(2, "0")
+        ].join("");
+
+        if (!window.crypto?.getRandomValues) {
+            throw new Error(
+                "Secure order-number generation is unavailable. Please open this form over HTTPS."
+            );
+        }
+
+        const randomBytes = new Uint8Array(8);
+        window.crypto.getRandomValues(randomBytes);
+
+        const randomPart = Array.from(randomBytes)
+            .map((number) => number.toString(16).padStart(2, "0"))
+            .join("")
+            .toUpperCase();
+
+        return `SO-${datePart}-${randomPart}`;
+    }
+
+    function assignNewServiceOrderNumber({ force = false } = {}) {
+        if (window.currentEditingServiceOrderId) {
+            return;
+        }
+
+        const orderNumberInput = document.querySelector(
+            '[name="order_number"]'
+        );
+
+        if (!orderNumberInput) {
+            throw new Error("The order-number input could not be found.");
+        }
+
+        if (!force && orderNumberInput.value.trim()) {
+            return;
+        }
+
+        orderNumberInput.value = generateServiceOrderNumber();
+        markControlLocked('[name="order_number"]', "System generated");
+    }
+
+        // 🔥 LISTEN FOR MESSAGE
+    window.addEventListener(
+    "message",
+    async (event) => {
+
+        console.log(
+        "🫀🏄🏽🐋🐟😹🦴👻Received postMessage event:",
+        event
+        );
+
+        if (
+        !event.data ||
+        event.data.type !== "DEVICE_DATA"
+        ) return;
+
+        if (!ALLOWED_PARENT_ORIGINS.has(event.origin)) {
+            console.warn("Ignored DEVICE_DATA from untrusted origin:", event.origin);
+            return;
+        }
+
+        trustedParentOrigin = event.origin;
+
+        console.log(
+        "Received postMessage:",
+        event.data
+        );
+
+        const data =
+        event.data.data;
+
+        if (!data) {
+
+        console.warn(
+            "Received empty payload"
+        );
+
+        return;
+        }
+
+        const payload = data;
+
+        accessToken =
+            payload.accessToken ||
+            event.data.accessToken ||
+            "";
+
+        if (!accessToken) {
+            showError(
+                "Login Required",
+                "The React application did not pass a login token to this form. Close and reopen the form."
+            );
+            return;
+        }
+
+        // ====================================
+        // EDIT MODE
+        // ====================================
+
+        if (
+        payload.mode === "editing"
+        ) {
+
+        console.log(
+            "✏️ EDIT MODE"
+        );
+
+        loadExistingServiceOrder(
+            payload.serviceOrderId
+        );
+
+        }
+
+    // ====================================
+    // CREATE MODE
+    // ====================================
+
+    else {
+
+      console.log(
+        "🆕 CREATE MODE"
+      );
+
+      window.currentEditingServiceOrderId = null;
+
+      showPageLoader("Loading company, equipment, and technician data from SMARTCERT...");
+
+      let hydratedPayload = payload;
+      try {
+          hydratedPayload = await loadSupabasePrefill(payload);
+      } catch (error) {
+          console.warn("SMARTCERT prefill refresh failed; using parent data instead:", error);
+      }
+
+      prefillForm(hydratedPayload);
+
+      // Always assign a fresh number when a new-order form is opened.
+      assignNewServiceOrderNumber({ force: true });
+
+    }
+});
+
+const poNumberInput = document.querySelector('[name="postalnumber"]');
+if (poNumberInput) {
+    poNumberInput.addEventListener("input", syncPoNumberForBackend);
+    poNumberInput.addEventListener("change", syncPoNumberForBackend);
+}
+syncPoNumberForBackend();
+
+sendToParent("IFRAME_READY");
+
+    
+
+
+function normalizeFrontendFieldStructure() {
+    document.querySelectorAll(".fieldbody").forEach((container) => {
+        const children = Array.from(container.children);
+
+        for (let index = 0; index < children.length - 1; index += 1) {
+            const label = children[index];
+            const control = children[index + 1];
+
+            if (
+                label?.tagName === "LABEL" &&
+                control?.matches?.("input, select, textarea") &&
+                !label.classList.contains("sig-title")
+            ) {
+                const wrapper = document.createElement("div");
+                wrapper.className = "field smart-field";
+
+                container.insertBefore(wrapper, label);
+                wrapper.appendChild(label);
+                wrapper.appendChild(control);
+            }
+        }
+    });
+}
+
+
+    /* =========================================================
+CONVERT FORM TO STATIC HTML
+========================================================= */
+
+    function convertFormToStaticHTML() {
+
+const clone =
+    document.querySelector(".form-container")
+    .cloneNode(true);
+
+// =========================================
+// PRESERVE SELECT VALUES
+// =========================================
+
+const originalSelects =
+    document.querySelectorAll("select");
+
+const clonedSelects =
+    clone.querySelectorAll("select");
+
+originalSelects.forEach((original, index) => {
+    clonedSelects[index].value =
+        original.value;
+});
+
+// =========================================
+// REMOVE BUTTONS FIRST
+// =========================================
+
+clone.querySelectorAll("button").forEach(btn => {
+    btn.remove();
+});
+
+// =========================================
+// REMOVE SCRIPTS
+// =========================================
+
+clone.querySelectorAll("script").forEach(script => {
+    script.remove();
+});
+
+// Remove front-end-only UI from the PDF snapshot.
+clone.querySelectorAll("[data-pdf-exclude='true']").forEach((el) => {
+    el.remove();
+});
+
+// =========================================
+// REMOVE HIDDEN ELEMENTS
+// =========================================
+
+clone.querySelectorAll(".hidden").forEach(el => {
+    el.remove();
+});
+
+// =========================================
+// CONVERT FORM ELEMENTS
+// =========================================
+
+const EMPTY_FIELD_TEXT = "Not Provided";
+
+clone.querySelectorAll(
+    "input, textarea, select"
+).forEach(el => {
+
+    let value = EMPTY_FIELD_TEXT;
+    let isEmpty = true;
+
+    if (
+        el.tagName === "INPUT" ||
+        el.tagName === "TEXTAREA"
+    ) {
+        const rawValue = el.value?.trim() || "";
+        if (rawValue) {
+            value = rawValue;
+            isEmpty = false;
+        }
+    }
+
+    if (el.tagName === "SELECT") {
+        const rawValue = el.value?.trim() || "";
+        const selectedOption = el.options[el.selectedIndex];
+
+        // If the select is still on its placeholder option, show a clear
+        // empty-state message instead of text such as "Select Cylinder Type".
+        if (rawValue) {
+            value = selectedOption?.text?.trim() || rawValue;
+            isEmpty = false;
+        }
+    }
+
+    const div = document.createElement("div");
+
+    div.className = "fake-input";
+
+    if (isEmpty) {
+        div.classList.add("is-empty");
+    }
+
+    if (el.tagName === "TEXTAREA") {
+        div.classList.add("fake-textarea");
+    }
+
+    div.innerText = value;
+
+    el.replaceWith(div);
+});
+
+// Wrap any direct label/value pairs so every PDF field uses the
+// same stacked label-top / value-bottom SMARTCERT shell.
+clone.querySelectorAll(".fieldbody").forEach((container) => {
+    const children = Array.from(container.children);
+
+    for (let index = 0; index < children.length - 1; index += 1) {
+        const label = children[index];
+        const value = children[index + 1];
+
+        if (
+            label?.tagName === "LABEL" &&
+            value?.classList?.contains("fake-input") &&
+            !label.classList.contains("sig-title")
+        ) {
+            const wrapper = document.createElement("div");
+            wrapper.className = "field smart-pdf-field";
+
+            container.insertBefore(wrapper, label);
+            wrapper.appendChild(label);
+            wrapper.appendChild(value);
+        }
+    }
+});
+
+// =========================================
+// CONVERT SIGNATURE CANVAS
+// =========================================
+
+const originalCanvases =
+    document.querySelectorAll("canvas");
+
+const clonedCanvases =
+    clone.querySelectorAll("canvas");
+
+clonedCanvases.forEach((canvas, index) => {
+
+    const originalCanvas =
+        originalCanvases[index];
+
+    const img =
+        document.createElement("img");
+
+    img.src =
+        originalCanvas.toDataURL("image/png");
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "signature-box";
+
+    wrapper.appendChild(img);
+
+    canvas.replaceWith(wrapper);
+});
+
+return clone.innerHTML;
+}
+     // VALIDATION
+    // =========================
+    function validateForm() {
+      const inputs = document.querySelectorAll("input, select, textarea");
+    
+      let isValid = true;
+      let firstInvalid = null;
+    
+      inputs.forEach((input) => {
+    
+        const subsection = input.dataset.subsection || "";
+    
+        if (subsection === "signature") return;
+        if (!input.name) return;
+        if (input.offsetParent === null) return;
+        if (input.readOnly || input.disabled) return;
+        if (input.type === "button") return;
+    
+        if (!input.value || input.value.trim() === "") {
+          isValid = false;
+    
+          input.classList.add("input-error");
+    
+          if (!firstInvalid) firstInvalid = input;
+    
+        } else {
+          input.classList.remove("input-error");
+        }
+      });
+    
+      if (!isValid) {
+        alert("Please fill in all required fields");
+        firstInvalid?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    
+      return isValid;
+    }
+
+
+
+/* =========================================================
+BUILD FINAL PDF HTML
+========================================================= */
+
+function buildFinalPDFHTML() {
+
+const contentHTML =
+    convertFormToStaticHTML();
+
+const rawOrderNumber = String(
+    document.querySelector('[name="order_number"]')?.value || "SERVICE-ORDER"
+).trim() || "SERVICE-ORDER";
+
+const safeOrderNumber = rawOrderNumber
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+const barcodeUrl =
+    `https://barcode.tec-it.com/barcode.ashx?data=${encodeURIComponent(rawOrderNumber)}&code=Code128`;
+
+return `
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<style>
+
+/* =========================================================
+PAGE
+========================================================= */
+
+@page {
+
+size: A4 landscape;
+
+margin-top: 120px;
+margin-bottom: 70px;
+
+margin-left: 35px;
+margin-right: 35px;
+
+@top-left {
+    content: element(page-header);
+    width: 100%;
+    margin-bottom:20px;
+}
+
+@bottom-left {
+    content: element(page-footer);
+    width: 100%;
+}
+}
+
+* {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+
+/* =========================================================
+GLOBAL
+========================================================= */
+
+* {
+box-sizing: border-box;
+}
+
+body {
+
+margin: 0;
+
+
+
+font-family:
+    'Noto Sans',
+    Arial,
+    sans-serif;
+
+color: #ffffff;
+
+font-size: 12px;
+}
+
+/* =========================================================
+REPEAT CONTAINER
+========================================================= */
+
+.repeat-container {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+REPEAT ITEM
+========================================================= */
+
+.repeat-item {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+
+    align-items: end;
+
+    width: 100%;
+
+    margin-bottom: 10px;
+
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+
+/* =========================================================
+FIELD
+========================================================= */
+
+.repeat-item .field {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+    gap: 6px;
+}
+
+
+/* =========================================================
+INPUTS
+========================================================= */
+
+.repeat-item input,
+.repeat-item select,
+.repeat-item textarea,
+.repeat-item .fake-input {
+
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+REMOVE BUTTON
+========================================================= */
+
+.repeat-item .remove-item {
+
+    width: 100%;
+
+    height: 34px;
+
+    align-self: end;
+}
+
+
+/* =========================================================
+FIRST ITEM
+========================================================= */
+
+.repeat-container .repeat-item:first-child .remove-item {
+
+    display: none;
+}
+
+.repeat-item.labor {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    gap: 10px;
+
+    align-items: end;
+
+    margin-bottom: 10px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    }
+
+    .repeat-container .repeat-item:first-child .remove-item {
+        display: none;
+    }
+
+
+/* =========================================================
+RUNNING HEADER
+========================================================= */
+
+/* =========================================================
+RUNNING HEADER
+========================================================= */
+
+.pdf-header {
+
+    position: running(page-header);
+
+    width: 100%;
+
+    padding-bottom: 10px;
+    padding-top: 10px;
+
+
+    border-bottom: 1px solid #6b7280;
+}
+
+
+/* =========================================================
+HEADER LAYOUT
+========================================================= */
+
+/* =========================================================
+RUNNING HEADER
+========================================================= */
+
+.pdf-header {
+
+    position: running(page-header);
+
+    width: 100%;
+
+    display: block;
+
+    background: white;
+
+    padding-bottom: 0px;
+
+    border-bottom: 2px solid #6b7280;
+}
+
+
+/* =========================================================
+HEADER LAYOUT
+========================================================= */
+
+.pdf-header-inner {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 24px;
+}
+
+
+/* =========================================================
+LEFT
+========================================================= */
+
+.header-left {
+
+    flex: 0 0 auto;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+LOGO WRAPPER
+========================================================= */
+
+.logo-wrapper {
+
+    padding: 10px 16px;
+
+    border-radius: 8px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr
+        1fr;
+
+    align-items: center;
+
+    justify-items: center;
+
+    gap: 16px;
+
+    width: 100%;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.12);
+}
+
+
+/* =========================================================
+LOGO IMAGE
+========================================================= */
+
+.logo-img {
+
+    display: block;
+
+    width: 200px;
+
+    height: auto;
+
+    max-height: auto;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+CENTER
+========================================================= */
+
+.header-center {
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+.header-center h1 {
+
+    margin: 0;
+
+    font-size: 34px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    color: #14213d;
+
+    line-height: 1.1;
+}
+
+
+.header-subtitle {
+
+    margin-top: 6px;
+
+    font-size: 13px;
+
+    color: #4b5563;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+RIGHT
+========================================================= */
+
+.header-right {
+
+    flex: 0 0 auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    min-width: 180px;
+}
+
+
+/* =========================================================
+ORDER NUMBER
+========================================================= */
+
+.order-number {
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    color: #111827;
+
+    margin-bottom: 6px;
+
+    letter-spacing: 0.4px;
+}
+
+
+/* =========================================================
+BARCODE
+========================================================= */
+
+.barcode-img {
+
+    display: block;
+
+    height: 40px;
+
+    width: auto;
+
+    max-width: 180px;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+RUNNING FOOTER
+========================================================= */
+
+.pdf-footer {
+
+position: running(page-footer);
+
+width: 100%;
+
+border-top: 1px solid #9ca3af;
+
+padding-top: 8px;
+
+font-size: 11px;
+
+color: #6b7280;
+}
+
+
+.footer-inner {
+
+display: flex;
+
+justify-content: space-between;
+
+align-items: center;
+}
+
+.footer-left {
+
+font-weight: 500;
+}
+
+
+.footer-right::after {
+
+content:
+    "Page "
+    counter(page)
+    " of "
+    counter(pages);
+
+font-weight: 600;
+}
+
+/* =========================================================
+LAYOUT
+========================================================= */
+
+.form-container > * {
+margin-bottom: 14px;
+}
+
+.form-container {
+
+padding-top: 10px;
+}
+
+.grid-2 {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 12px;
+}
+
+.grid-3 {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 12px;
+}
+
+.small-3 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px; 
+}
+
+.grid-3-equal {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 12px;
+}
+
+.grid-table {
+display: grid;
+gap: 10px;
+}
+
+.cols-2 {
+grid-template-columns: repeat(2, 1fr);
+}
+
+.cols-3 {
+grid-template-columns: repeat(3, 1fr);
+}
+
+.cols-4 {
+grid-template-columns: repeat(4, 1fr);
+}
+
+.cols-5 {
+grid-template-columns: repeat(5, 1fr);
+}
+
+
+/* =========================================================
+SECTIONS
+========================================================= */
+
+/* =========================================================
+CARDS
+========================================================= */
+
+.field-group,
+.sub-section,
+.signature-card {
+
+    background: #ffffff;
+
+    border-radius: 0px;
+
+    padding: 14px;
+}
+
+.field-group,
+.sub-section{
+    border-radius: 3px;
+    border: solid 1px #e5e7eb;
+    overflow: hidden;
+    padding: 0px;
+}
+
+.sub-section{
+    margin-top: 16px;
+}
+
+.date-subsection{
+        border: 1px solid #e5e7eb;
+        padding: 8px;
+    }
+
+.no-borders{
+        border: none;
+    }
+
+.small-2 { grid-template-columns: repeat(2, 1fr); }
+
+.fieldbody {
+        padding: 12px 16px 16px;
+    }
+
+/* SMALL GROUPS ONLY */
+
+.field,
+.repeat-item,
+.signature-row,
+.keep-together {
+
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+
+.section-title,
+.sub-title {
+
+break-after: avoid;
+page-break-after: avoid;
+}
+
+
+.section-title {
+
+background: #4b4b4b;
+
+color: white;
+
+padding: 10px 12px;
+
+border-radius: 0px;
+
+font-size: 12px;
+
+font-weight: 700;
+
+text-transform: uppercase;
+
+letter-spacing: 0.5px;
+
+margin-bottom: 12px;
+}
+
+
+.section-title.main {
+
+text-align: center;
+
+margin-top: 20px;
+}
+
+
+.sub-title {
+
+background: #1f2937;
+
+color: white;
+
+padding: 7px 10px;
+
+border-radius: 6px 6px 0 0;
+
+font-size: 11px;
+
+font-weight: 600;
+
+margin-bottom: 10px;
+
+text-transform: uppercase;
+}
+
+
+/* =========================================================
+FIELDS
+========================================================= */
+
+.field {
+
+display: flex;
+
+flex-direction: column;
+gap: 6px;
+}
+
+
+label {
+
+font-size: 10px;
+
+font-weight: 600;
+
+margin-bottom: 4px;
+
+color: #4b4b4b;
+letter-spacing: 0.3px;
+}
+
+
+.fake-input {
+
+width: 100%;
+
+min-height: 34px;
+
+padding: 8px 10px;
+
+border-bottom: 1px solid #4a4a4a;
+
+border-radius: 0px;
+
+background: white;
+
+color: #111827;
+
+font-size: 12px;
+
+line-height: 1.5;
+
+word-break: break-word;
+
+overflow-wrap: break-word;
+
+display: flex;
+
+align-items: center;
+margin-bottom: 8px; 
+}
+
+
+.fake-textarea {
+
+min-height: 90px;
+
+align-items: flex-start;
+
+white-space: pre-wrap;
+
+margin-bottom: 8px;
+
+border-bottom: 1px solid #4a4a4a;
+
+}
+
+
+.fake-input.is-empty {
+
+color: #6b7280;
+
+font-style: italic;
+
+font-weight: 500;
+}
+
+.fake-input:empty::after {
+
+content: "Not Provided";
+
+color: #6b7280;
+
+font-style: italic;
+}
+
+
+/* =========================================================
+SIGNATURES
+========================================================= */
+
+.signature-box {
+
+width: 100%;
+
+height: 120px;
+
+border: 1px solid #d1d5db;
+
+border-radius: 0px;
+
+background: white;
+
+overflow: hidden;
+}
+
+
+.signature-box img {
+
+width: 100%;
+
+height: 100%;
+
+object-fit: contain;
+}
+
+
+/* =========================================================
+KEEP RELATED CONTENT TOGETHER
+========================================================= */
+
+.keep-together {
+
+break-inside: avoid;
+page-break-inside: avoid;
+}
+
+
+/* =========================================================
+IMAGES
+========================================================= */
+
+img {
+max-width: 100%;
+}
+
+
+/* =========================================================
+SMARTCERT PDF VISUAL SYSTEM
+========================================================= */
+:root {
+    --sc-yellow: #F2E900;
+    --sc-black: #171717;
+    --sc-text: #202124;
+}
+
+body {
+    color: var(--sc-text);
+    background: #ffffff;
+}
+
+.pdf-header {
+    border-bottom: 2px solid var(--sc-black);
+    box-shadow: 0 3px 0 var(--sc-yellow);
+}
+
+.logo-wrapper {
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.header-center h1 {
+    color: var(--sc-black);
+}
+
+.pdf-footer {
+    border-top: 1px solid var(--sc-black);
+    box-shadow: 0 -2px 0 var(--sc-yellow);
+    color: #4B5563;
+}
+
+.field-group,
+.sub-section {
+    border: 1px solid var(--sc-black);
+    box-shadow: inset 0 0 0 1px var(--sc-yellow);
+    border-radius: 0;
+}
+
+.no-borders {
+    border: 0;
+    box-shadow: none;
+}
+
+.section-title,
+.sub-title {
+    background: var(--sc-black);
+    color: #ffffff;
+    border-radius: 0;
+    border-bottom: 3px solid var(--sc-yellow);
+    margin-bottom: 0;
+}
+
+.section-title.main {
+    border: 1px solid var(--sc-black);
+    border-bottom: 3px solid var(--sc-yellow);
+}
+
+.fieldbody {
+    padding: 12px;
+}
+
+/* Keep the first-page summary proportional in the generated report too. */
+.top-summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    grid-auto-rows: max-content;
+    gap: 10px;
+}
+
+.top-summary-grid > .field-group {
+    align-self: start;
+    height: auto;
+    min-height: 0;
+}
+
+.top-summary-grid .fieldbody {
+    padding: 10px;
+}
+
+.top-summary-grid .field {
+    margin-bottom: 7px;
+}
+
+.top-summary-grid .grid-table {
+    gap: 7px;
+}
+
+.top-summary-grid .grid-table > .field {
+    margin-bottom: 0;
+}
+
+.top-summary-grid .date-subsection {
+    margin-top: 2px;
+    padding: 8px 0 0;
+}
+
+.field {
+    gap: 0;
+    margin-bottom: 9px;
+    min-width: 0;
+}
+
+.field > label:not(.sig-title) {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 5px 7px;
+    background: var(--sc-black);
+    color: #ffffff;
+    border: 1px solid var(--sc-black);
+    border-bottom: 2px solid var(--sc-yellow);
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.field > .fake-input {
+    width: 100%;
+    min-height: 31px;
+    margin: 0;
+    padding: 7px 8px;
+    background: #ffffff;
+    color: var(--sc-text);
+    border: 1px solid var(--sc-black);
+    border-top: 0;
+    border-radius: 0;
+    box-shadow: inset 0 0 0 .8px var(--sc-yellow);
+    font-size: 10px;
+    line-height: 1.35;
+    display: block;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.field > .fake-textarea {
+    min-height: 78px;
+    white-space: pre-wrap;
+}
+
+.date-subsection {
+    border: 0;
+    border-top: 1px solid #BDBDBD;
+    padding: 10px 0 0;
+}
+
+.signature-card {
+    border: 1px solid var(--sc-black);
+    box-shadow: inset 0 0 0 1px var(--sc-yellow);
+    padding: 10px;
+}
+
+.sig-title {
+    display: block;
+    background: var(--sc-black);
+    color: #fff;
+    border-bottom: 3px solid var(--sc-yellow);
+    padding: 6px 8px;
+    margin: -10px -10px 10px;
+}
+
+.signature-box {
+    border: 1px solid var(--sc-black);
+    box-shadow: inset 0 0 0 1px var(--sc-yellow);
+    border-radius: 0;
+}
+
+
+
+
+
+.top-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:stretch;}
+.top-summary-grid>.field-group{height:100%;display:flex;flex-direction:column;}
+.top-summary-grid>.field-group>.fieldbody{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;}
+.top-summary-grid .customer-summary-card>.fieldbody,.top-summary-grid .asset-summary-card>.fieldbody{justify-content:space-between;}
+.top-summary-grid .service-summary-card>.fieldbody>.grid-table{width:100%;flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:6px;min-width:0;}
+.top-summary-grid .field,.top-summary-grid .grid-table>.field{width:100%;min-width:0;margin:0;}
+.top-summary-grid .field>.fake-input,.top-summary-grid .field>.fake-select,.top-summary-grid .field>.fake-textarea{width:100%;max-width:none;}
+.top-summary-grid .service-summary-card .date-subsection{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:7px 0 0;margin:0;}
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+RUNNING HEADER
+===================================================== -->
+
+<div class="pdf-header">
+
+<div class="pdf-header-inner">
+
+    <!-- LEFT -->
+    <div class="header-left">
+
+        <div class="logo-wrapper">
+
+            <img
+                src="https://gclotjjnebjsdclmzvou.supabase.co/storage/v1/object/public/canaryallfiles/CANARY%20GDS%20%20ervice%20Report%20Logo.png"
+                class="logo-img"
+            >
+
+        </div>
+
+    </div>
+
+
+    <!-- CENTER -->
+    <div class="header-center">
+
+        <h1>SERVICE ORDER</h1>
+
+        <div class="header-subtitle">
+            Generated Document
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT -->
+    <div class="header-right">
+
+        <div class="order-number">
+            ${safeOrderNumber}
+        </div>
+
+        <img
+            src="${barcodeUrl}"
+            class="barcode-img"
+        >
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+RUNNING FOOTER
+===================================================== -->
+
+<div class="pdf-footer">
+
+<div class="footer-inner">
+
+    <div class="footer-left">
+        Canary Gas Detection Services
+    </div>
+
+    <div class="footer-right"></div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+CONTENT
+===================================================== -->
+
+<div class="form-container">
+
+${contentHTML}
+
+</div>
+
+</body>
+
+</html>
+`;
+}
+
+
+/* =========================================================
+SEND PDF HTML TO BACKEND
+========================================================= */
+async function sendPDFToBackend() {
+
+openModal(
+    "Generating PDF",
+    "Please wait while we generate your PDF..."
+);
+
+sendToParent("PDF_GENERATION_STARTED");
+
+try {
+
+    updateProgress(30);
+
+    const html =
+        buildFinalPDFHTML();
+
+    updateProgress(55);
+
+    if (!accessToken) {
+        throw new Error("Your login session was not passed to the service-order form.");
+    }
+
+    const response = await fetch(
+        `${API_BASE_URL}/generate-pdf`,
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${accessToken}`
+            },
+
+            body: JSON.stringify({
+                html
+            })
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            "Failed generating PDF"
+        );
+    }
+
+    updateProgress(85);
+
+    const blob =
+        await response.blob();
+
+    const url =
+        window.URL.createObjectURL(blob);
+
+    const a =
+        document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+        "service-order.pdf";
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    window.URL.revokeObjectURL(url);
+
+    updateProgress(100);
+
+    showSuccess(
+        "PDF Generated",
+        "Your PDF has been downloaded successfully."
+    );
+
+    sendToParent(
+        "PDF_GENERATION_SUCCESS"
+    );
+
+} catch (err) {
+
+    console.error(err);
+
+    showError(
+        "PDF Generation Failed",
+        err.message
+    );
+
+    sendToParent(
+        "PDF_GENERATION_FAILED",
+        {
+            error: err.message
+        }
+    );
+}
+}  
+    
+
+
+    function getStructuredFormData() {
+        const data = {};
+
+        document.querySelectorAll("input, select, textarea").forEach((input) => {
+            if (!input.name) return;
+            if (input.closest(".repeat-container")) return;
+
+            const section = input.dataset.section || "general";
+            const subsection = input.dataset.subsection || "main";
+
+            if (!data[section]) data[section] = {};
+            if (!data[section][subsection]) data[section][subsection] = {};
+
+            let value = input.value ?? "";
+
+            // Preserve intentional line breaks in notes; normalize one-line fields.
+            if (input.tagName !== "TEXTAREA") {
+                value = String(value).trim();
+            }
+
+            data[section][subsection][input.name] = value;
+        });
+
+        document.querySelectorAll(".repeat-container").forEach((container) => {
+            const section = container.dataset.section;
+            const subsection = container.dataset.subsection;
+
+            if (!section || !subsection) return;
+            if (!data[section]) data[section] = {};
+
+            data[section][subsection] = getRepeatSection(container);
+        });
+
+        return data;
+    }
+    
+        let serviceOrderSubmissionInProgress = false;
+
+        function setServiceOrderSubmitting(isSubmitting) {
+            serviceOrderSubmissionInProgress = isSubmitting;
+
+            const submitButton = document.getElementById("submit-service-order-button");
+            const formContainer = document.querySelector(".form-container");
+
+            if (formContainer) {
+                formContainer.setAttribute("aria-busy", String(isSubmitting));
+            }
+
+            if (!submitButton) return;
+
+            submitButton.disabled = isSubmitting;
+            submitButton.textContent = isSubmitting
+                ? "Submitting Service Order..."
+                : "Submit Service Order";
+        }
+
+        async function saveForm() {
+            if (serviceOrderSubmissionInProgress) return;
+
+            const isEditing = !!window.currentEditingServiceOrderId;
+
+            if (!isEditing) {
+                assignNewServiceOrderNumber();
+            }
+
+            setServiceOrderSubmitting(true);
+
+            openModal(
+                isEditing ? "Updating Service Order" : "Submitting Service Order",
+                "Checking service-order data..."
+            );
+
+            sendToParent("SERVICE_ORDER_SUBMITTING", {
+                mode: isEditing ? "editing" : "creating"
+            });
+
+            try {
+                setModalStage(12, "Checking Service Order", "Validating the order and preparing service data...");
+
+                syncPoNumberForBackend();
+
+                const structuredData = getStructuredFormData();
+                const orderNumber = String(
+                    structuredData?.service_details?.main?.order_number || ""
+                ).trim();
+
+                if (!orderNumber) {
+                    throw new Error("An order number is required before this service order can be submitted.");
+                }
+
+                setModalStage(28, "Collecting Service Data", "Organizing parts, labor, calibration, notes, and signatures...");
+
+                const repeatData = collectRepeatData();
+
+                if (!structuredData.calibration_information) {
+                    structuredData.calibration_information = {};
+                }
+
+                structuredData.calibration_information.parts_used =
+                    compactRows(repeatData.partsUsed);
+
+                structuredData.calibration_information.parts_to_be_ordered =
+                    compactRows(repeatData.partsOrdered);
+
+                structuredData.calibration_information.labor_times_and_travel =
+                    compactRows(repeatData.labor);
+
+                structuredData.meta = {
+                    ...(metaData || {}),
+                    client: "smartcert-service-order-iframe",
+                    client_version: "2026.09.16",
+                    submission_mode: isEditing ? "editing" : "creating",
+                    submitted_at: new Date().toISOString()
+                };
+
+                setModalStage(46, "Preparing Documents", "Building the service-order report layout for PDF generation...");
+
+                structuredData.html = buildFinalPDFHTML();
+
+                setModalStage(62, "Sending Securely", "Uploading the service order to SMARTCERT. Keep this window open...");
+
+                const endpoint = isEditing
+                    ? `/api/service-orders/${encodeURIComponent(window.currentEditingServiceOrderId)}/submit`
+                    : "/api/service-orders/submit";
+
+                const method = isEditing ? "PUT" : "POST";
+
+                setModalStage(76, "Generating Report", "The server is creating the service order and calibration certificate...");
+
+                const result = await authenticatedFetch(endpoint, {
+                    method,
+                    body: JSON.stringify(structuredData),
+                    timeoutMs: 120000
+                });
+
+                setModalStage(94, "Finalizing", "Saving document links and completing the service order...");
+
+                const serviceOrderId =
+                    result?.service_order_id ||
+                    window.currentEditingServiceOrderId ||
+                    "";
+
+                updateProgress(100);
+
+                showSuccess(
+                    isEditing ? "Service Order Updated" : "Service Order Submitted",
+                    "The service order and document generation completed successfully."
+                );
+
+                showToast(
+                    isEditing ? "Service Order Updated" : "Service Order Submitted"
+                );
+
+                sendToParent("SERVICE_ORDER_SUCCESS", {
+                    success: true,
+                    mode: isEditing ? "editing" : "creating",
+                    serviceOrderId,
+                    serviceOrderPdf: result?.service_order_pdf || "",
+                    calibrationCertificate: result?.calibration_certificate || ""
+                });
+
+                console.log("SMARTCERT submission complete", {
+                    serviceOrderId,
+                    hasServiceOrderPdf: Boolean(result?.service_order_pdf),
+                    hasCalibrationCertificate: Boolean(result?.calibration_certificate)
+                });
+
+            } catch (err) {
+                console.error("SMARTCERT submission failed", err);
+
+                const errorMessage = String(
+                    err?.message ||
+                    "Something went wrong while submitting the service order."
+                );
+
+                const userMessage =
+                    /duplicate key|order_number_key|already exists/i.test(errorMessage)
+                        ? "That order number already exists. Enter a different order number, or open the existing order in edit mode."
+                        : errorMessage;
+
+                showError(
+                    "Submission Failed",
+                    userMessage
+                );
+
+                sendToParent("SERVICE_ORDER_FAILED", {
+                    error: userMessage,
+                    retryable: !/401|login session|session expired/i.test(userMessage)
+                });
+            } finally {
+                setServiceOrderSubmitting(false);
+            }
+        }   
+    // =========================
+    // AUTO CALCULATE DEVIATION
+    // =========================
+    function calculateDeviation() {
+      const asFound = parseFloat(document.getElementById("span-as-found").value);
+      const spanCal = parseFloat(document.getElementById("span-cal").value);
+    
+      if (!isNaN(asFound) && !isNaN(spanCal) && spanCal !== 0) {
+        const deviation = ((asFound - spanCal) / spanCal) * 100;
+        document.getElementById("span-deviation").value = deviation.toFixed(2) + "%";
+      } else {
+        document.getElementById("span-deviation").value = "";
+      }
+    }
+    
+    document.getElementById("span-as-found")?.addEventListener("input", calculateDeviation);
+    document.getElementById("span-cal")?.addEventListener("input", calculateDeviation);
+    
+    
+    // =========================
+    // TOGGLE NOTES
+    // =========================
+    function toggleSensorNotes() {
+      const notes = document.getElementById("sensor-notes");
+      notes.style.display = notes.style.display === "none" ? "block" : "none";
+    }
+    
+    
+    // =========================
+    // SIGNATURE PAD
+    // =========================
+    function enableSignature(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+
+      const ctx = canvas.getContext("2d");
+      let drawing = false;
+      let lastPoint = null;
+
+      function resizeCanvasPreservingDrawing() {
+        const snapshot = canvas.width && canvas.height
+          ? canvas.toDataURL("image/png")
+          : null;
+
+        const rect = canvas.getBoundingClientRect();
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+
+        canvas.width = Math.max(1, Math.round(rect.width * ratio));
+        canvas.height = Math.max(1, Math.round(rect.height * ratio));
+
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+        ctx.lineWidth = 2;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.strokeStyle = "#111111";
+
+        if (snapshot && snapshot !== "data:,") {
+          const image = new Image();
+          image.onload = () => {
+            ctx.drawImage(image, 0, 0, rect.width, rect.height);
+          };
+          image.src = snapshot;
+        }
+      }
+
+      function pointFromEvent(event) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top
+        };
+      }
+
+      canvas.addEventListener("pointerdown", (event) => {
+        drawing = true;
+        lastPoint = pointFromEvent(event);
+        canvas.setPointerCapture?.(event.pointerId);
+        event.preventDefault();
+      });
+
+      canvas.addEventListener("pointermove", (event) => {
+        if (!drawing || !lastPoint) return;
+
+        const nextPoint = pointFromEvent(event);
+
+        ctx.beginPath();
+        ctx.moveTo(lastPoint.x, lastPoint.y);
+        ctx.lineTo(nextPoint.x, nextPoint.y);
+        ctx.stroke();
+
+        lastPoint = nextPoint;
+        event.preventDefault();
+      });
+
+      const finishDrawing = (event) => {
+        drawing = false;
+        lastPoint = null;
+        if (event?.pointerId != null) {
+          try { canvas.releasePointerCapture?.(event.pointerId); } catch (_) {}
+        }
+      };
+
+      canvas.addEventListener("pointerup", finishDrawing);
+      canvas.addEventListener("pointercancel", finishDrawing);
+      canvas.addEventListener("pointerleave", (event) => {
+        if (event.buttons === 0) finishDrawing(event);
+      });
+
+      const clearButton = document.createElement("button");
+      clearButton.type = "button";
+      clearButton.className = "signature-clear";
+      clearButton.textContent = "Clear signature";
+      clearButton.setAttribute("data-pdf-exclude", "true");
+      clearButton.addEventListener("click", () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+      canvas.insertAdjacentElement("afterend", clearButton);
+
+      resizeCanvasPreservingDrawing();
+
+      let resizeTimer = null;
+      window.addEventListener("resize", () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(resizeCanvasPreservingDrawing, 120);
+      });
+    }
+    
+    // Normalize direct field pairs before the form is used or cloned for PDF.
+    normalizeFrontendFieldStructure();
+
+    // INIT SIGNATURES
+    enableSignature("tech-signature");
+    enableSignature("customer-signature");
+
+   
+    
+    </script>
+
+</body>
+</html>
