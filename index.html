@@ -757,13 +757,457 @@ to {
 }
 }
     
-    </style>
+    
+
+    /* =========================================================
+       SMARTCERT 2026 UI REFRESH
+       - straight corners
+       - black/yellow field shells
+       - label on top, value/input below
+       ========================================================= */
+    :root {
+        --sc-yellow: #F2E900;
+        --sc-yellow-dark: #D8CF00;
+        --sc-black: #171717;
+        --sc-charcoal: #262626;
+        --sc-text: #202124;
+        --sc-muted: #6B7280;
+        --sc-page: #F3F4F2;
+        --sc-panel: #FFFFFF;
+        --sc-border: #171717;
+        --sc-danger: #D92D20;
+        --sc-success: #15803D;
+    }
+
+    html {
+        background: var(--sc-page);
+    }
+
+    body {
+        margin: 0;
+        padding: 22px;
+        background:
+            linear-gradient(180deg, #ffffff 0, #ffffff 150px, var(--sc-page) 150px, var(--sc-page) 100%);
+        color: var(--sc-text);
+    }
+
+    .form-container {
+        max-width: 1240px;
+        padding: 0 0 34px;
+    }
+
+    .smartcert-form-hero {
+        background: var(--sc-black);
+        border: 1px solid var(--sc-black);
+        box-shadow: 0 0 0 2px var(--sc-yellow);
+        color: #fff;
+        padding: 18px 20px;
+        margin: 2px 2px 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+    }
+
+    .smartcert-form-hero__eyebrow {
+        color: var(--sc-yellow);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    .smartcert-form-hero h1 {
+        margin: 0;
+        font-size: 23px;
+        line-height: 1.15;
+        letter-spacing: .3px;
+        color: #fff;
+    }
+
+    .smartcert-form-hero p {
+        margin: 6px 0 0;
+        font-size: 12px;
+        line-height: 1.5;
+        color: #D1D5DB;
+    }
+
+    .smartcert-form-hero__status {
+        flex: 0 0 auto;
+        border-left: 3px solid var(--sc-yellow);
+        padding: 8px 0 8px 14px;
+        min-width: 150px;
+    }
+
+    .smartcert-form-hero__status strong {
+        display: block;
+        color: var(--sc-yellow);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: .9px;
+    }
+
+    .smartcert-form-hero__status span {
+        display: block;
+        margin-top: 4px;
+        color: #fff;
+        font-size: 12px;
+    }
+
+    .field-group,
+    .sub-section {
+        border: 1px solid var(--sc-black);
+        box-shadow: 0 0 0 1px var(--sc-yellow);
+        border-radius: 0;
+        background: #fff;
+    }
+
+    .no-borders {
+        border: 0;
+        box-shadow: none;
+    }
+
+    .section-title,
+    .sub-title,
+    .sig-title {
+        background: var(--sc-black);
+        color: #fff;
+        border: 0;
+        border-bottom: 3px solid var(--sc-yellow);
+        border-radius: 0;
+        margin: 0;
+        padding: 10px 12px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .65px;
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    .section-title.main {
+        border: 1px solid var(--sc-black);
+        border-bottom: 3px solid var(--sc-yellow);
+        margin: 28px 0 14px;
+        text-align: center;
+    }
+
+    .fieldbody {
+        padding: 14px;
+    }
+
+    .grid-table {
+        gap: 12px;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        min-width: 0;
+        margin-bottom: 10px;
+    }
+
+    .field > label:not(.sig-title) {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 6px 9px;
+        background: var(--sc-black);
+        color: #fff;
+        border: 1px solid var(--sc-black);
+        border-bottom: 2px solid var(--sc-yellow);
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1.25;
+        letter-spacing: .25px;
+    }
+
+    .field > input,
+    .field > select,
+    .field > textarea {
+        margin: 0;
+        border: 1px solid var(--sc-black);
+        border-top: 0;
+        border-radius: 0;
+        box-shadow: 0 0 0 1px var(--sc-yellow);
+        background: #fff;
+        color: var(--sc-text);
+        font-size: 12px;
+        min-height: 38px;
+        padding: 8px 10px;
+        transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .field > textarea {
+        min-height: 86px;
+        line-height: 1.45;
+    }
+
+    .field > input:focus,
+    .field > select:focus,
+    .field > textarea:focus {
+        border-color: var(--sc-black);
+        box-shadow: 0 0 0 2px var(--sc-yellow);
+        background: #FFFDEB;
+    }
+
+    .field > input[readonly] {
+        background: #F5F5F4;
+        color: #3F3F46;
+        font-weight: 600;
+    }
+
+    .input-error,
+    .field > .input-error {
+        border-color: var(--sc-danger) !important;
+        box-shadow: 0 0 0 2px rgba(217, 45, 32, .22) !important;
+        background: #FFF5F4 !important;
+    }
+
+    .date-subsection {
+        border: 0;
+        border-top: 1px solid #D4D4D4;
+        padding: 12px 0 0;
+        margin-top: 2px;
+        gap: 12px;
+    }
+
+    .signature-card {
+        border: 1px solid var(--sc-black);
+        box-shadow: 0 0 0 1px var(--sc-yellow);
+        border-radius: 0;
+        padding: 0 12px 12px;
+        background: #fff;
+    }
+
+    .signature-card .sig-title {
+        margin: 0 -12px 12px;
+    }
+
+    canvas {
+        border: 1px solid var(--sc-black);
+        box-shadow: 0 0 0 1px var(--sc-yellow);
+        border-radius: 0;
+        touch-action: none;
+        cursor: crosshair;
+    }
+
+    .signature-clear {
+        align-self: flex-end;
+        margin: 4px 0 2px;
+        padding: 6px 10px;
+        background: #fff;
+        color: var(--sc-black);
+        border: 1px solid var(--sc-black);
+        border-bottom: 2px solid var(--sc-yellow);
+        border-radius: 0;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    button,
+    .notes-toggle,
+    .add-item,
+    .modal-btn {
+        border-radius: 0;
+    }
+
+    .notes-toggle,
+    .add-item {
+        background: var(--sc-black);
+        border: 1px solid var(--sc-black);
+        border-bottom: 3px solid var(--sc-yellow);
+        font-weight: 700;
+    }
+
+    .remove-item {
+        border-radius: 0;
+        min-width: 34px;
+    }
+
+    .submit-btn-wrapper {
+        position: sticky;
+        bottom: 0;
+        z-index: 50;
+        margin: 28px -2px 0;
+        padding: 12px 2px 8px;
+        background: linear-gradient(to top, rgba(243,244,242,.98) 72%, rgba(243,244,242,0));
+        border-top: 1px solid rgba(23,23,23,.12);
+    }
+
+    .submit-btn {
+        min-width: 330px;
+        background: var(--sc-yellow);
+        color: var(--sc-black);
+        border: 2px solid var(--sc-black);
+        border-radius: 0;
+        box-shadow: 5px 5px 0 var(--sc-black);
+        padding: 14px 30px;
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: .8px;
+    }
+
+    .submit-btn:hover {
+        transform: translate(-1px, -1px);
+        background: #FFF600;
+        box-shadow: 6px 6px 0 var(--sc-black);
+    }
+
+    .submit-btn:disabled {
+        transform: none;
+        background: #E5E7EB;
+        color: #6B7280;
+        border-color: #9CA3AF;
+        box-shadow: 3px 3px 0 #9CA3AF;
+    }
+
+    .app-modal {
+        background: rgba(10, 10, 10, .72);
+        backdrop-filter: blur(4px);
+    }
+
+    .app-modal-card {
+        max-width: 440px;
+        border-radius: 0;
+        border: 2px solid var(--sc-black);
+        border-top: 8px solid var(--sc-yellow);
+        padding: 30px 28px 26px;
+        box-shadow: 12px 12px 0 rgba(0,0,0,.38);
+    }
+
+    .loader-ring {
+        border-radius: 50%;
+        border-color: #E5E7EB;
+        border-top-color: var(--sc-yellow);
+        box-shadow: inset 0 0 0 1px #111;
+    }
+
+    .progress-bar {
+        height: 8px;
+        border: 1px solid var(--sc-black);
+        border-radius: 0;
+        background: #F3F4F6;
+    }
+
+    .progress-fill {
+        border-radius: 0;
+        background: var(--sc-yellow);
+    }
+
+    .modal-icon {
+        border-radius: 0;
+        border: 2px solid var(--sc-black);
+    }
+
+    .modal-icon.success {
+        background: var(--sc-yellow);
+        color: var(--sc-black);
+    }
+
+    .toast {
+        border-radius: 0;
+        border: 1px solid var(--sc-black);
+        border-left: 6px solid var(--sc-yellow);
+        box-shadow: 6px 6px 0 rgba(0,0,0,.22);
+    }
+
+    @media (max-width: 768px) {
+        body {
+            padding: 12px;
+            background: var(--sc-page);
+        }
+
+        .form-container {
+            padding-bottom: 24px;
+        }
+
+        .smartcert-form-hero {
+            margin: 2px 2px 18px;
+            padding: 15px;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .smartcert-form-hero h1 {
+            font-size: 19px;
+        }
+
+        .smartcert-form-hero__status {
+            width: 100%;
+            min-width: 0;
+            border-left: 0;
+            border-top: 2px solid var(--sc-yellow);
+            padding: 10px 0 0;
+        }
+
+        .fieldbody {
+            padding: 12px;
+        }
+
+        .grid-table,
+        .grid-2,
+        .grid-3,
+        .grid-3-equal,
+        .cols-2,
+        .cols-3,
+        .cols-4,
+        .cols-5,
+        .small-2,
+        .sig-fields {
+            grid-template-columns: 1fr !important;
+        }
+
+        .grid-table {
+            display: grid;
+            gap: 10px;
+        }
+
+        .repeat-item,
+        .repeat-item.labor {
+            grid-template-columns: 1fr !important;
+            align-items: stretch;
+        }
+
+        .submit-btn-wrapper {
+            margin-left: -12px;
+            margin-right: -12px;
+            padding: 12px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            min-width: 0;
+            box-shadow: 4px 4px 0 var(--sc-black);
+        }
+
+        .app-modal-card {
+            padding: 26px 20px 22px;
+        }
+    }
+
+</style>
 
 </head>
 
 <body>
 
 <div class="form-container">
+
+    <section class="smartcert-form-hero" data-pdf-exclude="true" aria-label="SMARTCERT service order">
+        <div>
+            <div class="smartcert-form-hero__eyebrow">SMARTCERT • Canary Gas Detection Services</div>
+            <h1>Service Order</h1>
+            <p>Complete the service details below. The report and calibration certificate are prepared when the order is submitted.</p>
+        </div>
+        <div class="smartcert-form-hero__status">
+            <strong>Secure submission</strong>
+            <span>Service data + report PDF</span>
+        </div>
+    </section>
+
 
     <div class="sub-section no-borders">
     <!-- TOP SECTION -->
@@ -2491,26 +2935,77 @@ async function authenticatedFetch(path, options = {}) {
         throw new Error("Your login session was not passed to the service-order form. Please reopen the form.");
     }
 
-    const headers = new Headers(options.headers || {});
+    const {
+        timeoutMs = 120000,
+        ...fetchOptions
+    } = options;
+
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs);
+
+    const headers = new Headers(fetchOptions.headers || {});
     headers.set("Authorization", `Bearer ${accessToken}`);
-    if (options.body && !headers.has("Content-Type")) {
+    headers.set("Accept", "application/json");
+
+    if (fetchOptions.body && !headers.has("Content-Type")) {
         headers.set("Content-Type", "application/json");
     }
 
-    const response = await fetch(`${API_BASE_URL}${path}`, {
-        ...options,
-        headers
-    });
-    const result = await readApiResponse(response);
+    try {
+        const response = await fetch(`${API_BASE_URL}${path}`, {
+            ...fetchOptions,
+            headers,
+            signal: fetchOptions.signal || controller.signal,
+            cache: "no-store"
+        });
 
-    if (!response.ok) {
-        if (response.status === 401) {
-            sendToParent("SERVICE_ORDER_SESSION_EXPIRED");
+        const result = await readApiResponse(response);
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                sendToParent("SERVICE_ORDER_SESSION_EXPIRED");
+            }
+
+            const apiMessage =
+                result?.detail ||
+                result?.message ||
+                `Request failed (${response.status})`;
+
+            throw new Error(apiMessage);
         }
-        throw new Error(result?.detail || result?.message || `Request failed (${response.status})`);
-    }
 
-    return result;
+        return result;
+    } catch (error) {
+        if (error?.name === "AbortError") {
+            throw new Error("The request took too long. Check your connection and try again.");
+        }
+
+        if (error instanceof TypeError) {
+            throw new Error("Unable to reach the SMARTCERT service. Check your connection and try again.");
+        }
+
+        throw error;
+    } finally {
+        window.clearTimeout(timeoutId);
+    }
+}
+
+function setModalStage(percent, title, message) {
+    updateProgress(percent);
+
+    const titleEl = document.getElementById("modal-title");
+    const messageEl = document.getElementById("modal-message");
+
+    if (titleEl && title) titleEl.innerText = title;
+    if (messageEl && message) messageEl.innerText = message;
+}
+
+function compactRows(rows = []) {
+    return rows.filter((row) =>
+        Object.values(row || {}).some((value) =>
+            String(value ?? "").trim() !== ""
+        )
+    );
 }
 
 function collectRepeatData() {
@@ -2770,15 +3265,32 @@ setTimeout(() => {
 POST MESSAGE TO PARENT
 ========================================= */
 
-function sendToParent(type, payload = {}) {
+let trustedParentOrigin = (() => {
+    try {
+        if (!document.referrer) return null;
+        const origin = new URL(document.referrer).origin;
+        return ALLOWED_PARENT_ORIGINS.has(origin) ? origin : null;
+    } catch (_) {
+        return null;
+    }
+})();
 
-if (window.parent !== window) {
+function sendToParent(type, payload = {}) {
+    if (window.parent === window) return;
+
+    // IFRAME_READY can safely use a wildcard as a last-resort handshake.
+    // All later messages use the validated parent origin captured from DEVICE_DATA.
+    const targetOrigin = trustedParentOrigin || (type === "IFRAME_READY" ? "*" : null);
+
+    if (!targetOrigin) {
+        console.warn(`Unable to send ${type}: trusted parent origin is not known yet.`);
+        return;
+    }
 
     window.parent.postMessage({
         type,
         payload
-    }, "*");
-}
+    }, targetOrigin);
 }
 
 function updateRemoveButtons(container) {
@@ -3694,6 +4206,8 @@ async function loadExistingServiceOrder(
             return;
         }
 
+        trustedParentOrigin = event.origin;
+
         console.log(
         "Received postMessage:",
         event.data
@@ -3767,6 +4281,33 @@ async function loadExistingServiceOrder(
 sendToParent("IFRAME_READY");
 
     
+
+
+function normalizeFrontendFieldStructure() {
+    document.querySelectorAll(".fieldbody").forEach((container) => {
+        const children = Array.from(container.children);
+
+        for (let index = 0; index < children.length - 1; index += 1) {
+            const label = children[index];
+            const control = children[index + 1];
+
+            if (
+                label?.tagName === "LABEL" &&
+                control?.matches?.("input, select, textarea") &&
+                !label.classList.contains("sig-title")
+            ) {
+                const wrapper = document.createElement("div");
+                wrapper.className = "field smart-field";
+
+                container.insertBefore(wrapper, label);
+                wrapper.appendChild(label);
+                wrapper.appendChild(control);
+            }
+        }
+    });
+}
+
+
     /* =========================================================
 CONVERT FORM TO STATIC HTML
 ========================================================= */
@@ -3806,6 +4347,11 @@ clone.querySelectorAll("button").forEach(btn => {
 
 clone.querySelectorAll("script").forEach(script => {
     script.remove();
+});
+
+// Remove front-end-only UI from the PDF snapshot.
+clone.querySelectorAll("[data-pdf-exclude='true']").forEach((el) => {
+    el.remove();
 });
 
 // =========================================
@@ -3854,6 +4400,30 @@ clone.querySelectorAll(
     div.innerText = value;
 
     el.replaceWith(div);
+});
+
+// Wrap any direct label/value pairs so every PDF field uses the
+// same stacked label-top / value-bottom SMARTCERT shell.
+clone.querySelectorAll(".fieldbody").forEach((container) => {
+    const children = Array.from(container.children);
+
+    for (let index = 0; index < children.length - 1; index += 1) {
+        const label = children[index];
+        const value = children[index + 1];
+
+        if (
+            label?.tagName === "LABEL" &&
+            value?.classList?.contains("fake-input") &&
+            !label.classList.contains("sig-title")
+        ) {
+            const wrapper = document.createElement("div");
+            wrapper.className = "field smart-pdf-field";
+
+            container.insertBefore(wrapper, label);
+            wrapper.appendChild(label);
+            wrapper.appendChild(value);
+        }
+    }
 });
 
 // =========================================
@@ -3938,6 +4508,20 @@ function buildFinalPDFHTML() {
 
 const contentHTML =
     convertFormToStaticHTML();
+
+const rawOrderNumber = String(
+    document.querySelector('[name="order_number"]')?.value || "SERVICE-ORDER"
+).trim() || "SERVICE-ORDER";
+
+const safeOrderNumber = rawOrderNumber
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+const barcodeUrl =
+    `https://barcode.tec-it.com/barcode.ashx?data=${encodeURIComponent(rawOrderNumber)}&code=Code128`;
 
 return `
 <!DOCTYPE html>
@@ -4702,6 +5286,142 @@ img {
 max-width: 100%;
 }
 
+
+/* =========================================================
+SMARTCERT PDF VISUAL SYSTEM
+========================================================= */
+:root {
+    --sc-yellow: #F2E900;
+    --sc-black: #171717;
+    --sc-text: #202124;
+}
+
+body {
+    color: var(--sc-text);
+    background: #ffffff;
+}
+
+.pdf-header {
+    border-bottom: 2px solid var(--sc-black);
+    box-shadow: 0 3px 0 var(--sc-yellow);
+}
+
+.logo-wrapper {
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.header-center h1 {
+    color: var(--sc-black);
+}
+
+.pdf-footer {
+    border-top: 1px solid var(--sc-black);
+    box-shadow: 0 -2px 0 var(--sc-yellow);
+    color: #4B5563;
+}
+
+.field-group,
+.sub-section {
+    border: 1px solid var(--sc-black);
+    box-shadow: inset 0 0 0 1px var(--sc-yellow);
+    border-radius: 0;
+}
+
+.no-borders {
+    border: 0;
+    box-shadow: none;
+}
+
+.section-title,
+.sub-title {
+    background: var(--sc-black);
+    color: #ffffff;
+    border-radius: 0;
+    border-bottom: 3px solid var(--sc-yellow);
+    margin-bottom: 0;
+}
+
+.section-title.main {
+    border: 1px solid var(--sc-black);
+    border-bottom: 3px solid var(--sc-yellow);
+}
+
+.fieldbody {
+    padding: 12px;
+}
+
+.field {
+    gap: 0;
+    margin-bottom: 9px;
+    min-width: 0;
+}
+
+.field > label:not(.sig-title) {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 5px 7px;
+    background: var(--sc-black);
+    color: #ffffff;
+    border: 1px solid var(--sc-black);
+    border-bottom: 2px solid var(--sc-yellow);
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.field > .fake-input {
+    width: 100%;
+    min-height: 31px;
+    margin: 0;
+    padding: 7px 8px;
+    background: #ffffff;
+    color: var(--sc-text);
+    border: 1px solid var(--sc-black);
+    border-top: 0;
+    border-radius: 0;
+    box-shadow: inset 0 0 0 .8px var(--sc-yellow);
+    font-size: 10px;
+    line-height: 1.35;
+    display: block;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.field > .fake-textarea {
+    min-height: 78px;
+    white-space: pre-wrap;
+}
+
+.date-subsection {
+    border: 0;
+    border-top: 1px solid #BDBDBD;
+    padding: 10px 0 0;
+}
+
+.signature-card {
+    border: 1px solid var(--sc-black);
+    box-shadow: inset 0 0 0 1px var(--sc-yellow);
+    padding: 10px;
+}
+
+.sig-title {
+    display: block;
+    background: var(--sc-black);
+    color: #fff;
+    border-bottom: 3px solid var(--sc-yellow);
+    padding: 6px 8px;
+    margin: -10px -10px 10px;
+}
+
+.signature-box {
+    border: 1px solid var(--sc-black);
+    box-shadow: inset 0 0 0 1px var(--sc-yellow);
+    border-radius: 0;
+}
+
 </style>
 
 </head>
@@ -4747,11 +5467,11 @@ RUNNING HEADER
     <div class="header-right">
 
         <div class="order-number">
-            SO-2026-000184
+            ${safeOrderNumber}
         </div>
 
         <img
-            src="https://barcode.tec-it.com/barcode.ashx?data=SO-2026-000184&code=Code128"
+            src="${barcodeUrl}"
             class="barcode-img"
         >
 
@@ -4902,14 +5622,8 @@ try {
     function getStructuredFormData() {
         const data = {};
 
-        // =========================
-        // NORMAL FIELDS
-        // =========================
-        document.querySelectorAll("input, select, textarea").forEach(input => {
-
+        document.querySelectorAll("input, select, textarea").forEach((input) => {
             if (!input.name) return;
-
-            // skip repeat fields
             if (input.closest(".repeat-container")) return;
 
             const section = input.dataset.section || "general";
@@ -4918,25 +5632,26 @@ try {
             if (!data[section]) data[section] = {};
             if (!data[section][subsection]) data[section][subsection] = {};
 
-            data[section][subsection][input.name] = input.value;
+            let value = input.value ?? "";
+
+            // Preserve intentional line breaks in notes; normalize one-line fields.
+            if (input.tagName !== "TEXTAREA") {
+                value = String(value).trim();
+            }
+
+            data[section][subsection][input.name] = value;
         });
 
-        // =========================
-        // REPEAT SECTIONS
-        // =========================
-        document.querySelectorAll(".repeat-container").forEach(container => {
-
+        document.querySelectorAll(".repeat-container").forEach((container) => {
             const section = container.dataset.section;
             const subsection = container.dataset.subsection;
 
             if (!section || !subsection) return;
-
             if (!data[section]) data[section] = {};
 
             data[section][subsection] = getRepeatSection(container);
         });
 
-        console.log("Structured Form Data:", data);
         return data;
     }
     
@@ -4945,212 +5660,155 @@ try {
         function setServiceOrderSubmitting(isSubmitting) {
             serviceOrderSubmissionInProgress = isSubmitting;
 
-            const submitButton = document.getElementById(
-                "submit-service-order-button"
-            );
+            const submitButton = document.getElementById("submit-service-order-button");
+            const formContainer = document.querySelector(".form-container");
+
+            if (formContainer) {
+                formContainer.setAttribute("aria-busy", String(isSubmitting));
+            }
 
             if (!submitButton) return;
 
             submitButton.disabled = isSubmitting;
             submitButton.textContent = isSubmitting
-                ? "Submitting..."
+                ? "Submitting Service Order..."
                 : "Submit Service Order";
         }
 
-        async function findServiceOrderByNumber(orderNumber) {
-            const normalizedOrderNumber = String(orderNumber || "")
-                .trim()
-                .toLowerCase();
-
-            if (!normalizedOrderNumber) return null;
-
-            const orders = await authenticatedFetch(
-                "/api/service-orders",
-                { method: "GET" }
-            );
-
-            if (!Array.isArray(orders)) return null;
-
-            return orders.find((order) =>
-                String(order?.order_number || "")
-                    .trim()
-                    .toLowerCase() === normalizedOrderNumber
-            ) || null;
-        }
-
         async function saveForm() {
+            if (serviceOrderSubmissionInProgress) return;
 
-        if (serviceOrderSubmissionInProgress) {
-            return;
-        }
+            const isEditing = !!window.currentEditingServiceOrderId;
 
-        setServiceOrderSubmitting(true);
-
-        const isEditing =
-            !!window.currentEditingServiceOrderId;
-
-        // Protect against a missing number if the form was opened outside
-        // the normal DEVICE_DATA create flow.
-        if (!isEditing) {
-            assignNewServiceOrderNumber();
-        }
-
-            const repeatData =
-                collectRepeatData();
-        
-        /*
-
-        if (!validateForm()) {
-
-            showToast("Please complete all required fields");
-
-            sendToParent("SERVICE_ORDER_VALIDATION_FAILED");
-
-            return;
-        }
-        */
-
-        openModal(
-            "Submitting Service Order",
-            "Preparing your report and uploading data..."
-        );
-
-        sendToParent("SERVICE_ORDER_SUBMITTING");
-
-        try {
-
-            updateProgress(30);
-
-            let structuredData =
-                getStructuredFormData();
-
-            const orderNumber = String(
-                structuredData?.service_details?.main?.order_number || ""
-            ).trim();
-
-            if (!orderNumber) {
-                throw new Error(
-                    "Please enter an order number before submitting."
-                );
-            }
-
-            // In create mode, stop before POST if the manually entered
-            // order number is already present in Supabase.
             if (!isEditing) {
-                const existingOrder =
-                    await findServiceOrderByNumber(orderNumber);
-
-                if (existingOrder) {
-                    throw new Error(
-                        `Order number ${orderNumber} already exists. ` +
-                        "Enter a different order number, or open the existing order in edit mode."
-                    );
-                }
+                assignNewServiceOrderNumber();
             }
-            
-            // =====================================
-            // ATTACH REPEAT SECTION DATA
-            // =====================================
 
-            structuredData.calibration_information.parts_used =
-                repeatData.partsUsed;
+            setServiceOrderSubmitting(true);
 
-            structuredData.calibration_information.parts_to_be_ordered =
-                repeatData.partsOrdered;
+            openModal(
+                isEditing ? "Updating Service Order" : "Submitting Service Order",
+                "Checking service-order data..."
+            );
 
-            structuredData.calibration_information.labor_times_and_travel =
-                repeatData.labor;
+            sendToParent("SERVICE_ORDER_SUBMITTING", {
+                mode: isEditing ? "editing" : "creating"
+            });
 
-            structuredData.meta =
-                metaData;
+            try {
+                setModalStage(12, "Checking Service Order", "Validating the order and preparing service data...");
 
-            updateProgress(45);
+                const structuredData = getStructuredFormData();
+                const orderNumber = String(
+                    structuredData?.service_details?.main?.order_number || ""
+                ).trim();
 
-            const finalHTML =
-                buildFinalPDFHTML();
-
-            structuredData.html =
-                finalHTML;
-
-            updateProgress(60);
-
-            const endpoint = isEditing
-                ? `/api/service-orders/${encodeURIComponent(window.currentEditingServiceOrderId)}/submit`
-                : `/api/service-orders/submit`;
-
-            const method =
-                isEditing
-                    ? "PUT"
-                    : "POST";
-
-            const result = await authenticatedFetch(
-                endpoint,
-                {
-                    method: method,
-
-                    body: JSON.stringify(
-                        structuredData
-                    )
+                if (!orderNumber) {
+                    throw new Error("An order number is required before this service order can be submitted.");
                 }
-            );
 
-            updateProgress(85);
+                setModalStage(28, "Collecting Service Data", "Organizing parts, labor, calibration, notes, and signatures...");
 
-        
+                const repeatData = collectRepeatData();
 
-            updateProgress(100);
+                if (!structuredData.calibration_information) {
+                    structuredData.calibration_information = {};
+                }
 
-            showSuccess(
-                "Submission Complete",
-                "The service order has been successfully submitted."
-            );
+                structuredData.calibration_information.parts_used =
+                    compactRows(repeatData.partsUsed);
 
-            showToast(
-                "Service Order Submitted"
-            );
+                structuredData.calibration_information.parts_to_be_ordered =
+                    compactRows(repeatData.partsOrdered);
 
-         
-                sendToParent(
-                    "SERVICE_ORDER_SUCCESS",
-                    {
-                        success: true,
-                        serviceOrderId: result.service_order_id,
-                        serviceOrderPdf: result.service_order_pdf,
-                        calibrationCertificate: result.calibration_certificate
-                    }
+                structuredData.calibration_information.labor_times_and_travel =
+                    compactRows(repeatData.labor);
+
+                structuredData.meta = {
+                    ...(metaData || {}),
+                    client: "smartcert-service-order-iframe",
+                    client_version: "2026.09.16",
+                    submission_mode: isEditing ? "editing" : "creating",
+                    submitted_at: new Date().toISOString()
+                };
+
+                setModalStage(46, "Preparing Documents", "Building the service-order report layout for PDF generation...");
+
+                structuredData.html = buildFinalPDFHTML();
+
+                setModalStage(62, "Sending Securely", "Uploading the service order to SMARTCERT. Keep this window open...");
+
+                const endpoint = isEditing
+                    ? `/api/service-orders/${encodeURIComponent(window.currentEditingServiceOrderId)}/submit`
+                    : "/api/service-orders/submit";
+
+                const method = isEditing ? "PUT" : "POST";
+
+                setModalStage(76, "Generating Report", "The server is creating the service order and calibration certificate...");
+
+                const result = await authenticatedFetch(endpoint, {
+                    method,
+                    body: JSON.stringify(structuredData),
+                    timeoutMs: 120000
+                });
+
+                setModalStage(94, "Finalizing", "Saving document links and completing the service order...");
+
+                const serviceOrderId =
+                    result?.service_order_id ||
+                    window.currentEditingServiceOrderId ||
+                    "";
+
+                updateProgress(100);
+
+                showSuccess(
+                    isEditing ? "Service Order Updated" : "Service Order Submitted",
+                    "The service order and document generation completed successfully."
                 );
-  
 
-            console.log(result);
+                showToast(
+                    isEditing ? "Service Order Updated" : "Service Order Submitted"
+                );
 
-        } catch (err) {
+                sendToParent("SERVICE_ORDER_SUCCESS", {
+                    success: true,
+                    mode: isEditing ? "editing" : "creating",
+                    serviceOrderId,
+                    serviceOrderPdf: result?.service_order_pdf || "",
+                    calibrationCertificate: result?.calibration_certificate || ""
+                });
 
-            console.error(err);
+                console.log("SMARTCERT submission complete", {
+                    serviceOrderId,
+                    hasServiceOrderPdf: Boolean(result?.service_order_pdf),
+                    hasCalibrationCertificate: Boolean(result?.calibration_certificate)
+                });
 
-            const errorMessage = String(
-                err?.message ||
-                "Something went wrong while submitting."
-            );
+            } catch (err) {
+                console.error("SMARTCERT submission failed", err);
 
-            const userMessage =
-                /duplicate key|order_number_key|already exists/i.test(errorMessage)
-                    ? "That order number already exists. Enter a different order number, or open the existing order in edit mode."
-                    : errorMessage;
+                const errorMessage = String(
+                    err?.message ||
+                    "Something went wrong while submitting the service order."
+                );
 
-            showError(
-                "Submission Failed",
-                userMessage
-            );
+                const userMessage =
+                    /duplicate key|order_number_key|already exists/i.test(errorMessage)
+                        ? "That order number already exists. Enter a different order number, or open the existing order in edit mode."
+                        : errorMessage;
 
-            sendToParent(
-                "SERVICE_ORDER_FAILED",
-                {
-                    error: userMessage
-                }
-            );
-        } finally {
-            setServiceOrderSubmitting(false);
-        }
+                showError(
+                    "Submission Failed",
+                    userMessage
+                );
+
+                sendToParent("SERVICE_ORDER_FAILED", {
+                    error: userMessage,
+                    retryable: !/401|login session|session expired/i.test(userMessage)
+                });
+            } finally {
+                setServiceOrderSubmitting(false);
+            }
         }   
     // =========================
     // AUTO CALCULATE DEVIATION
@@ -5185,35 +5843,103 @@ try {
     // =========================
     function enableSignature(canvasId) {
       const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+
       const ctx = canvas.getContext("2d");
-    
       let drawing = false;
-    
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    
-      canvas.addEventListener("mousedown", () => drawing = true);
-      canvas.addEventListener("mouseup", () => {
-        drawing = false;
-        ctx.beginPath();
-      });
-    
-      canvas.addEventListener("mousemove", (e) => {
-        if (!drawing) return;
-    
+      let lastPoint = null;
+
+      function resizeCanvasPreservingDrawing() {
+        const snapshot = canvas.width && canvas.height
+          ? canvas.toDataURL("image/png")
+          : null;
+
         const rect = canvas.getBoundingClientRect();
-    
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+
+        canvas.width = Math.max(1, Math.round(rect.width * ratio));
+        canvas.height = Math.max(1, Math.round(rect.height * ratio));
+
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
         ctx.lineWidth = 2;
         ctx.lineCap = "round";
-        ctx.strokeStyle = "black";
-    
-        ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-        ctx.stroke();
+        ctx.lineJoin = "round";
+        ctx.strokeStyle = "#111111";
+
+        if (snapshot && snapshot !== "data:,") {
+          const image = new Image();
+          image.onload = () => {
+            ctx.drawImage(image, 0, 0, rect.width, rect.height);
+          };
+          image.src = snapshot;
+        }
+      }
+
+      function pointFromEvent(event) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top
+        };
+      }
+
+      canvas.addEventListener("pointerdown", (event) => {
+        drawing = true;
+        lastPoint = pointFromEvent(event);
+        canvas.setPointerCapture?.(event.pointerId);
+        event.preventDefault();
+      });
+
+      canvas.addEventListener("pointermove", (event) => {
+        if (!drawing || !lastPoint) return;
+
+        const nextPoint = pointFromEvent(event);
+
         ctx.beginPath();
-        ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        ctx.moveTo(lastPoint.x, lastPoint.y);
+        ctx.lineTo(nextPoint.x, nextPoint.y);
+        ctx.stroke();
+
+        lastPoint = nextPoint;
+        event.preventDefault();
+      });
+
+      const finishDrawing = (event) => {
+        drawing = false;
+        lastPoint = null;
+        if (event?.pointerId != null) {
+          try { canvas.releasePointerCapture?.(event.pointerId); } catch (_) {}
+        }
+      };
+
+      canvas.addEventListener("pointerup", finishDrawing);
+      canvas.addEventListener("pointercancel", finishDrawing);
+      canvas.addEventListener("pointerleave", (event) => {
+        if (event.buttons === 0) finishDrawing(event);
+      });
+
+      const clearButton = document.createElement("button");
+      clearButton.type = "button";
+      clearButton.className = "signature-clear";
+      clearButton.textContent = "Clear signature";
+      clearButton.setAttribute("data-pdf-exclude", "true");
+      clearButton.addEventListener("click", () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+      canvas.insertAdjacentElement("afterend", clearButton);
+
+      resizeCanvasPreservingDrawing();
+
+      let resizeTimer = null;
+      window.addEventListener("resize", () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(resizeCanvasPreservingDrawing, 120);
       });
     }
     
+    // Normalize direct field pairs before the form is used or cloned for PDF.
+    normalizeFrontendFieldStructure();
+
     // INIT SIGNATURES
     enableSignature("tech-signature");
     enableSignature("customer-signature");
