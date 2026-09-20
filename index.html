@@ -5125,6 +5125,141 @@ if (poNumberInput) {
 }
 syncPoNumberForBackend();
 
+/* =========================================================
+   NEXT SERVICE DATE — AUTO CALCULATE FROM SERVICE FREQUENCY
+   =========================================================
+   The calculated date is only a starting point. The Next Service field stays
+   fully editable so the technician can move the visit around holidays,
+   weekends, shutdowns, or other unavailable days.
+*/
+function parseDateInputValue(value) {
+    const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) return null;
+
+    const year = Number(match[1]);
+    const monthIndex = Number(match[2]) - 1;
+    const day = Number(match[3]);
+    const date = new Date(year, monthIndex, day);
+
+    if (
+        date.getFullYear() !== year ||
+        date.getMonth() !== monthIndex ||
+        date.getDate() !== day
+    ) {
+        return null;
+    }
+
+    return date;
+}
+
+function formatDateInputValue(date) {
+    if (!(date instanceof Date) || Number.isNaN(date.getTime())) return "";
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
+function addCalendarMonthsClamped(date, monthsToAdd) {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const originalDay = date.getDate();
+
+    const targetMonthStart = new Date(year, month + monthsToAdd, 1);
+    const targetYear = targetMonthStart.getFullYear();
+    const targetMonth = targetMonthStart.getMonth();
+    const lastDayOfTargetMonth = new Date(targetYear, targetMonth + 1, 0).getDate();
+
+    return new Date(
+        targetYear,
+        targetMonth,
+        Math.min(originalDay, lastDayOfTargetMonth)
+    );
+}
+
+function calculateNextServiceDate(serviceDateValue, frequency) {
+    const serviceDate = parseDateInputValue(serviceDateValue);
+    if (!serviceDate || !frequency) return "";
+
+    let nextDate;
+
+    switch (frequency) {
+        case "Weekly":
+            nextDate = new Date(serviceDate);
+            nextDate.setDate(nextDate.getDate() + 7);
+            break;
+
+        case "Monthly":
+            nextDate = addCalendarMonthsClamped(serviceDate, 1);
+            break;
+
+        case "Quarterly":
+            nextDate = addCalendarMonthsClamped(serviceDate, 3);
+            break;
+
+        case "Bi-Yearly":
+            nextDate = addCalendarMonthsClamped(serviceDate, 6);
+            break;
+
+        case "Yearly":
+            nextDate = addCalendarMonthsClamped(serviceDate, 12);
+            break;
+
+        default:
+            return "";
+    }
+
+    return formatDateInputValue(nextDate);
+}
+
+function updateNextServiceDateFromFrequency() {
+    const serviceDateInput = document.querySelector('[name="service_date"]');
+    const frequencyInput = document.querySelector('[name="service_frequency"]');
+    const nextServiceInput = document.querySelector('[name="next_service"]');
+
+    if (!serviceDateInput || !frequencyInput || !nextServiceInput) return;
+
+    // If the technician selects a frequency before a service date has been set,
+    // use today as the working service date. It remains editable.
+    if (!serviceDateInput.value) {
+        serviceDateInput.value = formatDateInputValue(new Date());
+    }
+
+    const calculatedDate = calculateNextServiceDate(
+        serviceDateInput.value,
+        frequencyInput.value
+    );
+
+    if (calculatedDate) {
+        nextServiceInput.value = calculatedDate;
+        nextServiceInput.dataset.autoCalculated = "true";
+        nextServiceInput.title =
+            "Suggested from the service date and frequency. You can edit this date if needed.";
+    }
+}
+
+const serviceFrequencyInput = document.querySelector('[name="service_frequency"]');
+const serviceDateInput = document.querySelector('[name="service_date"]');
+const nextServiceInput = document.querySelector('[name="next_service"]');
+
+if (serviceFrequencyInput) {
+    serviceFrequencyInput.addEventListener("change", updateNextServiceDateFromFrequency);
+}
+
+if (serviceDateInput) {
+    serviceDateInput.addEventListener("change", updateNextServiceDateFromFrequency);
+}
+
+if (nextServiceInput) {
+    // A manual adjustment is intentional. We simply mark it as such; the field
+    // stays editable and its chosen value is what will be saved and reported.
+    nextServiceInput.addEventListener("input", () => {
+        nextServiceInput.dataset.autoCalculated = "false";
+        nextServiceInput.title = "Next service date manually adjusted.";
+    });
+}
+
 sendToParent("IFRAME_READY");
 
     
