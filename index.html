@@ -4214,11 +4214,14 @@ function resolveSupabasePrefill(data) {
             data?.equipmentLocation,
             data?.location
         ),
-        gasDetectorType: firstValue(
+        gasType: firstValue(
+            // In the current device schema, gas_detector_type stores the
+            // monitored gas (for example "Methane — CH₄"), not the sensor
+            // technology/type.
             equipment.gas_detector_type,
-            data?.gasDetectorType,
-            data?.detectorType,
-            data?.detector_type
+            data?.gasType,
+            data?.gas_type,
+            data?.gasDetectorType
         ),
         controllerType: firstValue(
             equipment.controller_type,
@@ -4446,7 +4449,9 @@ function prefillForm(data) {
     // ---------------------------------------------------------
     setAndLock('[name="equipment_name"]', source.equipmentName, "Equipment record");
     setAndLock('[name="equipment_location"]', source.equipmentLocation, "Equipment record");
-    setAndLock('[name="detector_type"]', source.gasDetectorType, "Equipment record");
+    // Detector Type is a detector/sensor technology field (EC-Toxic, IR, PID, etc.).
+    // Do not populate it from equipments.gas_detector_type because that column
+    // now stores the monitored GAS (Methane, H2S, CO, etc.).
 
     // Asset identifiers
     setAndLock(
@@ -4487,11 +4492,15 @@ function prefillForm(data) {
         "Equipment record"
     );
 
-    // The sensor-type dropdown uses the same detector taxonomy in the current
-    // SMARTCERT form. It is safe to prefill when the equipment record has it.
+    // SENSOR DATA
+    // Sensor Type describes the detector technology (EC-Toxic, IR, PID, etc.)
+    // and must be selected by the person completing the service order.
+    //
+    // Gas Type is the monitored gas stored in equipments.gas_detector_type,
+    // so THIS is the field that should be populated from the device record.
     setAndLock(
-        '[data-section="system_information"][data-subsection="sensor_data"][name="sensor_type"]',
-        source.gasDetectorType,
+        '[data-section="system_information"][data-subsection="sensor_data"][name="target_gas"]',
+        source.gasType,
         "Equipment record"
     );
 
